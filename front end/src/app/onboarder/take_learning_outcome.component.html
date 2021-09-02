@@ -1,0 +1,21 @@
+<p></p>
+
+<div class="row">
+
+  <div class="col-sm-6" *ngFor="let learning_outcome of lesson_outcome; let i = index">
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{learning_outcome.Learning_Outcome_ID}}</h5>
+        <p class="card-text">{{learning_outcome.Lesson_Outcome_Description}}</p>
+        <a href="#" class="btn btn-primary" routerLink="/take_content">Content</a> 
+        <a href="#" class="btn btn-warning" routerLink="/take_quiz">Quiz</a>
+        <a class="btn btn-primary" [routerLink]="['/take_learning_outcome', learning_outcome.Learning_Outcome_ID]">Take: {{learning_outcome.name}} </a>
+      </div>
+    </div>
+
+    <p></p>
+
+  </div>
+
+</div>

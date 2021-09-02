@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-warning">
+<a class="navbar-brand" routerLink="/ss_onboarder"> <span class="sr-only">Onboarder</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/take_course">Take Course</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://techcommunity.microsoft.com/t5/microsoft-teams/calendar-options-in-ms-teams/m-p/50685">Making Bookings</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/progress">Progress</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/faq">FAQ</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/ask_question">Ask Question</a>
+    </li>
+  </ul>
+</div>
+</nav>
+
+<div class="container">
+  <h2>Course Progress</h2>
+
+  <div *ngFor="let course of course; let i = index">
+
+  <div class="card bg-dark text-white">
+    <div class="card-body">{{course.name}}</div>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" 
+        style='width:100%'
+        >
+        <span class="sr-only">{{course.progress}}</span>
+      </div>
+    </div>
+    <p></p>
+  </div>
+
+  <p></p>
+
+  </div>
+
+</div>

@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-danger">
+<a class="navbar-brand" routerLink="/ss_administrator"> <span class="sr-only">Administrator</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/register_employee">Register Employee</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/onboarder">Delete Onboarder</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/assign_equipment">Assign Equipment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/crud_faq">CRUD FAQ</a>
+     </li>
+     <li class="nav-item">
+     <a class="nav-link" routerLink="/import_employee">Import Employee</a>
+   </li>
+  </ul>
+</div>
+</nav>
+
+<div class="container">
+<div class="jumbotron">
+<form>
+
+  <h1>Assign Equipment</h1>
+
+  <div class="btn btn-link" (click)="testData()">Populate Data</div>
+
+  <p></p>
+
+  <form action="/action_page.php" method="get">
+    <label for="browser">Onboarder ID:</label>
+    <input 
+      list="browsers" 
+      name="browser" 
+      id="browser"
+      type="text"
+      class="form-control input"
+      [(ngModel)]="model.Onboarder_ID"
+      placeholder="Onboarder">
+    <datalist id="browsers">
+      <option *ngFor="let onboarder of onboarder">
+        {{onboarder.Onboarder_ID}}
+      </option>
+    </datalist>
+  </form>
+
+  <form action="/action_page.php" method="get">
+    <label for="browser1">Equipment ID:</label>
+    <input 
+      list="browsers1" 
+      name="browser1" 
+      id="browser1"
+      type="text"
+      class="form-control input"
+      [(ngModel)]="model.Equipment_ID"
+      placeholder="Equipment">
+    <datalist id="browsers1">
+      <option *ngFor="let equipment of equipment">
+        {{equipment.Equipment_ID}}
+      </option>
+    </datalist>
+  </form>
+
+  <div class="form-group">
+    <input type="text"
+           class="form-control input"
+           id="description"
+           name="description"
+           [(ngModel)]="model.description"
+           placeholder="Description">
+  </div>
+
+   <div class="form-group ">
+    <input type="text"
+           class="form-control positionInput"
+           id="check_out"
+           name="check_out"
+           [(ngModel)]="model.check_out"
+           placeholder="Check Out">
+  </div>
+
+  <div class="">
+    <button type="submit" class="btn btn-success" (click)="addOnboarder_Equipment()">SAVE</button>
+  </div>
+</form>
+</div>
+</div>

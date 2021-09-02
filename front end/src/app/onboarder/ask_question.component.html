@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-warning">
+<a class="navbar-brand" routerLink="/ss_onboarder"> <span class="sr-only">Onboarder</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/take_course">Take Course</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://techcommunity.microsoft.com/t5/microsoft-teams/calendar-options-in-ms-teams/m-p/50685">Making Bookings</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/progress">Progress</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/faq">FAQ</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/ask_question">Ask Question</a>
+    </li>
+  </ul>
+</div>
+</nav>
+
+<h1 class="container-fluid">Ask Question</h1>
+
+<p></p>
+
+<p>A Email will be sent to the HR Administrator in regards to your question. DON'T LET THE ROBOTS TAKE CONTROL.</p>
+
+<div>
+<form>
+
+<label for="exampleFormControlInput1">Subject</label>
+  <div class="form-group name">
+    <input type="text"
+           class="form-control input"
+           id="title"
+           name="title"
+           [(ngModel)]="model3.title"
+           placeholder="Subject">
+  </div>
+
+  <p></p>
+
+  <label for="exampleFormControlInput1">Your Name:</label>
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="youtube"
+           name="description"
+           [(ngModel)]="model3.youtube"
+           placeholder="Name / Anonymous">
+  </div>
+
+  <p></p>
+
+  <label for="exampleFormControlTextarea1">Question Text</label>
+  <div class="form-group name">
+    <textarea 
+      type="text"
+      class="form-control" 
+      id="exampleFormControlTextarea1" 
+      rows="5"
+      name="content"
+      [(ngModel)]="model3.content"
+      placeholder="Text"
+      >
+    </textarea>
+</div>
+
+<p></p>
+
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="submit()">Send</button>
+  </div>
+
+</form>
+</div> 

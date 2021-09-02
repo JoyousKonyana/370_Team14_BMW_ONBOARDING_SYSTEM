@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+<a class="navbar-brand" routerLink="/ss_users"> <span class="sr-only">Users</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/user_role">CRUD-User Role</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/assign_user_role">Assign User Role</a>
+  </li>
+  </ul>
+</div>
+</nav> 
+
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+  <div>
+    User Role
+  </div>
+  <br/>
+  <div class="btn btn-primary" (click)="addNewUser_RoleBtn()">Create User Role</div>
+  <br/>
+  <p></p>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<div *ngIf="newUser_RoleClicked">
+<div class="formWrapper">
+<form>
+  <div class="form-group name">
+    <!-- <label for="name">Name:</label> -->
+    <input type="text"
+           class="form-control input"
+           id="name"
+           name="name"
+           [(ngModel)]="model.name"
+           placeholder="Name">
+  </div>
+
+   <div class="form-group position">
+    <!-- <label for="position">Position:</label> -->
+    <input type="text"
+           class="form-control positionInput"
+           id="description"
+           name="description"
+           [(ngModel)]="model.description"
+           placeholder="Description">
+  </div>
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="addUser_Role()">SAVE</button>
+  </div>
+</form>
+</div>
+</div>
+
+<br/>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-3">Name</th>
+    <th class="col-5">Description</th>
+    <th class="col-2">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let user_role of user_role; let i = index">
+    <td>{{user_role.name}}</td>
+    <td>{{user_role.description}}</td>
+    <td>
+    <button class="btn btn-primary" (click)="editUser_Role(i)">Update</button>
+    <button class="btn btn-danger" (click)="deleteUser_Role(i)">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="editEmployeeTitleContainer">
+<div class="">Update User Role</div>
+</div>
+
+<form>
+
+<div class="form-group name">
+  <input type="text"
+         class="form-control"
+         id="name"
+         name="name"
+         [(ngModel)]="model2.name"
+         placeholder="Name">
+</div>
+
+ <div class="form-group position">
+  <!-- <label for="position">Position:</label> -->
+  <input type="text"
+         class="form-control"
+         id="description"
+         name="description"
+         [(ngModel)]="model2.description"
+         placeholder="Description">
+</div>
+
+<button class="btn btn-success" type="submit" (click)="updateUser_Role()">Update</button>
+</form>
+
+
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<p></p>

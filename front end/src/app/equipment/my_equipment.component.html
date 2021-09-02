@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+<a class="navbar-brand" routerLink="/ss_equipment"> <span class="sr-only">Equipment</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/equipment">Equipment</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/my_equipment">My Equipment</a>
+  </ul>
+</div>
+</nav>
+
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+  <div>
+    My Equipment
+  </div>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<div *ngIf="newReport_QueryClicked">
+<div class="formWrapper">
+  <h5>Report Query</h5>
+  <a class="btn btn-link" (click)="CloseReport_QueryBtn()">X</a>
+<form>
+<div class="form-group name">
+  <input type="text" disabled
+         class="form-control"
+         id="status"
+         name="status"
+         [(ngModel)]="model2.status"
+         placeholder="Status">
+</div>
+ <div class="form-group position">
+   <input type="text"
+         class="form-control"
+         id="description"
+         name="description"
+         [(ngModel)]="model2.description"
+         placeholder="Description">
+</div>
+<button class="btn btn-success" type="submit" (click)="updateReport_Query()">Report Query</button>
+</form>
+</div>
+</div>
+
+<br/>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-2">Serial Number</th>
+    <th class="col-2">Equipment Type</th>
+    <th class="col-2">Equipment Brand</th>
+    <th class="col-2">Check Out Date</th>
+    <th class="col-2">Query Status</th>
+    <th class="col-2">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let equipment of equipment; let i = index">
+    <td>{{equipment.serial_number}}</td>
+    <td>{{equipment.equipment_type}}</td>
+    <td>{{equipment.equipment_brand}}</td>
+    <td>{{equipment.equipment_check_out_date}}</td>
+    <td>{{equipment.equipment_query_status}}</td>
+    <td>
+    <div>
+      <label>Check Equipment: </label>
+      <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+    </div>
+    <button class="btn btn-danger" (click)="editReport_Query(i)">Report Query</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>

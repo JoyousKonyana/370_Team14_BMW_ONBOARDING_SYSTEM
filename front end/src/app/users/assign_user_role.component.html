@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+<a class="navbar-brand" routerLink="/ss_users"> <span class="sr-only">Users</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/user_role">CRUD-User Role</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/assign_user_role">Assign User Role</a>
+  </li>
+  </ul>
+</div>
+</nav>
+
+<div class="container">
+<h3>Assign User Role</h3>
+
+
+<div class="form-group name">
+  <input type="text"
+         class="form-control"
+         id="Employee_ID"
+         name="Employee_ID"
+         [(ngModel)]="model2.Employee_ID"
+         placeholder="Employee ID">
+</div>
+
+ <div class="form-group position">
+  <input type="text"
+         class="form-control"
+         id="User_Role_ID"
+         name="User_Role_ID"
+         [(ngModel)]="model2.User_Role_ID"
+         placeholder="User Role ID">
+</div>
+
+<button class="btn btn-success" type="submit" (click)="submit()">Submit</button>
+
+</div>
+
+

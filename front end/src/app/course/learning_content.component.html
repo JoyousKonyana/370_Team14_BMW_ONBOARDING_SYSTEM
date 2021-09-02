@@ -1,0 +1,53 @@
+<h1 class="container-fluid">Learning Content</h1>
+
+<p></p>
+
+<div>
+<form>
+
+<label for="exampleFormControlInput1">Title</label>
+  <div class="form-group name">
+    <input type="text"
+           class="form-control input"
+           id="title"
+           name="title"
+           [(ngModel)]="model3.title"
+           placeholder="Title">
+  </div>
+
+  <p></p>
+
+  <label for="exampleFormControlInput1">YouTube Link</label>
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="youtube"
+           name="description"
+           [(ngModel)]="model3.youtube"
+           placeholder="YouTube Link">
+  </div>
+
+  <p></p>
+
+  <label for="exampleFormControlTextarea1">Content Text</label>
+  <div class="form-group name">
+    <textarea 
+      type="text"
+      class="form-control" 
+      id="exampleFormControlTextarea1" 
+      rows="5"
+      name="content"
+      [(ngModel)]="model3.content"
+      placeholder="Content"
+      >
+    </textarea>
+</div>
+
+<p></p>
+
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="setQuiz()">SAVE</button>
+  </div>
+
+</form>
+</div>

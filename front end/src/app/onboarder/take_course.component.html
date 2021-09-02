@@ -1,0 +1,21 @@
+<p></p>
+
+<div *ngFor="let course of course; let i = index">
+
+<div class="card text-center" >
+  <div class="card-header">
+    {{course.id}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{course.Course_ID}}</h5>
+    <p class="card-text">{{course.Course_Description}}.</p>
+    <a class="btn btn-primary" [routerLink]="['/take_learning_outcome', course.Course_ID]">Take: {{course.name}} </a>
+  </div>
+  <div class="card-footer text-muted">
+    Duration: {{course.duration}}
+  </div>
+</div>
+
+<p></p>
+
+</div>

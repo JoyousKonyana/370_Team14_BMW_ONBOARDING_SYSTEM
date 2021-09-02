@@ -1,0 +1,147 @@
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+<div>
+  READ, UPDATE & DELETE Employee
+</div>
+</div>
+<div class="btn btn-link" (click)="testData()">Populate Data</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<hr>
+
+<div *ngIf="updateEmployeeClicked">
+<div class="container">
+<h1 class="">Update Employee</h1>
+<form>
+<div class="form-group name">
+<input type="text"
+       class="form-control input"
+       id="first_name"
+       name="first_name"
+       [(ngModel)]="model.first_name"
+       placeholder="First Name">
+</div>
+<div class="form-group position">
+<input type="text"
+       class="form-control positionInput"
+       id="middle_name"
+       name="middle_name"
+       [(ngModel)]="model.middle_name"
+       placeholder="Middle Name">
+</div>
+<div class="form-group name">
+<input type="text"
+     class="form-control input"
+     id="last_name"
+     name="last_name"
+     [(ngModel)]="model.last_name"
+     placeholder="Last Name">
+</div>
+<div class="form-group position">
+<input type="text"
+     class="form-control positionInput"
+     id="title"
+     name="title"
+     [(ngModel)]="model.title"
+     placeholder="Title">
+</div>
+<div class="form-group name">
+<input type="text"
+   class="form-control input"
+   id="gender"
+   name="gender"
+   [(ngModel)]="model.gender"
+   placeholder="Gender">
+</div>
+<div class="form-group position">
+<input type="text"
+   class="form-control positionInput"
+   id="id_number"
+   name="id_number"
+   [(ngModel)]="model.id_number"
+   placeholder="ID Number">
+</div>
+<div class="form-group name">
+<input type="text"
+ class="form-control input"
+ id="contact_number"
+ name="contact_number"
+ [(ngModel)]="model.contact_number"
+ placeholder="Contact Number">
+</div>
+<div class="form-group position">
+<input type="text"
+ class="form-control positionInput"
+ id="department"
+ name="department"
+ [(ngModel)]="model.department"
+ placeholder="Department">
+</div>
+<div class="form-group name">
+<input type="text"
+ class="form-control input"
+ id="job_title"
+ name="job_title"
+ [(ngModel)]="model.job_title"
+ placeholder="Job Title">
+</div>
+<div class="form-group position">
+<input type="text"
+ class="form-control positionInput"
+ id="address"
+ name="address"
+ [(ngModel)]="model.address"
+ placeholder="Address">
+</div>
+<button class="btn btn-success" type="submit" (click)="updateEmployee()">Update</button>
+</form>
+</div>
+<hr>
+</div>
+
+<br/>
+
+<div class="search-hero container">
+<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a equipment by id or brand or tyoe or Serial number or even Trade-In">
+</div>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">Employee ID</th>
+<th scope="col">Department ID</th>
+<th scope="col">First Name</th>
+<th scope="col">Middle Name</th>
+<th scope="col">Last Name</th>
+<th scope="col">Title</th>
+<th scope="col">ID Number</th>
+<th scope="col">Contact Number</th>
+<th scope="col">Job Title</th>
+<th scope="col">Action</th>
+</tr>
+</thead>
+<tbody>
+
+    <tr *ngFor="let items of employee | filter:searchText; let i = index">
+      <td>{{items.Employee_ID}}</td>
+      <td>{{items.Department_ID}}</td>
+      <td>{{items.first_name}}</td>
+      <td>{{items.Middle_Name}}</td>
+      <td>{{items.Last_Name}}</td>
+      <td>{{items.Title}}</td>
+      <td>{{items.Contact_Number}}</td>
+      <td>{{items.Job_Title}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="editEmployee(i)">Update</button>
+        <button class="btn btn-danger" (click)="deleteEmployee(i)">Delete</button>
+      </td>
+    </tr>
+
+</tbody>
+</table>
+</div>
+
+<p></p>

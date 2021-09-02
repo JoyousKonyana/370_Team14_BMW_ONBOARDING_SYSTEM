@@ -1,0 +1,109 @@
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+  <div>
+    Achievement Type
+  </div>
+  <br/>
+  <div class="btn btn-primary" (click)="addNewAchievement_TypeBtn()">Achievement Type</div>
+  <br/>
+  <p></p>
+  <div class="btn btn-link" (click)="testData()">Populate Data</div>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<div *ngIf="newAchievement_TypeClicked">
+<div class="formWrapper">
+<form>
+  <div class="form-group name">
+    <input type="text"
+           class="form-control input"
+           id="Achievment_Type_ID"
+           name="Achievment_Type_ID"
+           [(ngModel)]="model.Achievment_Type_ID"
+           placeholder="ID">
+  </div>
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="Badge"
+           name="Badge"
+           [(ngModel)]="model.Badge_ID"
+           placeholder="Badge ID">
+  </div>
+  <div class="form-group name">
+  <input type="text"
+         class="form-control input"
+         id="Achievment_Type_Description"
+         name="Achievment_Type_Description"
+         [(ngModel)]="model.Achievment_Type_Description"
+         placeholder="Achievment Type Description">
+</div>
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="addAchievement_Type()">SAVE</button>
+  </div>
+</form>
+</div>
+</div>
+
+<hr>
+
+<div *ngIf="updateAchievement_TypeClicked">
+<div class="editEmployeeTitleContainer">
+<div class="">Update Achievement Type</div>
+</div>
+<form>
+ <div class="form-group position">
+  <input type="text"
+         class="form-control"
+         id="id"
+         name="id"
+         [(ngModel)]="model2.id"
+         placeholder="ID">
+</div>
+<div class="form-group name">
+<input type="text"
+       class="form-control"
+       id="Badge_ID"
+       name="Badge_ID"
+       [(ngModel)]="model2.Badge_ID"
+       placeholder="Badge ID">
+</div>
+<div class="form-group name">
+<input type="text"
+       class="form-control"
+       id="Achievment_Type_Description"
+       name="Achievment_Type_Description"
+       [(ngModel)]="model2.Achievment_Type_Description"
+       placeholder="Achievment Type Description">
+</div>
+<button class="btn btn-success" type="submit" (click)="updateAchievement_Type()">Update</button>
+</form>
+</div>
+
+<hr>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-3">ID</th>
+    <th class="col-5">Name</th>
+    <th class="col-2">Mark</th>
+    <th class="col-2">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of achievment_type; let i = index">
+    <td>{{item.id}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.mark}}</td>
+    <td>
+    <button class="btn btn-primary" (click)="editAchievement_Type(i)">Update</button>
+    <button class="btn btn-danger" (click)="deleteAchievement_Type(i)">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>  -->

@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-danger">
+<a class="navbar-brand" routerLink="/ss_administrator"> <span class="sr-only">Administrator</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/register_employee">Register Employee</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/onboarder">Delete Onboarder</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/assign_equipment">Assign Equipment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/crud_faq">CRUD FAQ</a>
+     </li>
+     <li class="nav-item">
+     <a class="nav-link" routerLink="/import_employee">Import Employee</a>
+   </li>
+  </ul>
+</div>
+</nav>
+
+<p></p>
+
+<h1>Import Empolyee</h1>
+
+<div class="container">
+  
+<div class="card">
+	<div class="card-header">
+		Upload csv to read
+	</div>
+	<div class="card-body">
+
+		<input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />
+
+	</div>
+</div>
+
+<a href="javascript:;" *ngIf="records.length > 0" (click)="getJsonData()" class="btn btn-primary">Read Data </a>
+
+<a href="javascript:;" *ngIf="records.length > 0" (click)="fileReset()" class="btn btn-primary">Reset </a>  
+
+{{jsondatadisplay}}
+<table class="table"  *ngIf="records.length > 0">
+	<thead class="thead-dark" >
+		<tr>
+			<th scope="col">Employee ID</th>
+			<th scope="col">Department ID</th>
+			<th scope="col">First Name</th>
+			<th scope="col">Middle Name</th>
+			<th scope="col">Last Name</th>
+			<th scope="col">Title</th>
+			<th scope="col">Gender ID</th>
+			<th scope="col">ID Number</th>
+			<th scope="col">Contact Number</th>
+			<th scope="col">Job Title</th>
+			<th scope="col">Address ID</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let record of records;let i = index;">
+			<th scope="row">{{record.Employee_ID}}</th>
+			<td>{{record.Department_ID}}</td>
+			<td>{{record.first_name}}</td>
+			<td>{{record.Middle_Name}}</td>
+			<th>{{record.Last_Name}}</th>
+			<td>{{record.Title}}</td>
+			<td>{{record.Gender_ID}}</td>
+			<td>{{record.ID_Number}}</td>
+			<td>{{record.Contact_Number}}</td>
+			<td>{{record.Job_Title}}</td>
+			<td>{{record.Address_ID}}</td>
+		</tr>
+
+	</tbody>
+</table>
+</div>

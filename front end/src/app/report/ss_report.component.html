@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-secondary">
+<a class="navbar-brand" routerLink="/ss_report"> <span class="sr-only">Report</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/report">Generate Report</a>
+    </li>
+  </ul>
+</div>
+</nav>
+
+<header>
+  <div class="overlay"></div>
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-architect-using-a-phone-calculator-22836-large.mp4">
+  </video>
+  <div class="container h-100">
+    <div class="d-flex h-100 text-center align-items-center">
+      <div class="w-100 text-white">
+        <h1 class="display-3">Report</h1>
+        <p class="lead mb-0" *ngFor="let user of users">{{user.username}} ({{user.firstName}} {{user.lastName}})</p>
+      </div>
+    </div>
+  </div>
+  </header>

@@ -1,0 +1,140 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-danger">
+<a class="navbar-brand" routerLink="/ss_administrator"> <span class="sr-only">Administrator</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/register_employee">Register Employee</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/onboarder">Delete-Onboarder</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/assign_equipment">Assign Equipment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/crud_faq">CRUD FAQ</a>
+     </li>
+     <li class="nav-item">
+     <a class="nav-link" routerLink="/import_employee">Import Employee</a>
+   </li>
+  </ul>
+</div>
+</nav>
+
+<h1>Register Employee</h1>
+
+<br/>
+
+<div class="">
+<div class="formWrapper">
+<form>
+
+  <div class="form-group name">
+    <!-- <label for="name">Name:</label> -->
+    <input type="text"
+           class="form-control input"
+           id="first_name"
+           name="first_name"
+           [(ngModel)]="model.first_name"
+           placeholder="First Name">
+  </div>
+
+   <div class="form-group position">
+    <!-- <label for="position">Position:</label> -->
+    <input type="text"
+           class="form-control positionInput"
+           id="middle_name"
+           name="middle_name"
+           [(ngModel)]="model.middle_name"
+           placeholder="Middle Name">
+  </div>
+
+  <div class="form-group name">
+  <!-- <label for="name">Name:</label> -->
+  <input type="text"
+         class="form-control input"
+         id="last_name"
+         name="last_name"
+         [(ngModel)]="model.last_name"
+         placeholder="Last Name">
+</div>
+
+ <div class="form-group position">
+  <!-- <label for="position">Position:</label> -->
+  <input type="text"
+         class="form-control positionInput"
+         id="title"
+         name="title"
+         [(ngModel)]="model.title"
+         placeholder="Title">
+</div>
+
+<div class="form-group name">
+<!-- <label for="name">Name:</label> -->
+<input type="text"
+       class="form-control input"
+       id="gender"
+       name="gender"
+       [(ngModel)]="model.gender"
+       placeholder="Gender">
+</div>
+
+<div class="form-group position">
+<!-- <label for="position">Position:</label> -->
+<input type="text"
+       class="form-control positionInput"
+       id="id_number"
+       name="id_number"
+       [(ngModel)]="model.id_number"
+       placeholder="ID Number">
+</div>
+
+<div class="form-group name">
+<!-- <label for="name">Name:</label> -->
+<input type="text"
+     class="form-control input"
+     id="contact_number"
+     name="contact_number"
+     [(ngModel)]="model.contact_number"
+     placeholder="Contact Number">
+</div>
+
+<div class="form-group position">
+<!-- <label for="position">Position:</label> -->
+<input type="text"
+     class="form-control positionInput"
+     id="department"
+     name="department"
+     [(ngModel)]="model.department"
+     placeholder="Department">
+</div>
+
+<div class="form-group name">
+<!-- <label for="name">Name:</label> -->
+<input type="text"
+     class="form-control input"
+     id="job_title"
+     name="job_title"
+     [(ngModel)]="model.job_title"
+     placeholder="Job Title">
+</div>
+
+<div class="form-group position">
+<!-- <label for="position">Position:</label> -->
+<input type="text"
+     class="form-control positionInput"
+     id="address"
+     name="address"
+     [(ngModel)]="model.address"
+     placeholder="Address">
+</div>
+
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="addEmployee()">SAVE</button>
+  </div>
+</form>
+</div>
+</div>

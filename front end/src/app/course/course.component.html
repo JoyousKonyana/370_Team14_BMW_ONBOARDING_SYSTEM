@@ -1,0 +1,112 @@
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+  <div>
+    Course
+  </div>
+  <br/>
+  <div class="btn btn-primary" (click)="addNewCourseBtn()">Create Course</div>
+  <div class="btn btn-link" (click)="testData()">Populate Data</div>
+  <br/>
+  <p></p>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<div *ngIf="newCourseClicked">
+<div class="formWrapper">
+<form>
+  <div class="form-group name">
+    <input type="text"
+           class="form-control input"
+           id="name"
+           name="name"
+           [(ngModel)]="model.name"
+           placeholder="Name">
+  </div>
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="description"
+           name="description"
+           [(ngModel)]="model.description"
+           placeholder="Description">
+  </div>
+  <div class="form-group name">
+  <input type="text"
+         class="form-control input"
+         id="duration"
+         name="duration"
+         [(ngModel)]="model.duration"
+         placeholder="Duration">
+</div>
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="addCourse()">SAVE</button>
+  </div>
+</form>
+</div>
+</div>
+
+<br/>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-3">Name</th>
+    <th class="col-5">Description</th>
+    <th class="col-2">Duration</th>
+    <th class="col-2">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let course of course; let i = index">
+    <td>{{course.name}}</td>
+    <td>{{course.description}}</td>
+    <td>{{course.duration}}</td>
+    <td>
+    <button class="btn btn-warning" routerLink="/learning_outcome">Learning Outcome</button>
+    <button class="btn btn-primary" (click)="editCourse(i)">Update</button>
+    <button class="btn btn-danger" (click)="deleteCourse(i)">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="editEmployeeTitleContainer">
+<div class="">Update Course</div>
+</div>
+
+<form>
+
+<div class="form-group name">
+  <input type="text"
+         class="form-control"
+         id="name"
+         name="name"
+         [(ngModel)]="model2.name"
+         placeholder="Name">
+</div>
+
+ <div class="form-group position">
+  <!-- <label for="position">Position:</label> -->
+  <input type="text"
+         class="form-control"
+         id="description"
+         name="description"
+         [(ngModel)]="model2.description"
+         placeholder="Description">
+</div>
+
+<div class="form-group name">
+<input type="text"
+       class="form-control"
+       id="duration"
+       name="duration"
+       [(ngModel)]="model2.duration"
+       placeholder="Duration">
+</div>
+
+<button class="btn btn-success" type="submit" (click)="updateCourse()">Update</button>
+</form>

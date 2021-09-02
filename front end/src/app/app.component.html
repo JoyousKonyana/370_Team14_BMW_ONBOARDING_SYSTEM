@@ -1,0 +1,45 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/2048px-BMW_logo_%28gray%29.svg.png" alt="Girl in a jacket" width="40" height="40">
+<a class="nav-item nav-link" style="color:white">
+<strong>
+  BMW
+</strong>
+Onboarder System
+</a>
+
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/ss_users" *ngIf="isAdmin">Users</a>
+        <a class="nav-item nav-link" routerLink="/ss_administrator" *ngIf="isAdmin">Administrator</a>
+        <a class="nav-item nav-link" routerLink="/ss_course" *ngIf="isAdmin">Course</a>
+        <a class="nav-item nav-link" routerLink="/ss_equipment">Equipment</a>
+        <a class="nav-item nav-link" routerLink="/ss_onboarder">Onboarder</a>
+        <a class="nav-item nav-link" routerLink="/ss_report">Report</a>
+
+        <button class="nav-item btn btn-danger" (click)="logout()">
+        <img src="https://cdn.iconscout.com/icon/free/png-256/logout-2032031-1713022.png" alt="Girl in a jacket" width="30" height="30">
+        </button>
+    </div>
+</nav>
+
+<!-- main app container -->
+<div>
+    <alert></alert>
+    <router-outlet></router-outlet>
+</div>
+
+<!-- credits -->
+ <div class="text-center">
+    <br/>
+    <p></p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/2048px-BMW_logo_%28gray%29.svg.png" alt="Girl in a jacket" width="35" height="35">
+
+    <p>
+        <strong>
+            BMW
+        </strong>
+        Onboarder System
+    </p>
+</div> 

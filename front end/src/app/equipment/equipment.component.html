@@ -1,0 +1,222 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+<a class="navbar-brand" routerLink="/ss_equipment"> <span class="sr-only">Equipment</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/equipment">Equipment</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/my_equipment">My Equipment</a>
+  </ul>
+</div>
+</nav>
+
+
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+<div>
+  Equipment
+</div>
+<br/>
+<div class="btn btn-dark" (click)="addNewEquipmentBtn()">Open Register Equipment</div>
+<br/>
+
+<p></p>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<hr>
+
+
+<div *ngIf="newEquipmentClicked">
+<div class="container">
+  <h1>Register Equipment</h1>
+<form>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control input"
+       id="equipment_type"
+       name="equipment_type"
+       [(ngModel)]="model.equipment_type"
+       placeholder="Equipment Type">
+<option>Equipment Type</option>
+<option *ngFor="let equipment_type of equipment_type; let i = index">
+  {{equipment_type.name}}
+</option>
+</select>
+</div>
+<p></p>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control input"
+       id="equipment_brand"
+       name="equipment_brand"
+       [(ngModel)]="model.equipment_brand"
+       placeholder="Equipment Brand">
+<option>Equipment Brand</option>
+<option *ngFor="let equipment_brand of equipment_brand; let i = index">
+  {{equipment_brand.name}}
+</option>
+</select>
+</div>
+<p></p>
+  <div class="form-group">
+    <input type="text"
+           class="form-control input"
+           id="equipment_trade_in_date"
+           name="equipment_trade_in_date"
+           [(ngModel)]="model.equipment_trade_in_date"
+           placeholder="Equipment Trade-In Date">
+  </div>
+  <p></p>
+  <div class="form-group">
+  <input type="text"
+         class="form-control input"
+         id="equipment_serial_number"
+         name="equipment_serial_number"
+         [(ngModel)]="model.equipment_serial_number"
+         placeholder="Equipment Serial Number">
+</div>
+<p></p>
+  <div class="">
+    <button type="submit" class="btn btn-success" (click)="addEquipment()">SAVE</button>
+  </div>
+</form>
+</div>
+<hr>
+</div>
+
+<br/>
+
+<div *ngIf="newReport_QueryClicked">
+<div class="formWrapper">
+  <h5>Report Query</h5>
+  <a class="btn btn-link" (click)="CloseReport_QueryBtn()">X</a>
+<form>
+<div class="form-group name">
+  <input type="text" 
+         class="form-control"
+         id="status"
+         name="status"
+         [(ngModel)]="model2.status"
+         placeholder="Status">
+</div>
+ <div class="form-group position">
+   <input type="text" disabled
+         class="form-control"
+         id="description"
+         name="description"
+         [(ngModel)]="model2.description"
+         placeholder="Description">
+</div>
+<button class="btn btn-success" type="submit" (click)="updateReport_Query()">Report Query</button>
+</form>
+</div>
+</div>
+
+<br/>
+
+<div *ngIf="updateEquipmentClicked">
+<div class="container">
+<h1 class="">Update Equipment</h1>
+<form>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control"
+       id="equipment_type"
+       name="equipment_type"
+       [(ngModel)]="model2.equipment_type"
+       placeholder="Equipment Type">
+<option>Equipment Type</option>
+<option *ngFor="let equipment_type of equipment_type; let i = index">
+  {{equipment_type.nme}}
+</option>
+</select>
+</div>
+<p></p>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control"
+       id="equipment_brand"
+       name="equipment_brand"
+       [(ngModel)]="model2.equipment_brand"
+       placeholder="Equipment Brand">
+<option>Equipment Brand</option>
+<option *ngFor="let equipment_brand of equipment_brand; let i = index">
+  {{equipment_brand.name}}
+</option>
+</select>
+</div>
+<p></p>
+  <div class="form-group">
+    <input type="text"
+           class="form-control"
+           id="equipment_trade_in_date"
+           name="equipment_trade_in_date"
+           [(ngModel)]="model2.equipment_trade_in_date"
+           placeholder="Equipment Trade-In Date">
+  </div>
+  <p></p>
+  <div class="form-group">
+  <input type="text"
+         class="form-control"
+         id="equipment_serial_number"
+         name="equipment_serial_number"
+         [(ngModel)]="model2.equipment_serial_number"
+         placeholder="Equipment Serial Number">
+</div>
+<p></p>
+<button class="btn btn-success" type="submit" (click)="updateEquipment()">Update</button>
+</form>
+</div>
+<hr>
+</div>
+
+<br/>
+
+<div class="search-hero container">
+<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a equipment by id or brand or tyoe or Serial number or even Trade-In">
+</div>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+<tr>
+<th class="col-2">ID</th>
+  <th class="col-2">Equipment Type</th>
+  <th class="col-2">Equipment Brand</th>
+  <th class="col-2">Serial Number</th>
+  <th class="col-2">Trade-In Status</th>
+  <th class="col-2">Action</th>
+</tr>
+</thead>
+<tbody>
+
+    <tr *ngFor="let items of equipment; let i = index">
+      <td>{{items.id}}</td>
+      <td>{{items.equipment_type}}</td>
+      <td>{{items.equipment_brand}}</td>
+      <td>{{items.equipment_serial_number}}</td>
+      <td>{{items.equipment_trade_in_date}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="editEquipment(i)">Update</button>
+        <button class="btn btn-danger" (click)="deleteEquipment(i)">Delete</button>
+        <button class="btn btn-warning" (click)="editReport_Query(i)">Report Query</button>
+      </td>
+    </tr>
+
+</tbody>
+</table>
+</div>
+
+<p></p>

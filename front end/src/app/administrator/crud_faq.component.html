@@ -1,0 +1,116 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-danger">
+<a class="navbar-brand" routerLink="/ss_administrator"> <span class="sr-only">Administrator</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/register_employee">Register Employee</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/onboarder">Delete Onboarder</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/assign_equipment">Assign Equipment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/crud_faq">CRUD FAQ</a>
+     </li>
+     <li class="nav-item">
+     <a class="nav-link" routerLink="/import_employee">Import Employee</a>
+   </li>
+  </ul>
+</div>
+</nav>
+
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+  <div>
+    FAQ
+  </div>
+  <br/>
+  <div class="btn btn-primary" (click)="addNewFAQBtn()">Create FAQ</div>
+  <div class="btn btn-link" (click)="testData()">Populate Data</div>
+  <p></p>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<br/>
+
+<div *ngIf="newFAQClicked">
+<div class="formWrapper">
+<form>
+  <div class="form-group name">
+    <input type="text"
+           class="form-control input"
+           id="question"
+           name="question"
+           [(ngModel)]="model.question"
+           placeholder="Question">
+  </div>
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="answer"
+           name="answer"
+           [(ngModel)]="model.answer"
+           placeholder="answer">
+  </div>
+  <div class="submitBtnContainer">
+    <button type="submit" class="btn btn-success" (click)="addFAQ()">SAVE</button>
+  </div>
+</form>
+</div>
+</div>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-5">Question</th>
+    <th class="col-5">Answer</th>
+    <th class="col-2">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of faq; let i = index">
+    <td>{{item.question}}</td>
+    <td>{{item.answer}}</td>
+    <td>
+    <button class="btn btn-primary" (click)="editFAQ(i)">Update</button>
+    <button class="btn btn-danger" (click)="deleteFAQ(i)">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="editEmployeeTitleContainer">
+<div class="">Update FAQ</div>
+</div>
+
+<form>
+
+<div class="form-group name">
+  <input type="text"
+         class="form-control"
+         id="question"
+         name="question"
+         [(ngModel)]="model2.question"
+         placeholder="Question">
+</div>
+
+ <div class="form-group position">
+  <input type="text"
+         class="form-control"
+         id="answer"
+         name="answer"
+         [(ngModel)]="model2.answer"
+         placeholder="Answer">
+</div>
+
+<button class="btn btn-success" type="submit" (click)="updateFAQ()">Update</button>
+</form>

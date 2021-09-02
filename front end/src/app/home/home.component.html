@@ -1,0 +1,26 @@
+﻿<header>
+<div class="overlay"></div>
+<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+  <source src="https://assets.mixkit.co/videos/preview/mixkit-curve-on-a-snowy-forest-road-3317-large.mp4">
+</video>
+<div class="container h-100">
+  <div class="d-flex h-100 text-center align-items-center">
+    <div class="w-100 text-white">
+      <h1 class="display-3">Welcome</h1>
+      <ul *ngIf="userFromApi">
+            <li>{{userFromApi.firstName}} {{userFromApi.lastName}}</li>
+        </ul>
+    </div>
+  </div>
+</div>
+</header>
+
+<div class="container-fluid bg-3 text-center">
+<h3>BMW Onboarder System</h3>
+<p class="container">This system is designed to train and equip new employees at IT HUB SA on surviving and thriving the BMW culture. It is designed to educate them on all things required to help new employees fit right in to IT HUB SA.  </p>
+</div>
+
+<div class="container-fluid bg-2 text-center">
+<h3>Team-14</h3>
+<p>This system was developed by Team 14, from the University of Pretoria.</p>
+</div>

@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-danger">
+<a class="navbar-brand" routerLink="/ss_administrator"> <span class="sr-only">Administrator</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/register_employee">Register Employee</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/onboarder">Delete Onboarder</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/assign_equipment">Assign Equipment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/crud_faq">CRUD FAQ</a>
+     </li>
+     <li class="nav-item">
+     <a class="nav-link" routerLink="/import_employee">Import Employee</a>
+   </li>
+  </ul>
+</div>
+</nav>
+
+<div class="AddEmployeeTitleContainer">
+<div class="addEmployeeTitleContainer">
+  <div>
+    Onboarder
+  </div>
+  <br/>
+  <div class="btn btn-link" (click)="testData()">Populate Data</div>
+  <p></p>
+</div>
+<div class="addEmployeeBtnContainer">
+</div>
+</div>
+
+<br/>
+
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-5">Onboarder ID</th>
+    <th class="col-5">Employee ID</th>
+    <th class="col-2">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let onboarder of onboarder; let i = index">
+    <td>{{onboarder.Onboarder_ID}}</td>
+    <td>{{onboarder.Employee_ID}}</td>
+    <td>
+    <button class="btn btn-danger" (click)="deleteOnboarder(i)">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
