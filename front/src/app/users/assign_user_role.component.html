@@ -1,0 +1,51 @@
+<!-- {% comment %} <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+<a class="navbar-brand" routerLink="/ss_users"> <span class="sr-only">Users</span></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/user_role">CRUD-User Role</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" routerLink="/assign_user_role">Assign User Role</a>
+  </li>
+  </ul>
+</div>
+</nav>
+
+<div class="container">
+<div class="row">
+  <div class="col-10">
+    <div class="">
+      <h2>Assign User Role</h2>
+      <form name="form" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+
+        <div class="form-group">
+          <label for="firstName">Employee ID</label>
+          <input type="text"  class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':form.get('firstName').touched && form.get('firstName').invalid}" required />
+          <div class="invalid-feedback">
+            <div>Employee ID is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+        <label>User Role</label>
+        <select class="form-control" name="country" formControlName="user_role" [ngClass]="{'is-invalid':form.get('user_role').touched && form.get('user_role').invalid}" required>
+        <option value="IN">Manager</option>
+        <option value="US">Onboarder</option>
+        </select>
+        </div>
+        <div class="invalid-feedback">
+        <div>User Role is required</div>
+      </div>
+      
+        <div class="form-group">
+          <button class="btn btn-success"  [disabled]="!form.valid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>  -->

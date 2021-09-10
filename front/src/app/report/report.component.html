@@ -1,0 +1,122 @@
+
+
+<h3>Using NgIf with strings</h3>
+<div>
+  <input type="radio" name="rad1" value="data" [(ngModel)]="value"> Generate Onboarder Report
+  <input type="radio" name="rad1" value="none" [(ngModel)]="value"> Generate User Statistics Report
+</div>
+
+
+<div>
+  <input type="checkbox" name="rad2" [checked]="value === 'Health'" (click)="value = 'Health'"> Generate Equipment Report
+  <input type="checkbox" name="rad3" [checked]="value === 'Trust'" (click)="value = 'Trust'"> Generate Course Completion Certificate
+</div>
+
+<div>
+<input type="checkbox" name="rad2" [checked]="value === 'Blue'" (click)="value = 'Blue'"> Generate Equipment Trade-In Report
+<input type="checkbox" name="rad3" [checked]="value === 'Yellow'" (click)="value = 'Yellow'"> Generate Audit Log
+</div>
+
+
+<hr>
+
+<div class="text-center">
+  <button (click)="pdf.saveAs('invoice.pdf')" class="btn btn-success col-6">
+    Save As PDF...
+  </button>
+</div>
+
+<hr>
+
+<kendo-pdf-export #pdf paperSize="A4">
+
+<div class="header">
+<h1>IT Hub ZA</h1>
+<p>Report</p>
+</div>
+
+
+<div *ngIf="value === 'data'">
+  <h2>Generate Onboarder Report</h2>
+<div class="tableWrapper">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th class="col-4">Full Name</th>
+    <th class="col-2">Employee ID</th>
+    <th class="col-2">Date Enrolled</th>
+    <th class="col-2">Lesson Completed</th>
+    <th class="col-2">Progress</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of onboarder_report; let i = index">
+    <td>{{item.name}} {{item.surname}}</td>
+    <td>{{item.employee_id}}</td>
+    <td>{{item.date_enrolled}}</td>
+    <td>{{item.lesson_completed}}</td>
+    <td>{{item.progress}}</td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>  
+
+
+<div *ngIf="value === 'none'">
+fdsklm
+</div> 
+
+<div *ngIf="value === 'Health'">
+<b>Health is checked.</b>
+</div>   
+
+<div *ngIf="value === 'Trust'" class="center">
+  <p>You can trim it up</p>
+<table class="cert text-center container">
+ <tr>
+  <td class="crt_logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/2048px-BMW_logo_%28gray%29.svg.png" alt="logo">
+  </td>
+</tr>
+<tr>
+  <td>
+    <h1 class="crt_title">Certificate Of Completion</h1>
+      <h2>This Certificate is awarded to</h2>
+      <h1 class="colorGreen crt_user">{{certificate.name}} {{certifcate.surname}}</h1>
+      <h3 class="afterName">For his/her completion of {{certificate.course}}
+      </h3>
+      <h3>Awarded on {{certifcate.completion_date}} </h3> 
+  </td>
+</tr> 
+<tr>
+  <td>
+    <img src="https://camo.githubusercontent.com/805e05b94844e39d7edd518f492c8599c71835b3/687474703a2f2f692e696d6775722e636f6d2f646e5873344e442e706e67" class="certSign" alt="sign">
+    <h3>Position: {{certifcate.position}}</h3>
+  </td>
+</tr>
+</table>
+</div> 
+
+<div *ngIf="value === 'Blue'">
+<b>Health is checked.</b>
+</div>   
+<div *ngIf="value === 'Yellow'">
+<b>Trust is checked.</b>
+</div> 
+
+<footer style="background-color:#7bc407;">
+<p>.</p>
+<div class="text-center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/2048px-BMW_logo_%28gray%29.svg.png" alt="Girl in a jacket" width="35" height="35">
+<p>
+    <strong>
+        BMW
+    </strong>
+    Onboarder System
+</p>
+</div> 
+<p>.</p>
+</footer>
+
+</kendo-pdf-export> 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\konya\\Downloads\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj": {}
+    "C:\\Users\\konya\\Downloads\\Team-14 Del 5\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\konya\\Downloads\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj": {
+    "C:\\Users\\konya\\Downloads\\Team-14 Del 5\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\konya\\Downloads\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
+        "projectUniqueName": "C:\\Users\\konya\\Downloads\\Team-14 Del 5\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
         "projectName": "BMW ONBOARDING SYSTEM",
-        "projectPath": "C:\\Users\\konya\\Downloads\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
+        "projectPath": "C:\\Users\\konya\\Downloads\\Team-14 Del 5\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
         "packagesPath": "C:\\Users\\konya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\konya\\Downloads\\BMW ONBOARDING SYSTEM\\obj\\",
+        "outputPath": "C:\\Users\\konya\\Downloads\\Team-14 Del 5\\BMW ONBOARDING SYSTEM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\konya\\AppData\\Roaming\\NuGet\\NuGet.Config",
