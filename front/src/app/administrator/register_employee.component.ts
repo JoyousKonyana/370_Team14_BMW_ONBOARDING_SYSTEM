@@ -18,6 +18,7 @@ export class Register_EmployeeComponent implements OnInit {
   employee: Reg_Emp[] = [];
 
   info: Reg_Emp[] = [];
+  cities:any[];
 
   constructor(
       
@@ -36,7 +37,15 @@ private loadAll() {
   .pipe(first())
   .subscribe(
     info => {
+
       this.info = info;
+      this.cities = info.cities
+      console.log(info.cities)
+      // for(x in this.cities){
+      //   x.cityId
+        
+      // }
+     
     },
     error => {
       this.alertService.error('Error, Data was unsuccesfully retrieved');

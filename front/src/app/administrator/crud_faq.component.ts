@@ -66,10 +66,12 @@ export class CRUD_FAQComponent implements OnInit {
     Faqdescription:'',
     Faqid:1
   };
-
+  // public string Faqdescription { get; set; }
+  // public string Faqanswer { get; set; }
   addFAQ() { 
-    this.model3.Faqanswer=this.model.answer;
-    this.model3.Faqdescription = this.model.question;
+   
+    this.model3.Faqanswer=this.model.Faqanswer;
+    this.model3.Faqdescription = this.model.Faqdescription;
     // this.model3.Faqanswer = this.model.question;
 
     if(Object.keys(this.model).length < 2)
@@ -79,7 +81,7 @@ export class CRUD_FAQComponent implements OnInit {
       this.newFAQClicked = !this.newFAQClicked;
       this.model = {};
     }
-    else if((Object.keys(this.model).length==2))
+    else if((Object.keys(this.model).length>=2))
     {
       this.faqService.create(this.model3)
             .pipe(first())
@@ -97,8 +99,10 @@ export class CRUD_FAQComponent implements OnInit {
   }
     
   
-  deleteFAQ(i) {
-    this.faqService.delete(i+1)
+  deleteFAQ(i:number) {
+
+ 
+    this.faqService.delete(Number(i))
             .pipe(first())
             .subscribe(
                 data => {
