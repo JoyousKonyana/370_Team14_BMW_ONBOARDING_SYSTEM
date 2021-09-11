@@ -29,6 +29,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         private readonly ITitleRepository _titleRepository;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IUserRoleRepository _userRoleRepository;
+        private readonly IGenderRepository _genderRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
@@ -39,6 +40,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             ITitleRepository titleRepository,
              IDepartmentRepository departmentRepository,
               IUserRoleRepository userRoleRepository,
+              IGenderRepository genderRepository,
             IMapper mapper)
         {
             _employeeRepository = employeeRepository;
@@ -50,6 +52,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _titleRepository = titleRepository;
             _departmentRepository = departmentRepository;
             _userRoleRepository = userRoleRepository;
+            _genderRepository = genderRepository;
         }
 
         //[Authorize(Roles = Role.Onboarder)]
@@ -66,7 +69,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 var suburb = await _suburbRepository.GetSuburbsAsync();
                 var title = await _titleRepository.GetTitlestAsync();
                 var department = await _departmentRepository.GetDepartmentAsync();
-                
+                var gender = await _genderRepository.GetAllGenderAsync();
+                var userRoles = await _userRoleRepository.getAllUserRoles();
                 foreach (var m in postalCodes)
                 {
                     registerEmployeeDTO.postalCodes.Add(m);
@@ -94,6 +98,14 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 foreach (var m in department)
                 {
                     registerEmployeeDTO.departments.Add(m);
+                }
+                foreach (var m in gender)
+                {
+                    registerEmployeeDTO.genders.Add(m);
+                }
+                foreach (var m in userRoles)
+                {
+                    registerEmployeeDTO.userRoles.Add(m);
                 }
 
                 return Ok(registerEmployeeDTO);

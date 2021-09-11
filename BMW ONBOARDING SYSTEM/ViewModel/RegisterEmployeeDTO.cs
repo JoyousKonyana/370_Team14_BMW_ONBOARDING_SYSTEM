@@ -15,6 +15,7 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
         public List<Province> provinces = new List<Province>();
         public List<Department> departments = new List<Department>();
         public List<Title> titles = new List<Title>();
-        List<UserRole> userRoles = new List<UserRole>();
+        public List<UserRole> userRoles = new List<UserRole>();
+        public List<Gender> genders = new List<Gender>();
     }
 }
