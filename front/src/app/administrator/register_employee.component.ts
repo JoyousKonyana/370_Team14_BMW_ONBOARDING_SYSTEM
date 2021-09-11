@@ -1,3 +1,4 @@
+import { City } from './../_models/city';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -18,7 +19,7 @@ export class Register_EmployeeComponent implements OnInit {
   employee: Reg_Emp[] = [];
 
   info: Reg_Emp[] = [];
-  cities:any[];
+  citiese:City[];
 
   constructor(
       
@@ -39,12 +40,15 @@ private loadAll() {
     info => {
 
       this.info = info;
-      this.cities = info.cities
+      this.citiese = info.cities
+    
+      console.log(this.citiese);
       console.log(info.cities)
-      // for(x in this.cities){
-      //   x.cityId
+      var i =0;
+      for(i;i<=this.citiese.length;i++){
+       alert(this.citiese.length[i].cityId);
         
-      // }
+      }
      
     },
     error => {
