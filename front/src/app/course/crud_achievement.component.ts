@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { Achievment_Type } from '../_models';
 import { Achievment_TypeService, AlertService } from '../_services';
 
 @Component({ 

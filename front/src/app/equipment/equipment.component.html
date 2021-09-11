@@ -192,22 +192,24 @@
 <table class="table table-striped">
 <thead>
 <tr>
-<th class="col-2">ID</th>
+<th class="col-1">Equipment ID</th>
   <th class="col-2">Equipment Type</th>
   <th class="col-2">Equipment Brand</th>
   <th class="col-2">Serial Number</th>
+  <th class="col-2">Trade-In Deadline</th>
   <th class="col-2">Trade-In Status</th>
-  <th class="col-2">Action</th>
+  <th class="col-1">Action</th>
 </tr>
 </thead>
 <tbody>
 
     <tr *ngFor="let items of equipment; let i = index">
-      <td>{{items.id}}</td>
-      <td>{{items.equipment_type}}</td>
-      <td>{{items.equipment_brand}}</td>
-      <td>{{items.equipment_serial_number}}</td>
-      <td>{{items.equipment_trade_in_date}}</td>
+      <td>{{items.Equipment_ID}}</td>
+      <td>{{items.Equipment_Type_ID}}</td>
+      <td>{{items.EquipmentBrandId}}</td>
+      <td>{{items.EquipmentSerialNumber}}</td>
+      <td>{{items.EquipmentTradeUnDeadline}}</td>
+      <td>{{items.EquipmentTradeInStatus}}</td>
       <td>
         <button class="btn btn-primary" (click)="editEquipment(i)">Update</button>
         <button class="btn btn-danger" (click)="deleteEquipment(i)">Delete</button>
