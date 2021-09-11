@@ -8,10 +8,12 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
     public class CourseViewModel
     {
         
-        public string courseName { get; set; }
+        public string CourseName { get; set; }
 
-        public string courseDescription { get; set; }
+        public string CourseDescription { get; set; }
 
         public DateTime? CourseDueDate { get; set; }
+
+       
     }
 }

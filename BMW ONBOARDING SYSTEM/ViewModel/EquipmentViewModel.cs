@@ -8,7 +8,7 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
     public class EquipmentViewModel
     {
         
-        public int EquipmentId { get; set; }
+       
       
         public int EquipmentTypeId { get; set; }
        

@@ -24,7 +24,8 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
             this.CreateMap<AchievementType, AchievementTypeViewModel>().
                 ReverseMap();
 
-         
+            this.CreateMap<AchievementTypeViewModel, AchievementTypeViewModel>().
+                  ReverseMap();
 
 
             this.CreateMap<LessonContent, LessonContentViewModel>().
@@ -58,6 +59,8 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
 
             this.CreateMap<UserRole, UserRoleViewModel>().
             ReverseMap();
+            this.CreateMap<UserRoleViewModel, UserRoleViewModel>().
+          ReverseMap();
 
 
             this.CreateMap<Equipment, EquipmentViewModel>().
