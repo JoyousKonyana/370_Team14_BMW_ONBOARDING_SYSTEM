@@ -4,7 +4,11 @@
     Course
   </div>
   <br/>
-  <div class="btn btn-primary" (click)="addNewCourseBtn()">Create Course</div>
+  <div class="btn btn-primary" (click)="addNewCourseBtn()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+    </svg>
+  </div>
   <div class="btn btn-link" (click)="testData()">Populate Data</div>
   <br/>
   <p></p>
@@ -21,7 +25,7 @@
            class="form-control input"
            id="name"
            name="name"
-           [(ngModel)]="model.name"
+           [(ngModel)]="model.courseName"
            placeholder="Name">
   </div>
    <div class="form-group position">
@@ -29,19 +33,23 @@
            class="form-control positionInput"
            id="description"
            name="description"
-           [(ngModel)]="model.description"
+           [(ngModel)]="model.courseDescription"
            placeholder="Description">
   </div>
   <div class="form-group name">
   <input type="text"
          class="form-control input"
-         id="duration"
-         name="duration"
-         [(ngModel)]="model.duration"
-         placeholder="Duration">
+         id="CourseDueDate"
+         name="CourseDueDate"
+         [(ngModel)]="model.CourseDueDate"
+         placeholder="Course Due Date">
 </div>
   <div class="submitBtnContainer">
-    <button type="submit" class="btn btn-success" (click)="addCourse()">SAVE</button>
+    <button type="submit" class="btn btn-success" (click)="addCourse()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+    </svg>
+    SAVE</button>
   </div>
 </form>
 </div>
@@ -55,7 +63,7 @@
   <tr>
     <th class="col-3">Name</th>
     <th class="col-5">Description</th>
-    <th class="col-2">Duration</th>
+    <th class="col-2">Due Date</th>
     <th class="col-2">Action</th>
   </tr>
 </thead>
@@ -66,8 +74,17 @@
     <td>{{course.courseDueDate}}</td>
     <td>
     <button class="btn btn-warning" routerLink="/learning_outcome">Learning Outcome</button>
-    <button class="btn btn-primary" (click)="editCourse(i)">Update</button>
-    <button class="btn btn-danger" (click)="deleteCourse(i)">Delete</button>
+    <button class="btn btn-primary" (click)="editCourse(i)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>
+    </button>
+    <button class="btn btn-danger" (click)="deleteCourse(i)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+      </svg>
+    </button>
     </td>
   </tr>
 </tbody>
@@ -85,28 +102,32 @@
          class="form-control"
          id="name"
          name="name"
-         [(ngModel)]="model2.name"
+         [(ngModel)]="model2.courseName"
          placeholder="Name">
 </div>
 
  <div class="form-group position">
-  <!-- <label for="position">Position:</label> -->
   <input type="text"
          class="form-control"
          id="description"
          name="description"
-         [(ngModel)]="model2.description"
+         [(ngModel)]="model2.courseDescription"
          placeholder="Description">
 </div>
 
 <div class="form-group name">
 <input type="text"
        class="form-control"
-       id="duration"
-       name="duration"
-       [(ngModel)]="model2.duration"
-       placeholder="Duration">
+       id="CourseDueDate"
+       name="CourseDueDate"
+       [(ngModel)]="model2.CourseDueDate"
+       placeholder="Course Due Date">
 </div>
 
-<button class="btn btn-success" type="submit" (click)="updateCourse()">Update</button>
+<button class="btn btn-success" type="submit" (click)="updateCourse()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>
+Update</button>
 </form>

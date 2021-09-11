@@ -30,8 +30,6 @@ export class CRUD_FAQComponent implements OnInit {
       this.loadAllFAQ();
   }
 
-  
-
   private loadAllFAQ() {
     this.faqService.getAllFAQ()
     .pipe(first())
@@ -67,7 +65,7 @@ export class CRUD_FAQComponent implements OnInit {
     Faqanswer: '',
     Faqdescription:'',
     Faqid:1
-  } ;
+  };
 
   addFAQ() { 
     this.model3.Faqanswer=this.model.answer;
@@ -117,8 +115,8 @@ export class CRUD_FAQComponent implements OnInit {
   myValue;
 
   editFAQ(editFAQInfo) {
-    this.model2.question = this.faq[editFAQInfo].Faqdescription;
-    this.model2.answer = this.faq[editFAQInfo].Faqanswer;
+    this.model2.Faqdescription = this.faq[editFAQInfo].Faqdescription;
+    this.model2.Faqanswer = this.faq[editFAQInfo].Faqanswer;
     this.myValue = editFAQInfo;
   }
 

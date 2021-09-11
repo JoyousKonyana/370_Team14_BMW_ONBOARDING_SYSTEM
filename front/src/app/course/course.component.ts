@@ -11,7 +11,6 @@ import { CourseService, AuthenticationService, AlertService } from '../_services
 })
 
 export class CourseComponent implements OnInit {
-
   course: Course[] = [];
 
   constructor(
@@ -45,13 +44,20 @@ export class CourseComponent implements OnInit {
   model: any = {};
   model2: any = {}; 
 
+  model3:Course = {
+    CourseId: 1,
+    courseDescription:'',
+    CourseDueDate: '',
+    courseName: '',
+  } ;
+
   //Remove this bad boy
   testData() {
     this.course.push(
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
+      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
+      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
+      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
+      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
     );
   }
 
@@ -65,7 +71,11 @@ export class CourseComponent implements OnInit {
     }
     else if((Object.keys(this.model).length== 3))
     {
-      this.courseService.create(this.model)
+      this.model3.courseDescription = this.model.courseDescription;
+      this.model3.CourseDueDate = this.model.CourseDueDate;
+      this.model3.courseName = this.model.courseName;
+    
+      this.courseService.create(this.model3)
             .pipe(first())
             .subscribe(
                 data => {
@@ -82,7 +92,7 @@ export class CourseComponent implements OnInit {
     
   
   deleteCourse(i) {
-    this.courseService.delete(i)
+    this.courseService.delete(i+1)
             .pipe(first())
             .subscribe(
                 data => {
@@ -93,19 +103,15 @@ export class CourseComponent implements OnInit {
                 },
                 error => {
                     this.alertService.error('Error, Deletion was unsuccesful');
-                    
-                    this.course.splice(i, 1);//Please Remove this When the you have connected to the API
-                    console.log(i);
                 });
   }
 
   myValue;
 
   editCourse(editCourseInfo) {
-    this.model2.Course_ID = this.course[editCourseInfo].CourseId;
-    this.model2.Course_Description = this.course[editCourseInfo].CourseDescription;
-    this.model2.Due_Date = this.course[editCourseInfo].CourseDueDate;
-    this.model2.Message = this.course[editCourseInfo].CourseName;
+    this.model2.courseDescription = this.course[editCourseInfo].courseDescription;
+    this.model2.CourseDueDate = this.course[editCourseInfo].CourseDueDate;
+    this.model2.courseName = this.course[editCourseInfo].courseName;
     this.myValue = editCourseInfo;
   }
 
@@ -116,6 +122,10 @@ export class CourseComponent implements OnInit {
 
       if(i == editCourseInfo) 
       {
+        this.model3.courseDescription = this.model2.courseDescription;
+        this.model3.CourseDueDate = this.model2.CourseDueDate;
+        this.model3.courseName = this.model2.courseName;
+
         this.courseService.update(editCourseInfo, this.model2)
             .pipe(first())
             .subscribe(

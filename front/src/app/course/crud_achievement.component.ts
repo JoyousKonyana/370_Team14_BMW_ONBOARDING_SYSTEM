@@ -88,16 +88,12 @@ export class CRUD_AchievementComponent implements OnInit {
     this.model3.BadgeId = this.model.Badge_ID;
     this.model3.AchievementTypeDescription = this.model.Achievment_Type_Description;
 
-
     if(Object.keys(this.model).length < 2)
     {
       this.alertService.error("Error, you have an empty feild");
       console.log('Empty');
       this.newAchievement_TypeClicked = !this.newAchievement_TypeClicked;
       this.model = {};
-      
-
-
     }
     else if((Object.keys(this.model).length==2))
     {
@@ -109,7 +105,6 @@ export class CRUD_AchievementComponent implements OnInit {
                     this.achievment_type.push(this.model);
                     this.newAchievement_TypeClicked = !this.newAchievement_TypeClicked;
                     this.model = {};
-                    console.log(this.model);
                 },
                 error => {
                     this.alertService.error('Error, Creation was unsuccesful');
@@ -153,7 +148,10 @@ export class CRUD_AchievementComponent implements OnInit {
 
       if(i == editAchievment_TypeInfo) 
       {
-        this.achievment_typeService.update(editAchievment_TypeInfo+1, this.model2)
+        this.model3.BadgeId = this.model2.Badge_ID;
+        this.model3.AchievementTypeDescription = this.model2.Achievment_Type_Description;
+
+        this.achievment_typeService.update(editAchievment_TypeInfo+1, this.model3)
             .pipe(first())
             .subscribe(
                 data => {

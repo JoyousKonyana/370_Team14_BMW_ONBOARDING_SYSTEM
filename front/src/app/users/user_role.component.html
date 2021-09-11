@@ -21,8 +21,13 @@
     User Role
   </div>
   <br/>
-  <div class="btn btn-primary" (click)="addNewUser_RoleBtn()">Create User Role</div>
+  <div class="btn btn-primary" (click)="addNewUser_RoleBtn()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+    </svg>
+  </div>
   <br/>
+  <div class="btn btn-link" (click)="testData()">Populate Data</div>
   <p></p>
 </div>
 <div class="addEmployeeBtnContainer">
@@ -33,26 +38,28 @@
 <div class="formWrapper">
 <form>
   <div class="form-group name">
-    <!-- <label for="name">Name:</label> -->
     <input type="text"
            class="form-control input"
            id="name"
            name="name"
-           [(ngModel)]="model.name"
+           [(ngModel)]="model.UserRoleName"
            placeholder="Name">
   </div>
 
    <div class="form-group position">
-    <!-- <label for="position">Position:</label> -->
     <input type="text"
            class="form-control positionInput"
            id="description"
            name="description"
-           [(ngModel)]="model.description"
+           [(ngModel)]="model.UserRoleAccessDescription"
            placeholder="Description">
   </div>
   <div class="submitBtnContainer">
-    <button type="submit" class="btn btn-success" (click)="addUser_Role()">SAVE</button>
+    <button type="submit" class="btn btn-success" (click)="addUser_Role()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg>
+    SAVE</button>
   </div>
 </form>
 </div>
@@ -64,18 +71,29 @@
 <table class="table table-striped">
 <thead>
   <tr>
+    <th class="col-1">ID</th>
     <th class="col-3">Name</th>
-    <th class="col-5">Description</th>
+    <th class="col-4">Description</th>
     <th class="col-2">Action</th>
   </tr>
 </thead>
 <tbody>
   <tr *ngFor="let user_role of user_role; let i = index">
-    <td>{{user_role.name}}</td>
-    <td>{{user_role.description}}</td>
+    <td>{{user_role.UserRoleId}}</td>
+    <td>{{user_role.UserRoleName}}</td>
+    <td>{{user_role.UserRoleAccessDescription}}</td>
     <td>
-    <button class="btn btn-primary" (click)="editUser_Role(i)">Update</button>
-    <button class="btn btn-danger" (click)="deleteUser_Role(i)">Delete</button>
+    <button class="btn btn-primary" (click)="editUser_Role(i)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>
+    </button>
+    <button class="btn btn-danger" (click)="deleteUser_Role(i)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+      </svg>
+    </button>
     </td>
   </tr>
 </tbody>
@@ -93,28 +111,24 @@
          class="form-control"
          id="name"
          name="name"
-         [(ngModel)]="model2.name"
+         [(ngModel)]="model2.UserRoleName"
          placeholder="Name">
 </div>
 
  <div class="form-group position">
-  <!-- <label for="position">Position:</label> -->
   <input type="text"
          class="form-control"
          id="description"
          name="description"
-         [(ngModel)]="model2.description"
+         [(ngModel)]="model2.UserRoleAccessDescription"
          placeholder="Description">
 </div>
 
-<button class="btn btn-success" type="submit" (click)="updateUser_Role()">Update</button>
+<button class="btn btn-success" type="submit" (click)="updateUser_Role()">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>
+Update</button>
 </form>
 
-
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-<p></p>

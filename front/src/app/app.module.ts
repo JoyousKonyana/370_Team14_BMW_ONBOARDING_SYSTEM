@@ -103,6 +103,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         Assign_EquipmentComponent,
         CRUD_FAQComponent,
         Import_EmployeeComponent,
+        CRUD_EmployeeComponent,
 
         //Course 
         CourseComponent,

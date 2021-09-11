@@ -1,7 +1,7 @@
 <div class="AddEmployeeTitleContainer">
 <div class="addEmployeeTitleContainer">
 <div>
-  READ, UPDATE & DELETE Employee
+  Employee Center
 </div>
 </div>
 <div class="btn btn-link" (click)="testData()">Populate Data</div>
@@ -14,109 +14,204 @@
 <div *ngIf="updateEmployeeClicked">
 <div class="container">
 <h1 class="">Update Employee</h1>
+
+<a (click)="updateEmployeeBtn()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>Close</a>
+
 <form>
+
 <div class="form-group name">
-<input type="text"
-       class="form-control input"
-       id="first_name"
-       name="first_name"
-       [(ngModel)]="model.first_name"
-       placeholder="First Name">
+    <input type="text"
+           class="form-control input"
+           id="first_name"
+           name="first_name"
+           [(ngModel)]="model.first_name"
+           placeholder="First Name">
+  </div>
+
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="middle_name"
+           name="middle_name"
+           [(ngModel)]="model.middle_name"
+           placeholder="Middle Name">
+  </div>
+
+  <div class="form-group name">
+  <input type="text"
+         class="form-control input"
+         id="last_name"
+         name="last_name"
+         [(ngModel)]="model.last_name"
+         placeholder="Last Name">
 </div>
+
+ <div class="form-group position">
+  <label for="title">Choose a Title:</label>
+  <select (change)="titles($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="title"
+                        name="title"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.TitleId">{{item.TitleDescription}}</option>
+</select>
+</div>
+
+<div class="form-group name">
+<label for="gender">Choose a Gender:</label>
+  <select (change)="gender($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="gender"
+                        name="gender"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.GenderId">{{item.GenderDescription}}</option>
+</select>
+</div>
+
 <div class="form-group position">
 <input type="text"
        class="form-control positionInput"
-       id="middle_name"
-       name="middle_name"
-       [(ngModel)]="model.middle_name"
-       placeholder="Middle Name">
+       id="id_number"
+       name="id_number"
+       [(ngModel)]="model.id_number"
+       placeholder="ID Number">
 </div>
+
 <div class="form-group name">
 <input type="text"
      class="form-control input"
-     id="last_name"
-     name="last_name"
-     [(ngModel)]="model.last_name"
-     placeholder="Last Name">
+     id="contact_number"
+     name="contact_number"
+     [(ngModel)]="model.contact_number"
+     placeholder="Contact Number">
 </div>
+
+<div class="form-group position">
+<label for="department">Choose a Department:</label>
+  <select (change)="department($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="department"
+                        name="department"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.DepartmentId">{{item.DepartmentDescription}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="user_role">Choose a User Role:</label>
+  <select (change)="user_role($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="user_role"
+                        name="user_role"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.UserRoleID">{{item.UserRoleDescription}}</option>
+</select>
+</div>
+
+<div class="form-group name">
+<input type="text"
+     class="form-control input"
+     id="job_title"
+     name="job_title"
+     [(ngModel)]="model.job_title"
+     placeholder="Job Title">
+</div>
+
+<div class="form-group position">
+<label for="province">Choose a Province:</label>
+  <select (change)="province($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="province"
+                        name="province"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.ProvinceId">{{item.ProvinceName}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="suburb">Choose a Suburb:</label>
+  <select (change)="suburb($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="suburb"
+                        name="suburb"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.SuburbId">{{item.SuburbName}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="city">Choose a City:</label>
+  <select (change)="city($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="city"
+                        name="city"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.CityId">{{item.CityId}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="country">Choose a Country:</label>
+  <select (change)="country($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="country"
+                        name="country"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.CountryId">{{item.CountryName}}</option>
+</select>
+</div>
+
 <div class="form-group position">
 <input type="text"
      class="form-control positionInput"
-     id="title"
-     name="title"
-     [(ngModel)]="model.title"
-     placeholder="Title">
+     id="street_number"
+     name="street_number"
+     [(ngModel)]="model.street_number"
+     placeholder="Street Number">
 </div>
-<div class="form-group name">
-<input type="text"
-   class="form-control input"
-   id="gender"
-   name="gender"
-   [(ngModel)]="model.gender"
-   placeholder="Gender">
-</div>
+
 <div class="form-group position">
 <input type="text"
-   class="form-control positionInput"
-   id="id_number"
-   name="id_number"
-   [(ngModel)]="model.id_number"
-   placeholder="ID Number">
+     class="form-control positionInput"
+     id="street_name"
+     name="street_name"
+     [(ngModel)]="model.street_name"
+     placeholder="Street Name">
 </div>
-<div class="form-group name">
-<input type="text"
- class="form-control input"
- id="contact_number"
- name="contact_number"
- [(ngModel)]="model.contact_number"
- placeholder="Contact Number">
-</div>
-<div class="form-group position">
-<input type="text"
- class="form-control positionInput"
- id="department"
- name="department"
- [(ngModel)]="model.department"
- placeholder="Department">
-</div>
-<div class="form-group name">
-<input type="text"
- class="form-control input"
- id="job_title"
- name="job_title"
- [(ngModel)]="model.job_title"
- placeholder="Job Title">
-</div>
-<div class="form-group position">
-<input type="text"
- class="form-control positionInput"
- id="address"
- name="address"
- [(ngModel)]="model.address"
- placeholder="Address">
-</div>
-<button class="btn btn-success" type="submit" (click)="updateEmployee()">Update</button>
+
+<button class="btn btn-success" type="submit" (click)="updateEmployee()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+Update
+</button>
 </form>
 </div>
 <hr>
 </div>
 
-<br/>
-
-<div class="search-hero container">
-<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a equipment by id or brand or tyoe or Serial number or even Trade-In">
-</div>
+<hr>
 
 <div class="tableWrapper">
 <table class="table table-striped">
 <thead>
 <tr>
 <th scope="col">Employee ID</th>
-<th scope="col">Department ID</th>
 <th scope="col">First Name</th>
 <th scope="col">Middle Name</th>
 <th scope="col">Last Name</th>
-<th scope="col">Title</th>
 <th scope="col">ID Number</th>
 <th scope="col">Contact Number</th>
 <th scope="col">Job Title</th>
@@ -125,18 +220,26 @@
 </thead>
 <tbody>
 
-    <tr *ngFor="let items of employee | filter:searchText; let i = index">
+    <tr *ngFor="let items of employee; let i = index">
       <td>{{items.Employee_ID}}</td>
-      <td>{{items.Department_ID}}</td>
       <td>{{items.first_name}}</td>
       <td>{{items.Middle_Name}}</td>
       <td>{{items.Last_Name}}</td>
-      <td>{{items.Title}}</td>
+      <td>{{items.id_number}}</td>
       <td>{{items.Contact_Number}}</td>
       <td>{{items.Job_Title}}</td>
       <td>
-        <button class="btn btn-primary" (click)="editEmployee(i)">Update</button>
-        <button class="btn btn-danger" (click)="deleteEmployee(i)">Delete</button>
+        <button class="btn btn-primary" (click)="editEmployee(i)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+        </button>
+        <button class="btn btn-danger" (click)="deleteEmployee(i)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+          </svg>
+        </button>
       </td>
     </tr>
 

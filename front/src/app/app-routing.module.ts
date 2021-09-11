@@ -19,6 +19,7 @@ import {
     OnboarderComponent,
     SS_AdministratorComponent,
     CRUD_FAQComponent,
+    CRUD_EmployeeComponent,
     Import_EmployeeComponent
  } from './administrator';
 
@@ -83,6 +84,7 @@ const routes: Routes = [
     { path: 'assign_equipment', component: Assign_EquipmentComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
     { path: 'crud_faq', component: CRUD_FAQComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
     { path: 'import_employee', component: Import_EmployeeComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+    { path: 'crud_employee', component: CRUD_EmployeeComponent, canActivate: [AuthGuard] },
 
     //Report path pages
     { path: 'ss_report', component: SS_ReportComponent, canActivate: [AuthGuard] },

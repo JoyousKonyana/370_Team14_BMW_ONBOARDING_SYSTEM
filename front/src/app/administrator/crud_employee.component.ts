@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 
-import { Employee } from '../_models';
+import { Employee, Reg_Emp } from '../_models';
 import { EmployeeService, AuthenticationService, AlertService } from '../_services';
 
 
@@ -14,13 +14,8 @@ import { EmployeeService, AuthenticationService, AlertService } from '../_servic
 })
 
 export class CRUD_EmployeeComponent implements OnInit {
-  
-  dataSaved = false;  
-  employeeForm: any;  
-  //employee: Observable<Employee[]>;  
-  employeeIdUpdate = null;  
-  massage = null;
   employee: Employee[] = [];
+  info: Reg_Emp[] = [];
 
   constructor(
       private employeeService: EmployeeService,
@@ -34,6 +29,18 @@ export class CRUD_EmployeeComponent implements OnInit {
 }
 
 private loadAll() {
+
+  this.employeeService.getInformationToRegister()
+  .pipe(first())
+  .subscribe(
+    info => {
+      this.info = info;
+    },
+    error => {
+      this.alertService.error('Error, Data was unsuccesfully retrieved');
+    } 
+  );
+
   this.employeeService.getAllEmployee()
   .pipe(first())
   .subscribe(
@@ -55,50 +62,105 @@ private loadAll() {
     )
   }
 
-    newEmployeeClicked = false;
+  updateEmployeeClicked = false;
 
   color;
 
   model: any = {};
-  model2: any = {};
   
   deleteEmployee(i) {
-    this.employeeService.delete(i)
+    this.employeeService.delete(i+1)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Deletion was successful', true);
-
                     this.employee.splice(i, 1);
-                    console.log(i);
                 },
                 error => {
                     this.alertService.error('Error, Deletion was unsuccesful');
-                    
-                    this.employee.splice(i, 1);//Please Remove this When the you have connected to the API
-                    console.log(i);
                 });
   }
 
   myValue;
 
   editEmployee(editEmployeeInfo) {
-    this.model2.Employee_ID = this.employee[editEmployeeInfo].Employee_ID;
-    this.model2.Department_ID = this.employee[editEmployeeInfo].Department_ID;
-    this.model2.first_name = this.employee[editEmployeeInfo].first_name;
-    this.model2.Middle_Name = this.employee[editEmployeeInfo].Middle_Name;
-    this.model2.Last_Name = this.employee[editEmployeeInfo].Last_Name;
-    this.model2.Title = this.employee[editEmployeeInfo].Title;
-    this.model2.Gender_ID = this.employee[editEmployeeInfo].Gender_ID;
-    this.model2.ID_Number = this.employee[editEmployeeInfo].ID_Number;
-    this.model2.Contact_Number = this.employee[editEmployeeInfo].Contact_Number;
-    this.model2.Job_Title = this.employee[editEmployeeInfo].Job_Title;
-    this.model2.Address_ID = this.employee[editEmployeeInfo].Address_ID;
+    this.updateEmployeeBtn();
+
+    this.model.first_name = this.employee[editEmployeeInfo].first_name;
+    this.model.Middle_Name = this.employee[editEmployeeInfo].Middle_Name;
+    this.model.Last_Name = this.employee[editEmployeeInfo].Last_Name;
+    this.model.ID_Number = this.employee[editEmployeeInfo].ID_Number;
+    this.model.Contact_Number = this.employee[editEmployeeInfo].Contact_Number;
+    this.model.Job_Title = this.employee[editEmployeeInfo].Job_Title;
     this.myValue = editEmployeeInfo;
   }
+
+  titles(index) {
+    this.model2.TitleId = index;
+  }
+
+  gender(index) {
+    this.model2.GenderId = index;
+  }
+
+  department(index) {
+    this.model2.DepartmentId = index;
+  }
+
+  user_role(index) {
+    this.model2.UserRoleID = index;
+  }
+
+  suburb(index) {
+    this.model2.SuburbId = index;
+  }
+
+  province(index) {
+    this.model2.ProvinceId = index;
+  }
+
+  city(index) {
+    this.model2.CityId = index;
+  }
+
+  country(index) {
+    this.model2.CountryId = index;
+  }
+
+  model2: Reg_Emp = {
+    EmployeeId: 1,
+    DepartmentId: 1,
+    UserRoleID: 1,
+    GenderId: 1,
+    AddressId: 1,
+    EmployeeCalendarId: '',
+    FirstName: 'string',
+    LastName: 'string',
+    MiddleName: 'string',
+    Idnumber: 1,
+    EmailAddress: 'string',
+    ContactNumber: '1',
+    EmployeeJobTitle: 'vhv',
+    TitleId: 1,
+    SuburbId: 1,
+    ProvinceId: 1,
+    CityId: 1,
+    CountryId: 1,
+    StreetNumber: 1,
+    StreetName: 'string'
+};
     
   updateEmployee() {
     let editEmployeeInfo = this.myValue;
+
+    this.model2.FirstName = this.model.first_name;
+    this.model2.MiddleName = this.model.middle_name;
+    this.model2.LastName = this.model.last_name;
+    this.model2.Idnumber = this.model.id_number;
+    this.model2.DepartmentId = this.model.department;
+    this.model2.TitleId = this.model.job_title;
+    this.model2.StreetNumber = this.model.street_number;
+    this.model2.StreetName = this.model.street_name;
 
     for(let i = 0; i < this.employee.length; i++) {
 
@@ -109,22 +171,20 @@ private loadAll() {
             .subscribe(
                 data => {
                     this.alertService.success('Update was successful', true);
-
-                    this.employee[i] = this.model2;
-                    this.model2 = {};
+                    this.loadAll();
+                    this.model = {};
+                    this.updateEmployeeBtn();
                 },
                 error => {
                     this.alertService.error('Error, Update was unsuccesful');
-                    
-                    this.employee[i] = this.model2;//Remove this code when you connect to the API
-                    this.model2 = {};
+                    this.updateEmployeeBtn();
                 });
       }
     }
     }
 
-    addNewEmployeeBtn() {
-        this.newEmployeeClicked = !this.newEmployeeClicked;
+    updateEmployeeBtn() {
+        this.updateEmployeeClicked = !this.updateEmployeeClicked;
       }
 
 }

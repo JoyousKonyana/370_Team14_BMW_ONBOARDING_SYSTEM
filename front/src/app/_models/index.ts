@@ -17,4 +17,6 @@ export * from './equipment_type';
 export * from './equipment_query';
 export * from './query_status';
 export * from './assigequipment';
-export* from './reg_emp';
+export * from './reg_emp';
+export * from './title';
+export * from './gender';

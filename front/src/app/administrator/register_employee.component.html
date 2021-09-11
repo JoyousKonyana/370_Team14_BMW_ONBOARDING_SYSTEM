@@ -33,7 +33,6 @@
 <form>
 
   <div class="form-group name">
-    <!-- <label for="name">Name:</label> -->
     <input type="text"
            class="form-control input"
            id="first_name"
@@ -43,7 +42,6 @@
   </div>
 
    <div class="form-group position">
-    <!-- <label for="position">Position:</label> -->
     <input type="text"
            class="form-control positionInput"
            id="middle_name"
@@ -53,7 +51,6 @@
   </div>
 
   <div class="form-group name">
-  <!-- <label for="name">Name:</label> -->
   <input type="text"
          class="form-control input"
          id="last_name"
@@ -63,27 +60,30 @@
 </div>
 
  <div class="form-group position">
-  <!-- <label for="position">Position:</label> -->
-  <input type="text"
-         class="form-control positionInput"
-         id="title"
-         name="title"
-         [(ngModel)]="model.title"
-         placeholder="Title">
+  <label for="title">Choose a Title:</label>
+  <select (change)="titles($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="title"
+                        name="title"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.TitleId">{{item.TitleDescription}}</option>
+</select>
 </div>
 
 <div class="form-group name">
-<!-- <label for="name">Name:</label> -->
-<input type="text"
-       class="form-control input"
-       id="gender"
-       name="gender"
-       [(ngModel)]="model.gender"
-       placeholder="Gender">
+<label for="gender">Choose a Gender:</label>
+  <select (change)="gender($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="gender"
+                        name="gender"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.GenderId">{{item.GenderDescription}}</option>
+</select>
 </div>
 
 <div class="form-group position">
-<!-- <label for="position">Position:</label> -->
 <input type="text"
        class="form-control positionInput"
        id="id_number"
@@ -93,7 +93,6 @@
 </div>
 
 <div class="form-group name">
-<!-- <label for="name">Name:</label> -->
 <input type="text"
      class="form-control input"
      id="contact_number"
@@ -103,17 +102,30 @@
 </div>
 
 <div class="form-group position">
-<!-- <label for="position">Position:</label> -->
-<input type="text"
-     class="form-control positionInput"
-     id="department"
-     name="department"
-     [(ngModel)]="model.department"
-     placeholder="Department">
+<label for="department">Choose a Department:</label>
+  <select (change)="department($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="department"
+                        name="department"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.DepartmentId">{{item.DepartmentDescription}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="user_role">Choose a User Role:</label>
+  <select (change)="user_role($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="user_role"
+                        name="user_role"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.UserRoleID">{{item.UserRoleDescription}}</option>
+</select>
 </div>
 
 <div class="form-group name">
-<!-- <label for="name">Name:</label> -->
 <input type="text"
      class="form-control input"
      id="job_title"
@@ -123,13 +135,69 @@
 </div>
 
 <div class="form-group position">
-<!-- <label for="position">Position:</label> -->
+<label for="province">Choose a Province:</label>
+  <select (change)="province($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="province"
+                        name="province"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.ProvinceId">{{item.ProvinceName}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="suburb">Choose a Suburb:</label>
+  <select (change)="suburb($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="suburb"
+                        name="suburb"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.SuburbId">{{item.SuburbName}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="city">Choose a City:</label>
+  <select (change)="city($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="city"
+                        name="city"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.CityId">{{item.CityId}}</option>
+</select>
+</div>
+
+<div class="form-group position">
+<label for="country">Choose a Country:</label>
+  <select (change)="country($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="country"
+                        name="country"
+                        >
+                        <option *ngFor="let item of info" 
+                                [value]="item.CountryId">{{item.CountryName}}</option>
+</select>
+</div>
+
+<div class="form-group position">
 <input type="text"
      class="form-control positionInput"
-     id="address"
-     name="address"
-     [(ngModel)]="model.address"
-     placeholder="Address">
+     id="street_number"
+     name="street_number"
+     [(ngModel)]="model.street_number"
+     placeholder="Street Number">
+</div>
+
+<div class="form-group position">
+<input type="text"
+     class="form-control positionInput"
+     id="street_name"
+     name="street_name"
+     [(ngModel)]="model.street_name"
+     placeholder="Street Name">
 </div>
 
   <div class="submitBtnContainer">

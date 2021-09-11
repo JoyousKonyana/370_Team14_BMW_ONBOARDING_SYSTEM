@@ -1,8 +1,9 @@
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { Reg_Emp } from '../_models';
+import { Reg_Emp, Title, Employee } from '../_models';
 import { EmployeeService, AlertService, AuthenticationService } from '../_services';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -13,15 +14,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     styleUrls: ['./ss_administrator.component.css']
 })
 export class Register_EmployeeComponent implements OnInit {
-  dataSaved = false;  
-  employeeForm: any;
 
   employee: Reg_Emp[] = [];
 
-  filtered: Object[]
-
-  employeeIdUpdate = null;  
-  massage = null;
+  info: Reg_Emp[] = [];
 
   constructor(
       
@@ -32,7 +28,21 @@ export class Register_EmployeeComponent implements OnInit {
   }
 
   ngOnInit() { 
-  }
+    this.loadAll();
+}
+
+private loadAll() {
+  this.employeeService.getInformationToRegister()
+  .pipe(first())
+  .subscribe(
+    info => {
+      this.info = info;
+    },
+    error => {
+      this.alertService.error('Error, Data was unsuccesfully retrieved');
+    } 
+  );
+}
 
   model2: Reg_Emp = {
     EmployeeId: 1,
@@ -56,26 +66,55 @@ export class Register_EmployeeComponent implements OnInit {
     StreetNumber: 1,
     StreetName: 'string'
 };
-  model: any = {}; 
+  model: any = {};
+
+  titles(index) {
+    this.model2.TitleId = index;
+  }
+
+  gender(index) {
+    this.model2.GenderId = index;
+  }
+
+  department(index) {
+    this.model2.DepartmentId = index;
+  }
+
+  user_role(index) {
+    this.model2.UserRoleID = index;
+  }
+
+  suburb(index) {
+    this.model2.SuburbId = index;
+  }
+
+  province(index) {
+    this.model2.ProvinceId = index;
+  }
+
+  city(index) {
+    this.model2.CityId = index;
+  }
+
+  country(index) {
+    this.model2.CountryId = index;
+  }
 
  addEmployee() { 
     
-  this.model2.FirstName = this.model.LastName;
+  this.model2.FirstName = this.model.first_name;
   this.model2.MiddleName = this.model.middle_name;
   this.model2.LastName = this.model.last_name;
-  this.model2.TitleId = this.model.title;
-  this.model2.GenderId = this.model.gender;
   this.model2.Idnumber = this.model.id_number;
   this.model2.DepartmentId = this.model.department;
   this.model2.TitleId = this.model.job_title;
-  this.model2.AddressId = this.model.address;
-
+  this.model2.StreetNumber = this.model.street_number;
+  this.model2.StreetName = this.model.street_name;
 
      if(Object.keys(this.model).length < 2)
      {
       
        this.alertService.error("Error, you have an empty feild");
-  //     console.log('Empty');
      }
      else if((Object.keys(this.model).length>=2))
      {

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';  
 import { Observable } from 'rxjs';
 
-import {Reg_Emp, Employee} from '@app/_models';
+import {Reg_Emp, Employee, Title, Gender} from '@app/_models';
 
 
 @Injectable({
@@ -14,27 +14,32 @@ export class EmployeeService {
 
    //Joyous, please put the link of the API here
    url = 'https://localhost:44319/api/Employee';  
+   titleurl = 'https://localhost:44319/api/Title'; 
 
   constructor(private http: HttpClient) { }  
 
   //this return an object containing all the required information
   // before you can register
   getInformationToRegister(){
-    return this.http.get<Employee[]>(`${this.url}/Get`);
+    return this.http.get<Reg_Emp[]>(`${this.url}/Get`);
   }
   getAllEmployee(): Observable<any> {  
     return this.http.get<any>(`${this.url}/GetAllEmployees`);  
   }  
 
   getEmployeeById(id: number): Observable<Employee> {  
-      return this.http.get<Employee>(`${this.url}/GetEmployeeById`+ id);  
-    }  
+    return this.http.get<Employee>(`${this.url}/GetEmployeeById`+ id);  
+  }  
+
+  getAllGender(): Observable<any> {
+    return this.http.get<any>(`${this.url}/GetAllGender`);
+  }
 
   delete(id: number) {
     return this.http.delete(`${this.url}/`+ id);
   }
 
-  update(id, employee:Employee) {
+  update(id, employee:Reg_Emp) {
     return this.http.put(`${this.url}/UpdateEmployee/`+ id, employee);
   }
 

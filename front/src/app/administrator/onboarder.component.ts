@@ -11,13 +11,7 @@ import { OnboarderService, AlertService, AuthenticationService } from '../_servi
 })
 
 export class OnboarderComponent implements OnInit {
-
-    dataSaved = false;  
-    faqForm: any;
     onboarder: Onboarder[] = [];
-
-  faqIdUpdate = null;  
-  massage = null;
 
   constructor(
       private onboarderService: OnboarderService,
@@ -65,7 +59,7 @@ export class OnboarderComponent implements OnInit {
     newOnboarderClicked = false;
 
   deleteOnboarder(i) {
-    this.onboarderService.delete(i)
+    this.onboarderService.delete(i+1)
             .pipe(first())
             .subscribe(
                 data => {
