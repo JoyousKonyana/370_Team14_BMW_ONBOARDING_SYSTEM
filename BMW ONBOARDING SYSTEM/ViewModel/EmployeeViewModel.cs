@@ -31,8 +31,8 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
         public int CityId { get; set; }
     
         public int CountryId { get; set; }
- 
-        public decimal StreetNumber { get; set; }
+
+        public string StreetNumber { get; set; }
 
         public string StreetName { get; set; }
     }

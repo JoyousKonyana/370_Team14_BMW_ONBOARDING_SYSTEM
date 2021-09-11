@@ -18,8 +18,8 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public int? CityId { get; set; }
         [Column("CountryID")]
         public int? CountryId { get; set; }
-        [Column(TypeName = "numeric(18, 0)")]
-        public decimal? StreetNumber { get; set; }
+    
+        public string StreetNumber { get; set; }
         [StringLength(50)]
         public string StreetName { get; set; }
 

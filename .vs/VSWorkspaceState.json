@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BMW ONBOARDING SYSTEM",
+    "\\BMW ONBOARDING SYSTEM\\Controllers",
+    "\\BMW ONBOARDING SYSTEM\\ViewModel",
+    "\\front"
   ],
-  "SelectedNode": "\\C:\\Users\\konya\\Source\\Repos\\370_Team14_BMW_ONBOARDING_SYSTEM",
+  "SelectedNode": "\\BMW ONBOARDING SYSTEM\\ViewModel\\EmployeeViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

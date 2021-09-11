@@ -13,5 +13,8 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
         public List<Suburb> suburbs = new List<Suburb>();
         public List<Country> countries = new List<Country>();
         public List<Province> provinces = new List<Province>();
+        public List<Department> departments = new List<Department>();
+        public List<Title> titles = new List<Title>();
+        List<UserRole> userRoles = new List<UserRole>();
     }
 }

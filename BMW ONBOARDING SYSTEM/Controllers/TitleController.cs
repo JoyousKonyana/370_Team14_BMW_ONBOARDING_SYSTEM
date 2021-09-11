@@ -26,7 +26,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAllTitle()
         {
             try
             {

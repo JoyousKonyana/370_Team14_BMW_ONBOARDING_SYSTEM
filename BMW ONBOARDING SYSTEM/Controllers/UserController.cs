@@ -38,7 +38,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _appSettings = appSettings.Value;
         }
 
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult<User>> registerUser(CreateUserViewModel model)
@@ -52,7 +52,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 var randomPassword = CreateRandomPassword();
                 user.Password = hashPassword(randomPassword);
                 //user.UserRoleID = 1;
-                user.UserId = 25;
+            
 
                 _userRepository.Add(user);
 

@@ -26,6 +26,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         private readonly ICityRepository _cityRepository;
         private readonly ISuburbRepository _suburbRepository;
         private readonly ICountryRepository _countryRepository;
+        private readonly ITitleRepository _titleRepository;
+        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
@@ -33,6 +36,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             ICityRepository cityRepository,
             ISuburbRepository suburbRepository,
             ICountryRepository countryRepository,
+            ITitleRepository titleRepository,
+             IDepartmentRepository departmentRepository,
+              IUserRoleRepository userRoleRepository,
             IMapper mapper)
         {
             _employeeRepository = employeeRepository;
@@ -41,12 +47,15 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _cityRepository = cityRepository;
             _suburbRepository = suburbRepository;
             _countryRepository = countryRepository;
+            _titleRepository = titleRepository;
+            _departmentRepository = departmentRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         //[Authorize(Roles = Role.Onboarder)]
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -55,6 +64,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 var cities = await _cityRepository.GetCtiessAsync();
                 var countries = await _countryRepository.GetCountriesAsync();
                 var suburb = await _suburbRepository.GetSuburbsAsync();
+                var title = await _titleRepository.GetTitlestAsync();
+                var department = await _departmentRepository.GetDepartmentAsync();
+                
                 foreach (var m in postalCodes)
                 {
                     registerEmployeeDTO.postalCodes.Add(m);
@@ -74,7 +86,15 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     registerEmployeeDTO.suburbs.Add(m);
                 }
 
+                foreach (var m in title)
+                {
+                    registerEmployeeDTO.titles.Add(m);
+                }
 
+                foreach (var m in department)
+                {
+                    registerEmployeeDTO.departments.Add(m);
+                }
 
                 return Ok(registerEmployeeDTO);
             }
@@ -104,10 +124,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     if (await _employeeRepository.SaveChangesAsync())
                     {
                         CreateUserViewModel user = new CreateUserViewModel();
-                        user.EmployeeId = model.EmployeeId;
+                        user.EmployeeId = employee.EmployeeId;
 
-                        user.UserRoleID = 1;
-                        user.username = model.EmailAddress;
+                        user.UserRoleId = model.UserRoleID;
+                        user.Username = employee.EmailAddress;
 
                         //return Created($"/api/User/registerUser", user);
                         using (var httpClient = new HttpClient())
@@ -121,7 +141,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                             }
                         }
-                        if (user.UserRoleID == 1)
+                        if (user.UserRoleId == 1)
                         {
                             Onboarder onboarder = new Onboarder();
                             onboarder.EmployeeId = employee.EmployeeId;
@@ -185,8 +205,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                         {
                             CreateUserViewModel user = new CreateUserViewModel();
                             user.EmployeeId = emp.EmployeeId;
-                            user.UserRoleID = 1;
-                            user.username = emp.EmailAddress;
+                            user.UserRoleId = 1;
+                            user.Username = emp.EmailAddress;
                             //return Created($"/api/User/registerUser", user);
                             using (var httpClient = new HttpClient())
                             {
@@ -199,7 +219,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                                 }
                             }
-                            if (user.UserRoleID == 1)
+                            if (user.UserRoleId == 1)
                             {
                                 Onboarder onboarder = new Onboarder();
                                 onboarder.EmployeeId = employee.EmployeeId;
