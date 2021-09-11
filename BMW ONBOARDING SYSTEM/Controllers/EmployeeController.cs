@@ -204,9 +204,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                         if (await _employeeRepository.SaveChangesAsync())
                         {
                             CreateUserViewModel user = new CreateUserViewModel();
-                            user.EmployeeId = emp.EmployeeId;
-                            user.UserRoleId = 1;
-                            user.Username = emp.EmailAddress;
+                            user.EmployeeId = employee.EmployeeId;
+                            user.UserRoleId = emp.UserRoleID;
+                            user.Username = employee.EmailAddress;
                             //return Created($"/api/User/registerUser", user);
                             using (var httpClient = new HttpClient())
                             {
