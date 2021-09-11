@@ -78,6 +78,7 @@ namespace BMW_ONBOARDING_SYSTEM
 
             services.AddScoped<ISuburbRepository, SuburbRepository>();
             services.AddScoped<IGenderRepository, GenderRepository>();
+            services.AddScoped<IEquipementTypeRepository, EquipmentTypeRepository>();
             services.AddCors();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

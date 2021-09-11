@@ -7,7 +7,9 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
 {
     public class UserRoleViewModel
     {
-        public string UserRoleAccessDescription { get; set; }
+        public string UserRoleDescription { get; set; }
         public string UserRoleName { get; set; }
+
+        
     }
 }

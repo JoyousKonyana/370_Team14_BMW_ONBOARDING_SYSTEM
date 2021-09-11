@@ -21,13 +21,46 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     public class EquipmentController : ControllerBase
     {
         private readonly IEquipmentRepository _equipmentRepository;
+
+        private readonly    IWarrantyRepository _warrantyRepository;
+        private readonly IEquipementTypeRepository _equipmentTypeRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public EquipmentController(IEquipmentRepository equipmentRepository, IMapper mapper)
+        public EquipmentController(IEquipmentRepository equipmentRepository, IWarrantyRepository warrantyRepository, IEquipementTypeRepository equipmentTypeRepository,IMapper mapper)
         {
             _equipmentRepository = equipmentRepository;
             _mapper = mapper;
+            _warrantyRepository = warrantyRepository;
+            _equipmentTypeRepository = equipmentTypeRepository;
+        }
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                RegisterEquipmentDTO equipmentDTO = new RegisterEquipmentDTO();
+                var warranty = await _warrantyRepository.GetWarrantiesAsync();
+                var equipmentType = await _equipmentTypeRepository.GetAllEquipmentTypesAsync();
+                foreach (var warrant in warranty)
+                {
+                    equipmentDTO.warranties.Add(warrant);
+                }
+
+                foreach (var equipType in equipmentType)
+                {
+                    equipmentDTO.equipmentTypes.Add(equipType);
+                }
+              
+
+                return Ok(equipmentDTO);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
 
         //[Authorize(Roles = Role.Admin)]
