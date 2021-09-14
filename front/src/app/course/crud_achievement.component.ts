@@ -112,20 +112,15 @@ export class CRUD_AchievementComponent implements OnInit {
   }
 
   deleteAchievment_Type(i) {
-    this.achievment_typeService.delete(i+1)
+    this.achievment_typeService.delete(i)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Deletion was successful', true);
-
                     this.achievment_type.splice(i, 1);
-                    console.log(i);
                 },
                 error => {
                     this.alertService.error('Error, Deletion was unsuccesful');
-                    
-                    this.achievment_type.splice(i, 1);//Please Remove this When the you have connected to the API
-                    console.log(i);
                 });
   }
 
@@ -150,7 +145,7 @@ export class CRUD_AchievementComponent implements OnInit {
         this.model3.BadgeId = this.model2.Badge_ID;
         this.model3.AchievementTypeDescription = this.model2.Achievment_Type_Description;
 
-        this.achievment_typeService.update(editAchievment_TypeInfo+1, this.model3)
+        this.achievment_typeService.update(this.achievment_type[editAchievment_TypeInfo].AchievementTypeId, this.model3)
             .pipe(first())
             .subscribe(
                 data => {

@@ -128,7 +128,7 @@ export class CourseComponent implements OnInit {
         this.model3.CourseDueDate = this.model2.CourseDueDate;
         this.model3.CourseName = this.model2.CourseName;
 
-        this.courseService.update(editCourseInfo, this.model2)
+        this.courseService.update(this.course[editCourseInfo].CourseId, this.model2)
             .pipe(first())
             .subscribe(
                 data => {

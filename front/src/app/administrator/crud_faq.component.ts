@@ -126,13 +126,12 @@ export class CRUD_FAQComponent implements OnInit {
 
       if(i == editFAQInfo) 
       {
-        this.faqService.update(editFAQInfo+1, this.model3)
+        this.faqService.update(this.faq[editFAQInfo].Faqid, this.model3)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Update was successful', true);
-
-                    this.faq[i] = this.model2;
+                    this.faq[editFAQInfo] = this.model2;
                     this.model2 = {};
                 },
                 error => {

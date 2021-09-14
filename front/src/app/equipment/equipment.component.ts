@@ -181,7 +181,7 @@ export class EquipmentComponent implements OnInit {
 
       if(i == editEquipmentInfo) 
       {
-        this.equipmentService.update(editEquipmentInfo+1, this.model3)
+        this.equipmentService.update(this.equipment[editEquipmentInfo].EquipmentId, this.model3)
             .pipe(first())
             .subscribe(
                 data => {
