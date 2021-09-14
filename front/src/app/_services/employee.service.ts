@@ -21,7 +21,7 @@ export class EmployeeService {
   //this return an object containing all the required information
   // before you can register
   getInformationToRegister(){
-    return this.http.get<Reg_Emp[]>(`${this.url}/Get`);
+    return this.http.get<any>(`${this.url}/GetAll`);
   }
   
   getAllEmployee(): Observable<any> {  

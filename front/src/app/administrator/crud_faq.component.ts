@@ -11,13 +11,7 @@ import { FAQService, AuthenticationService, AlertService } from '../_services';
 })
 
 export class CRUD_FAQComponent implements OnInit {
-  
-  dataSaved = false;  
-  faqForm: any;
   faq: FAQ[] = [];
-
-  faqIdUpdate = null;  
-  massage = null;
 
   constructor(
       private faqService: FAQService,
@@ -61,12 +55,13 @@ export class CRUD_FAQComponent implements OnInit {
       { Faqid: 4, Faqdescription: 'When is q', Faqanswer: 'It is Q'},
     )
   }
+  
   model3:FAQ = {
     Faqanswer: '',
     Faqdescription:'',
     Faqid:1
   };
-
+  
   addFAQ() { 
     this.model3.Faqanswer=this.model.Faqanswer;
     this.model3.Faqdescription = this.model.Faqdescription;
@@ -78,7 +73,7 @@ export class CRUD_FAQComponent implements OnInit {
       this.newFAQClicked = !this.newFAQClicked;
       this.model = {};
     }
-    else if((Object.keys(this.model).length==2))
+    else if((Object.keys(this.model).length>=2))
     {
       this.faqService.create(this.model3)
             .pipe(first())
@@ -96,8 +91,10 @@ export class CRUD_FAQComponent implements OnInit {
   }
     
   
-  deleteFAQ(i) {
-    this.faqService.delete(i+1)
+  deleteFAQ(i:number) {
+
+ 
+    this.faqService.delete(Number(i))
             .pipe(first())
             .subscribe(
                 data => {

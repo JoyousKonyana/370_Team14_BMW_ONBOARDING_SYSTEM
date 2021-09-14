@@ -59,7 +59,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetAll()
-        {
+      {
             try
             {
                 RegisterEmployeeDTO registerEmployeeDTO = new RegisterEmployeeDTO();

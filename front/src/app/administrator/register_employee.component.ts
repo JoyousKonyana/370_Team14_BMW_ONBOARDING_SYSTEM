@@ -1,3 +1,4 @@
+import { City } from './../_models/city';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -18,6 +19,7 @@ export class Register_EmployeeComponent implements OnInit {
   employee: Reg_Emp[] = [];
 
   info: Reg_Emp[] = [];
+  citiese:City[];
 
   constructor(
       
@@ -36,7 +38,18 @@ private loadAll() {
   .pipe(first())
   .subscribe(
     info => {
+
       this.info = info;
+      this.citiese = info.cities
+    
+      console.log(this.citiese);
+      console.log(info.cities)
+      var i =0;
+      for(i;i<=this.citiese.length;i++){
+       alert(this.citiese.length[i].cityId);
+        
+      }
+     
     },
     error => {
       this.alertService.error('Error, Data was unsuccesfully retrieved');
