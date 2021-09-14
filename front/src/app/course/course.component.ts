@@ -13,6 +13,8 @@ import { CourseService, AuthenticationService, AlertService } from '../_services
 export class CourseComponent implements OnInit {
   course: Course[] = [];
 
+  searchText;
+
   constructor(
       private courseService: CourseService,
       private alertService: AlertService
@@ -46,18 +48,18 @@ export class CourseComponent implements OnInit {
 
   model3:Course = {
     CourseId: 1,
-    courseDescription:'',
+    CourseDescription:'',
     CourseDueDate: '',
-    courseName: '',
-  } ;
+    CourseName: '',
+  };
 
   //Remove this bad boy
   testData() {
     this.course.push(
-      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
-      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
-      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
-      { CourseId: 1, courseDescription: '321', CourseDueDate: '', courseName: ''},
+      { CourseId: 1, CourseDescription: 'jfsd', CourseDueDate: '213', CourseName: '3212'},
+      { CourseId: 2, CourseDescription: 'fklsdm', CourseDueDate: '21', CourseName: 'as'},
+      { CourseId: 3, CourseDescription: 'cxzkl', CourseDueDate: '21', CourseName: ''},
+      { CourseId: 4, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
     );
   }
 
@@ -71,9 +73,9 @@ export class CourseComponent implements OnInit {
     }
     else if((Object.keys(this.model).length== 3))
     {
-      this.model3.courseDescription = this.model.courseDescription;
+      this.model3.CourseDescription = this.model.CourseDescription;
       this.model3.CourseDueDate = this.model.CourseDueDate;
-      this.model3.courseName = this.model.courseName;
+      this.model3.CourseName = this.model.CourseName;
     
       this.courseService.create(this.model3)
             .pipe(first())
@@ -109,9 +111,9 @@ export class CourseComponent implements OnInit {
   myValue;
 
   editCourse(editCourseInfo) {
-    this.model2.courseDescription = this.course[editCourseInfo].courseDescription;
+    this.model2.CourseDescription = this.course[editCourseInfo].CourseDescription;
     this.model2.CourseDueDate = this.course[editCourseInfo].CourseDueDate;
-    this.model2.courseName = this.course[editCourseInfo].courseName;
+    this.model2.CourseName = this.course[editCourseInfo].CourseName;
     this.myValue = editCourseInfo;
   }
 
@@ -122,9 +124,9 @@ export class CourseComponent implements OnInit {
 
       if(i == editCourseInfo) 
       {
-        this.model3.courseDescription = this.model2.courseDescription;
+        this.model3.CourseDescription = this.model2.CourseDescription;
         this.model3.CourseDueDate = this.model2.CourseDueDate;
-        this.model3.courseName = this.model2.courseName;
+        this.model3.CourseName = this.model2.CourseName;
 
         this.courseService.update(editCourseInfo, this.model2)
             .pipe(first())

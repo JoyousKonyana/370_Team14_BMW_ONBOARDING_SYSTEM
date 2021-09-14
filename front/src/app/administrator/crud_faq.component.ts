@@ -68,9 +68,8 @@ export class CRUD_FAQComponent implements OnInit {
   };
 
   addFAQ() { 
-    this.model3.Faqanswer=this.model.answer;
-    this.model3.Faqdescription = this.model.question;
-    // this.model3.Faqanswer = this.model.question;
+    this.model3.Faqanswer=this.model.Faqanswer;
+    this.model3.Faqdescription = this.model.Faqdescription;
 
     if(Object.keys(this.model).length < 2)
     {
@@ -123,8 +122,8 @@ export class CRUD_FAQComponent implements OnInit {
   updateFAQ() {
     let editFAQInfo = this.myValue;
 
-    this.model3.Faqanswer=this.model2.answer;
-    this.model3.Faqdescription = this.model2.question;
+    this.model3.Faqanswer=this.model2.Faqanswer;
+    this.model3.Faqdescription = this.model2.Faqdescription;
 
     for(let i = 0; i < this.faq.length; i++) {
 

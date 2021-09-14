@@ -20,3 +20,5 @@ export * from './assigequipment';
 export * from './reg_emp';
 export * from './title';
 export * from './gender';
+export * from './equipment_brand';
+export * from './badge';

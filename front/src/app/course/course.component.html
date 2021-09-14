@@ -25,16 +25,16 @@
            class="form-control input"
            id="name"
            name="name"
-           [(ngModel)]="model.courseName"
-           placeholder="Name">
+           [(ngModel)]="model.CourseName"
+           placeholder="Course Name">
   </div>
    <div class="form-group position">
     <input type="text"
            class="form-control positionInput"
            id="description"
            name="description"
-           [(ngModel)]="model.courseDescription"
-           placeholder="Description">
+           [(ngModel)]="model.CourseDescription"
+           placeholder="Course Description">
   </div>
   <div class="form-group name">
   <input type="text"
@@ -55,7 +55,11 @@
 </div>
 </div>
 
-<br/>
+<hr>
+
+<div class="search-hero container">
+<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a course by id or name or description">
+</div>
 
 <div class="tableWrapper">
 <table class="table table-striped">
@@ -68,10 +72,10 @@
   </tr>
 </thead>
 <tbody>
-  <tr *ngFor="let course of course; let i = index">
-    <td>{{course.courseName}}</td>
-    <td>{{course.courseDescription}}</td>
-    <td>{{course.courseDueDate}}</td>
+  <tr *ngFor="let course of course | filter:searchText; let i = index">
+    <td>{{course.CourseName}}</td>
+    <td>{{course.CourseDescription}}</td>
+    <td>{{course.CourseDueDate}}</td>
     <td>
     <button class="btn btn-warning" routerLink="/learning_outcome">Learning Outcome</button>
     <button class="btn btn-primary" (click)="editCourse(i)">
@@ -102,8 +106,8 @@
          class="form-control"
          id="name"
          name="name"
-         [(ngModel)]="model2.courseName"
-         placeholder="Name">
+         [(ngModel)]="model2.CourseName"
+         placeholder="Course Name">
 </div>
 
  <div class="form-group position">
@@ -111,8 +115,8 @@
          class="form-control"
          id="description"
          name="description"
-         [(ngModel)]="model2.courseDescription"
-         placeholder="Description">
+         [(ngModel)]="model2.CourseDescription"
+         placeholder="Course Description">
 </div>
 
 <div class="form-group name">

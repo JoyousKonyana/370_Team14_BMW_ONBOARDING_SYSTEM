@@ -1,6 +1,6 @@
 export class Course {
   CourseId: number;
-  courseDescription: string;
+  CourseDescription: string;
   CourseDueDate: string;
-  courseName: string;
+  CourseName: string;
   } 

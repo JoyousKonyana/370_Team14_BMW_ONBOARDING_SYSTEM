@@ -16,13 +16,16 @@
 <div *ngIf="newAchievement_TypeClicked">
 <div class="formWrapper">
 <form>
-   <div class="form-group position">
-    <input type="text"
-           class="form-control positionInput"
-           id="Badge"
-           name="Badge"
-           [(ngModel)]="model.Badge_ID"
-           placeholder="Badge">
+  <div class="form-group position">
+  <label for="BadgeId">Choose a Badge:</label>
+  <select (change)="badges($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="BadgeId"
+                        name="BadgeId"
+                        >
+                        <option *ngFor="let item of badge" 
+                                [value]="item.BadgeId">{{item.BadgeDecription}}</option>
+  </select>
   </div>
   <div class="form-group name">
   <input type="text"
@@ -46,13 +49,16 @@
 <div class="">Update Achievement Type</div>
 </div>
 <form>
-<div class="form-group name">
-<input type="text"
-       class="form-control"
-       id="Badge_ID"
-       name="Badge_ID"
-       [(ngModel)]="model2.Badge_ID"
-       placeholder="Badge">
+<div class="form-group position">
+<label for="BadgeId">Choose a Badge:</label>
+  <select (change)="badges($event.target.selectedIndex)"
+                        class="form-control positionInput"
+                        id="BadgeId"
+                        name="BadgeId"
+                        >
+                        <option *ngFor="let item of badge" 
+                                [value]="item.BadgeId">{{item.BadgeDecription}}</option>
+</select>
 </div>
 <div class="form-group name">
 <input type="text"
@@ -68,6 +74,10 @@
 
 <hr>
 
+<div class="search-hero container">
+<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a Achievement Type by ID or Name">
+</div>
+
 <div class="tableWrapper">
 <table class="table table-striped">
 <thead>
@@ -79,10 +89,10 @@
   </tr>
 </thead>
 <tbody>
-  <tr *ngFor="let item of achievment_type; let i = index">
+  <tr *ngFor="let item of achievment_type | filter:searchText; let i = index">
     <td>{{item.achievementTypeId}}</td>
     <td>{{item.achievementTypeDescription}}</td>
-    <td>{{item.badge}}</td>
+    <td>{{item.BadgeId}}</td>
     <td>
     <button class="btn btn-primary" (click)="editAchievment_Type(i)">Update</button>
     <button class="btn btn-danger" (click)="deleteAchievment_Type(i)">Delete</button>

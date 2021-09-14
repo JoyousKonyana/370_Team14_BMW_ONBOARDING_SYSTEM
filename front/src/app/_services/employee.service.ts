@@ -23,6 +23,7 @@ export class EmployeeService {
   getInformationToRegister(){
     return this.http.get<Reg_Emp[]>(`${this.url}/Get`);
   }
+  
   getAllEmployee(): Observable<any> {  
     return this.http.get<any>(`${this.url}/GetAllEmployees`);  
   }  

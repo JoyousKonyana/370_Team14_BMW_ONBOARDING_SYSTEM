@@ -1,8 +1,8 @@
-import { Achievment_Type } from '@app/_models';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
+import { Achievment_Type, Badge } from '@app/_models';
 import { Achievment_TypeService, AlertService } from '../_services';
 
 @Component({ 
@@ -11,13 +11,10 @@ import { Achievment_TypeService, AlertService } from '../_services';
 })
 
 export class CRUD_AchievementComponent implements OnInit {
-
-  dataSaved = false; 
   achievment_type: Achievment_Type[];
-  badge: any[];
+  badge: Badge[];
 
-  faqIdUpdate = null;  
-  massage = null;
+  searchText;
 
   constructor(
       private achievment_typeService: Achievment_TypeService,
@@ -50,7 +47,6 @@ export class CRUD_AchievementComponent implements OnInit {
     .subscribe(
       badge => {
         this.badge = badge;
-        console.log(this.badge);
       },
       error => {
         this.alertService.error('Error, Data was unsuccesfully retrieved');
@@ -82,6 +78,10 @@ export class CRUD_AchievementComponent implements OnInit {
       
     }
 
+    badges(index) {
+      this.model.BadgeId = index;
+      this.model2.BadgeId = index;
+    }
 
   addAchievement_Type() { 
     this.model3.BadgeId = this.model.Badge_ID;

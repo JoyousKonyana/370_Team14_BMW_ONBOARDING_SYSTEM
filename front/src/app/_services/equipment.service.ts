@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';  
 import { Observable } from 'rxjs';
 
-import {Equipment, AssignEquipment} from '@app/_models';
+import {Equipment, AssignEquipment, Equipment_Brand, Equipment_Type} from '@app/_models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,15 @@ export class EquipmentService {
 
   getAllEquipment(): Observable<Equipment[]> {  
     return this.http.get<Equipment[]>(`${this.url}`);  
-  }  
+  }
+  
+  getAllEquipment_Brand(): Observable<Equipment_Brand[]> {  
+    return this.http.get<Equipment_Brand[]>(`${this.url}`);  
+  } 
+
+  getAllEquipment_Type(): Observable<Equipment_Type[]> {  
+    return this.http.get<Equipment_Type[]>(`${this.url}`);  
+  } 
 
   getEquipmentById(id: string): Observable<Equipment> {  
       return this.http.get<Equipment>(`${this.url + '/GetEquipmentById/' + id}`);  
@@ -57,6 +65,7 @@ export class EquipmentService {
   generateTradeInReport(reportdata: ReportsModel){
     return this.http.post(`${this.url}/GenerateTradeInReport`,reportdata);
   }
+
   checkoutEquipment(equipcheckout:CheckOut){
     return this.http.put(`${this.url}/EquipmentDueForTradeIn`,equipcheckout);
   }
