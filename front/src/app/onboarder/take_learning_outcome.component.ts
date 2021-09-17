@@ -36,16 +36,16 @@ export class Take_Learning_OutcomeComponent implements OnInit {
   }
 
   private loadAll() {
-    this.learning_outcomeService.getLearning_OutcomeById(Number(this._Activatedroute.snapshot.paramMap.get("id")))
-    .pipe(first())
-    .subscribe(
-      lesson_outcome => {
-        this.lesson_outcome = lesson_outcome;
-      },
-      error => {
-        this.alertService.error('Error, Data was unsuccesfully retrieved');
-      } 
-    );
+    // this.learning_outcomeService.getLearning_OutcomeById(Number(this._Activatedroute.snapshot.paramMap.get("id")))
+    // .pipe(first())
+    // .subscribe(
+    //   lesson_outcome => {
+    //     this.lesson_outcome = lesson_outcome;
+    //   },
+    //   error => {
+    //     this.alertService.error('Error, Data was unsuccesfully retrieved');
+    //   } 
+    // );
   }
 
   //Remove this bad boy

@@ -53,15 +53,6 @@ private loadAll() {
   );
 }
 
-  //Remove this bad boy
-  testData() {
-    this.employee.push(
-      { Employee_ID: 1, Department_ID: 98, first_name: 'In y page', Middle_Name: '', Last_Name: '', Title: '', Gender_ID: '', ID_Number: '',  Contact_Number: '', Job_Title: '', Address_ID: 89 },
-      { Employee_ID: 2, Department_ID: 90, first_name: 'In y page', Middle_Name: '', Last_Name: '', Title: '', Gender_ID: '', ID_Number: '',  Contact_Number: '', Job_Title: '', Address_ID: 89},
-      { Employee_ID: 3, Department_ID: 98, first_name: 'In y page', Middle_Name: '', Last_Name: '', Title: '', Gender_ID: '', ID_Number: '',  Contact_Number: '', Job_Title: '', Address_ID: 89 },
-    )
-  }
-
   updateEmployeeClicked = false;
 
   color;

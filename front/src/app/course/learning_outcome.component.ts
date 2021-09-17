@@ -37,7 +37,7 @@ export class Learning_OutcomeComponent implements OnInit {
     .pipe(first())
     .subscribe(
       lesson_outcome => {
-        //this.faq = faq;
+      
         this.lesson_outcome = lesson_outcome;
       },
       error => {

@@ -62,23 +62,7 @@ private loadAll() {
   }
 
   model: any = {};
-  model2: any = {}; 
-
-  //Remove this bad boy
-  testData() {
-    this.course.push(
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '26/02/01',CourseName:''},
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
-      { CourseId: 1, CourseDescription: '321', CourseDueDate: '', CourseName: ''},
-    );
-    this.onboarder.push(
-      { Onboarder_ID: 123, Employee_ID: 12345, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 234, Employee_ID: 23456, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 345, Employee_ID: 34567, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 456, Employee_ID: 45678, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-    );
-  }
+  model2: any = {};
 
   addCourse_Onboarder_Enrollment() { 
     if(Object.keys(this.model).length < 3)

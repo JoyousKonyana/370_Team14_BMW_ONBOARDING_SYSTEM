@@ -39,7 +39,6 @@ private loadAll() {
   .pipe(first())
   .subscribe(
     info => {
-
       this.info = info;
      
     

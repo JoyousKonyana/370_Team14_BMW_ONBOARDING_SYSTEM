@@ -30,8 +30,6 @@
 
   <h1>Assign Equipment</h1>
 
-  <div class="btn btn-link" (click)="testData()">Populate Data</div>
-
   <p></p>
 
   <form action="/action_page.php" method="get">
@@ -42,11 +40,11 @@
       id="browser"
       type="text"
       class="form-control input"
-      [(ngModel)]="model.Onboarder_ID"
+      [(ngModel)]="model.OnboarderId"
       placeholder="Onboarder">
     <datalist id="browsers">
       <option *ngFor="let onboarder of onboarder">
-        {{onboarder.Onboarder_ID}}
+        {{onboarder.OnboarderId}}
       </option>
     </datalist>
   </form>
@@ -59,22 +57,22 @@
       id="browser1"
       type="text"
       class="form-control input"
-      [(ngModel)]="model.Equipment_ID"
+      [(ngModel)]="model.EquipmentId"
       placeholder="Equipment">
     <datalist id="browsers1">
       <option *ngFor="let equipment of equipment">
-        {{equipment.Equipment_ID}}
+        {{equipment.EquipmentId}}
       </option>
     </datalist>
   </form>
 
   <div class="form-group">
-    <input type="text"
+    <input type="date"
            class="form-control input"
            id="description"
            name="description"
-           [(ngModel)]="model.description"
-           placeholder="Description">
+           [(ngModel)]="model.EquipmentCheckOutDate"
+           placeholder="Check Out Date">
   </div>
 
    <div class="form-group ">
@@ -82,12 +80,17 @@
            class="form-control positionInput"
            id="check_out"
            name="check_out"
-           [(ngModel)]="model.check_out"
-           placeholder="Check Out">
+           [(ngModel)]="model.EquipmentCheckOutCondition"
+           placeholder="Check Out Condition">
   </div>
 
   <div class="">
-    <button type="submit" class="btn btn-success" (click)="addOnboarder_Equipment()">SAVE</button>
+    <button type="submit" class="btn btn-success" (click)="addOnboarder_Equipment()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app-indicator" viewBox="0 0 16 16">
+        <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/>
+        <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+      </svg>
+    SAVE</button>
   </div>
 </form>
 </div>
