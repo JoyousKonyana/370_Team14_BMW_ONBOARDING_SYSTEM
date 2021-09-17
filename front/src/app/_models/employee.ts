@@ -1,6 +1,6 @@
 export class Employee {
-    Employee_ID: number;
-    Department_ID: number;
+    EmployeeId: number;
+    DepartmentId: number;
     first_name: string; 
     Middle_Name: string; 
     Last_Name: string;  

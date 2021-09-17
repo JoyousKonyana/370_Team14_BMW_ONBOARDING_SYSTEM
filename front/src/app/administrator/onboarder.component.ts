@@ -44,17 +44,7 @@ export class OnboarderComponent implements OnInit {
   color;
 
   model: any = {};
-  model2: any = {}; 
-
-  //Remove this bad boy
-  testData() {
-    this.onboarder.push(
-      { Onboarder_ID: 123, Employee_ID: 12345, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 234, Employee_ID: 23456, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 345, Employee_ID: 34567, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 456, Employee_ID: 45678, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-    )
-  }
+  model2: any = {};
 
     newOnboarderClicked = false;
 
@@ -66,13 +56,9 @@ export class OnboarderComponent implements OnInit {
                     this.alertService.success('Deletion was successful', true);
 
                     this.onboarder.splice(i, 1);
-                    console.log(i);
                 },
                 error => {
                     this.alertService.error('Error, Deletion was unsuccesful');
-                    
-                    this.onboarder.splice(i, 1);//Please Remove this When the you have connected to the API
-                    console.log(i);
                 });
   }
 

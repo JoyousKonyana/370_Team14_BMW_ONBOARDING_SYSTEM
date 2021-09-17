@@ -40,15 +40,4 @@ export class Take_CourseComponent implements OnInit {
   }
 
     newUser_RoleClicked = false;
-
-  //Remove this bad boy
-  testData() {
-    this.course.push(
-      { Course_ID: 1, Course_Description: '321', Due_Date: '', Message: ''},
-      { Course_ID: 1, Course_Description: '321', Due_Date: '', Message: ''},
-      { Course_ID: 1, Course_Description: '321', Due_Date: '', Message: ''},
-      { Course_ID: 1, Course_Description: '321', Due_Date: '', Message: ''},
-    );
-  }
-
 }

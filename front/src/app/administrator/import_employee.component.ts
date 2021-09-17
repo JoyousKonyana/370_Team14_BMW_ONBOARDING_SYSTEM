@@ -73,8 +73,8 @@ export class Import_EmployeeComponent  {
       if (curruntRecord.length == headerLength) {
         let csvRecord: CsvData = new CsvData();
 
-        csvRecord.Employee_ID = curruntRecord[0].trim();
-        csvRecord.Department_ID = curruntRecord[1].trim();
+        //csvRecord.Employee_ID = curruntRecord[0].trim();
+        //csvRecord.Department_ID = curruntRecord[1].trim();
         csvRecord.first_name = curruntRecord[2].trim();
         csvRecord.Middle_Name = curruntRecord[3].trim();
 
@@ -84,7 +84,7 @@ export class Import_EmployeeComponent  {
 
         csvRecord.Contact_Number = curruntRecord[7].trim();
         csvRecord.Job_Title = curruntRecord[8].trim();
-        csvRecord.Address_ID = curruntRecord[9].trim();
+        //csvRecord.Address_ID = curruntRecord[9].trim();
 
         csvArr.push(csvRecord);
       }

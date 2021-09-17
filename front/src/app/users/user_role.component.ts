@@ -13,13 +13,7 @@ import { User_RoleService, AuthenticationService, AlertService } from '../_servi
 })
 
 export class User_RoleComponent implements OnInit {
-
-  // dataSaved = false;  
-  // CourseForm: any;
   user_role: User_Role[] = [];
-
-  // faqIdUpdate = null;  
-  // massage = null;
 
   constructor(
        private user_roleService: User_RoleService,

@@ -29,24 +29,16 @@ ngOnInit() {
 }
 
 private loadAll() {
-  this.xService.GetAssignedEquipment(1)
-  .pipe(first())
-  .subscribe(
-    x => {
-      this.x = x;
-    },
-    error => {
-      this.alertService.error('Error, Data was unsuccesfully retrieved');
-    } 
-  );
-}
-
-testData() {
-  this.x.push(
-    { Equipment_ID: '1', Onboarder_ID: '321', Equipment_Check_Out_Date: '', Equipment_Check_Out_Description: '', Equipment_Check_In_Date: '', Equipment_Check_In_Description: ''},
-    { Equipment_ID: '1', Onboarder_ID: '321', Equipment_Check_Out_Date: '', Equipment_Check_Out_Description: '', Equipment_Check_In_Date: '', Equipment_Check_In_Description: ''},
-    { Equipment_ID: '1', Onboarder_ID: '321', Equipment_Check_Out_Date: '', Equipment_Check_Out_Description: '', Equipment_Check_In_Date: '', Equipment_Check_In_Description: ''},
-  );
+  // this.xService.GetAssignedEquipment(1)
+  // .pipe(first())
+  // .subscribe(
+  //   x => {
+  //     this.x = x;
+  //   },
+  //   error => {
+  //     this.alertService.error('Error, Data was unsuccesfully retrieved');
+  //   } 
+  // );
 }
 
     newUser_RoleClicked = false;
