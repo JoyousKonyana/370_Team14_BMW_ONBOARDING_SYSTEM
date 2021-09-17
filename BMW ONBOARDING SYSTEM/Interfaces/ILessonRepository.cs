@@ -18,7 +18,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
        
 
         Task<Lesson> GetLessonByIdAsync(int lessonID);
-        Task<Lesson> GetLessonByCourseIdAsync(int courseID);
+        Task<Lesson[]> GetLessonByCourseIdAsync(int courseID);
 
 
        

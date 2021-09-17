@@ -22,11 +22,7 @@
   Equipment
 </div>
 <br/>
-<div class="btn btn-dark" (click)="addNewEquipmentBtn()">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-  </svg>
-Register Equipment</div>
+<div class="btn btn-dark" (click)="addNewEquipmentBtn()">Open Register Equipment</div>
 <br/>
 
 <p></p>
@@ -42,107 +38,56 @@ Register Equipment</div>
 <div class="container">
   <h1>Register Equipment</h1>
 <form>
-
-<div class="form-group position">
-<label for="Equipment_Type_ID">Choose a Equipment Type:</label>
-  <select (change)="type($event.target.selectedIndex)"
-                        class="form-control positionInput"
-                        id="Equipment_Type_ID"
-                        name="Equipment_Type_ID"
-                        >
-                        <option *ngFor="let item of types" 
-                                [value]="item.EquipmentTypeId">{{item.EquipmentTypeDescription}}</option>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control input"
+       id="equipment_type"
+       name="equipment_type"
+       [(ngModel)]="model.equipment_type"
+       placeholder="Equipment Type">
+<option>Equipment Type</option>
+<option *ngFor="let equipment_type of equipment_type; let i = index">
+  {{equipment_type.name}}
+</option>
 </select>
 </div>
-
 <p></p>
-
-<div class="form-group position">
-<label for="EquipmentBrandId">Choose a Equipment Brand:</label>
-  <select (change)="brand($event.target.selectedIndex)"
-                        class="form-control positionInput"
-                        id="EquipmentBrandId"
-                        name="EquipmentBrandId"
-                        >
-                        <option *ngFor="let item of brands" 
-                                [value]="item.EquipmentBrandId">{{item.EquipmentBrandName}}</option>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control input"
+       id="equipment_brand"
+       name="equipment_brand"
+       [(ngModel)]="model.equipment_brand"
+       placeholder="Equipment Brand">
+<option>Equipment Brand</option>
+<option *ngFor="let equipment_brand of equipment_brand; let i = index">
+  {{equipment_brand.name}}
+</option>
 </select>
 </div>
-
 <p></p>
-
-<div class="form-group">
-    <input type="text"
-           class="form-control input"
-           id="EquipmentTradeInStatus"
-           name="EquipmentTradeInStatus"
-           [(ngModel)]="model.EquipmentTradeInStatus"
-           placeholder="Equipment Trade In Status">
-  </div>
-
-<p></p>
-
-<div class="form-group">
-    <input type="date"
-           class="form-control input"
-           id="WarrantyStartDate"
-           name="WarrantyStartDate"
-           [(ngModel)]="model.WarrantyStartDate"
-           placeholder="Equipment Warranty Start Date">
-  </div>
-
-<p></p>
-
-<div class="form-group">
-    <input type="date"
-           class="form-control input"
-           id="WarrantyEndDate"
-           name="WarrantyEndDate"
-           [(ngModel)]="model.WarrantyEndDate"
-           placeholder="Equipment Warranty End Date">
-  </div>
-
-<p></p>
-
-<div class="form-group">
-    <input type="text"
-           class="form-control input"
-           id="WarrantyStatus"
-           name="WarrantyStatus"
-           [(ngModel)]="model.WarrantyStatus"
-           placeholder="Equipment Warranty Status">
-  </div>
-
-<p></p>
-
   <div class="form-group">
-    <input type="date"
+    <input type="text"
            class="form-control input"
-           id="EquipmentTradeInDeadline"
-           name="EquipmentTradeInDeadline"
-           [(ngModel)]="model.EquipmentTradeInDeadline"
-           placeholder="Equipment Trade-In Deadline">
+           id="equipment_trade_in_date"
+           name="equipment_trade_in_date"
+           [(ngModel)]="model.equipment_trade_in_date"
+           placeholder="Equipment Trade-In Date">
   </div>
-
   <p></p>
-
   <div class="form-group">
-  <input type="number"
+  <input type="text"
          class="form-control input"
-         id="EquipmentSerialNumber"
-         name="EquipmentSerialNumber"
-         [(ngModel)]="model.EquipmentSerialNumber"
+         id="equipment_serial_number"
+         name="equipment_serial_number"
+         [(ngModel)]="model.equipment_serial_number"
          placeholder="Equipment Serial Number">
 </div>
-
 <p></p>
-
   <div class="">
-    <button type="submit" class="btn btn-success" (click)="addEquipment()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-      </svg>
-    SAVE</button>
+    <button type="submit" class="btn btn-success" (click)="addEquipment()">SAVE</button>
   </div>
 </form>
 </div>
@@ -183,113 +128,61 @@ Register Equipment</div>
 <div class="container">
 <h1 class="">Update Equipment</h1>
 <form>
-
-<div class="form-group position">
-<label for="Equipment_Type_ID">Choose a Equipment Type:</label>
-  <select (change)="type($event.target.selectedIndex)"
-                        class="form-control positionInput"
-                        id="Equipment_Type_ID"
-                        name="Equipment_Type_ID"
-                        >
-                        <option *ngFor="let item of types" 
-                                [value]="item.EquipmentTypeId">{{item.EquipmentTypeDescription}}</option>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control"
+       id="equipment_type"
+       name="equipment_type"
+       [(ngModel)]="model2.equipment_type"
+       placeholder="Equipment Type">
+<option>Equipment Type</option>
+<option *ngFor="let equipment_type of equipment_type; let i = index">
+  {{equipment_type.nme}}
+</option>
 </select>
 </div>
-
 <p></p>
-
-<div class="form-group position">
-<label for="EquipmentBrandId">Choose a Equipment Brand:</label>
-  <select (change)="brand($event.target.selectedIndex)"
-                        class="form-control positionInput"
-                        id="EquipmentBrandId"
-                        name="EquipmentBrandId"
-                        >
-                        <option *ngFor="let item of brands" 
-                                [value]="item.EquipmentBrandId">{{item.EquipmentBrandName}}</option>
+<div class="form-group postion">
+<select class="form-control input" formControlName="purpose">
+       <input type="text"
+       class="form-control"
+       id="equipment_brand"
+       name="equipment_brand"
+       [(ngModel)]="model2.equipment_brand"
+       placeholder="Equipment Brand">
+<option>Equipment Brand</option>
+<option *ngFor="let equipment_brand of equipment_brand; let i = index">
+  {{equipment_brand.name}}
+</option>
 </select>
 </div>
-
 <p></p>
-
-<div class="form-group">
-    <input type="text"
-           class="form-control input"
-           id="EquipmentTradeInStatus"
-           name="EquipmentTradeInStatus"
-           [(ngModel)]="model2.EquipmentTradeInStatus"
-           placeholder="Equipment Trade In Status">
-  </div>
-
-<p></p>
-
-<div class="form-group">
-    <input type="date"
-           class="form-control input"
-           id="WarrantyStartDate"
-           name="WarrantyStartDate"
-           [(ngModel)]="model2.WarrantyStartDate"
-           placeholder="Equipment Warranty Start Date">
-  </div>
-
-<p></p>
-
-<div class="form-group">
-    <input type="date"
-           class="form-control input"
-           id="WarrantyEndDate"
-           name="WarrantyEndDate"
-           [(ngModel)]="model2.WarrantyEndDate"
-           placeholder="Equipment Warranty End Date">
-  </div>
-
-<p></p>
-
-<div class="form-group">
-    <input type="text"
-           class="form-control input"
-           id="WarrantyStatus"
-           name="WarrantyStatus"
-           [(ngModel)]="model2.WarrantyStatus"
-           placeholder="Equipment Warranty Status">
-  </div>
-
-<p></p>
-
   <div class="form-group">
-    <input type="date"
-           class="form-control input"
-           id="EquipmentTradeInDeadline"
-           name="EquipmentTradeInDeadline"
-           [(ngModel)]="model2.EquipmentTradeInDeadline"
-           placeholder="Equipment Trade-In Deadline">
+    <input type="text"
+           class="form-control"
+           id="equipment_trade_in_date"
+           name="equipment_trade_in_date"
+           [(ngModel)]="model2.equipment_trade_in_date"
+           placeholder="Equipment Trade-In Date">
   </div>
-
   <p></p>
-
   <div class="form-group">
-  <input type="number"
-         class="form-control input"
-         id="EquipmentSerialNumber"
-         name="EquipmentSerialNumber"
-         [(ngModel)]="model2.EquipmentSerialNumber"
+  <input type="text"
+         class="form-control"
+         id="equipment_serial_number"
+         name="equipment_serial_number"
+         [(ngModel)]="model2.equipment_serial_number"
          placeholder="Equipment Serial Number">
 </div>
-
 <p></p>
-
-<button class="btn btn-success" type="submit" (click)="updateEquipment()">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-  </svg>
-Update</button>
+<button class="btn btn-success" type="submit" (click)="updateEquipment()">Update</button>
 </form>
 </div>
 <hr>
 </div>
 
-<hr>
+<br/>
 
 <div class="search-hero container">
 <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a equipment by id or brand or tyoe or Serial number or even Trade-In">
@@ -310,25 +203,16 @@ Update</button>
 </thead>
 <tbody>
 
-    <tr *ngFor="let items of equipment | filter:searchText; let i = index">
-      <td>{{items.EquipmentId}}</td>
+    <tr *ngFor="let items of equipment; let i = index">
+      <td>{{items.Equipment_ID}}</td>
       <td>{{items.Equipment_Type_ID}}</td>
       <td>{{items.EquipmentBrandId}}</td>
       <td>{{items.EquipmentSerialNumber}}</td>
-      <td>{{items.EquipmentTradeInDeadline}}</td>
+      <td>{{items.EquipmentTradeUnDeadline}}</td>
       <td>{{items.EquipmentTradeInStatus}}</td>
       <td>
-        <button class="btn btn-primary" (click)="editEquipment(i)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-          </svg>
-        </button>
-        <button class="btn btn-danger" (click)="deleteEquipment(items.EquipmentId)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-          </svg>
-        </button>
+        <button class="btn btn-primary" (click)="editEquipment(i)">Update</button>
+        <button class="btn btn-danger" (click)="deleteEquipment(i)">Delete</button>
         <button class="btn btn-warning" (click)="editReport_Query(i)">Report Query</button>
       </td>
     </tr>

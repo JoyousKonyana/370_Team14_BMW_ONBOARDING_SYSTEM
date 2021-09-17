@@ -31,7 +31,6 @@ import {
     ProgressComponent,
     Ask_QuestionComponent,
     FAQComponent,
-    BookingComponent,
     SS_OnboarderComponent
  } from './onboarder';
 
@@ -101,7 +100,6 @@ const routes: Routes = [
     { path: 'take_content/:id', component: Take_ContentComponent, canActivate: [AuthGuard] },
     { path: 'progress', component: ProgressComponent, canActivate: [AuthGuard] },
     { path: 'ask_question', component: Ask_QuestionComponent, canActivate: [AuthGuard] },
-    { path: 'booking', component: BookingComponent, canActivate: [AuthGuard] },
 
     //Course path pages
     { path: 'ss_course', component: SS_CourseComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using BMW_ONBOARDING_SYSTEM.Helpers;
 using BMW_ONBOARDING_SYSTEM.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+using BMW_ONBOARDING_SYSTEM.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,33 +12,35 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class EquipmentBrandController : ControllerBase
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IEquipmentBrandRepository _brandepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public DepartmentController(IDepartmentRepository departmentRepository, IMapper mapper)
+        public EquipmentBrandController(IEquipmentBrandRepository brandepository, IMapper mapper)
         {
-            _departmentRepository = departmentRepository;
+            _brandepository = brandepository;
             _mapper = mapper;
         }
 
-        //[Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin + "," + Role.Onboarder)]
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllDepartments()
+        public async Task<ActionResult<EquipmentBrand>> GetAllEquipmentBrands()
         {
             try
             {
-                var departments = await _departmentRepository.GetDepartmentAsync();
-                return Ok(departments);
+                var brands = await _brandepository.GetAllEquipmentBrandsAsync();
+
+                return Ok(brands);
             }
             catch (Exception)
             {
 
-                return BadRequest();
+                BadRequest();
             }
+            return BadRequest();
         }
     }
 }

@@ -4,11 +4,7 @@
     Achievement Type
   </div>
   <br/>
-  <div class="btn btn-primary" (click)="addNewAchievement_TypeBtn()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-    </svg>
-  Achievement Type</div>
+  <div class="btn btn-primary" (click)="addNewAchievement_TypeBtn()">Achievement Type</div>
   <br/>
   <p></p>
   <div class="btn btn-link" (click)="testData()">Populate Data</div>
@@ -20,16 +16,13 @@
 <div *ngIf="newAchievement_TypeClicked">
 <div class="formWrapper">
 <form>
-  <div class="form-group position">
-  <label for="BadgeId">Choose a Badge:</label>
-  <select (change)="badges($event.target.selectedIndex)"
-                        class="form-control positionInput"
-                        id="BadgeId"
-                        name="BadgeId"
-                        >
-                        <option *ngFor="let item of badge" 
-                                [value]="item.BadgeId">{{item.BadgeDecription}}</option>
-  </select>
+   <div class="form-group position">
+    <input type="text"
+           class="form-control positionInput"
+           id="Badge"
+           name="Badge"
+           [(ngModel)]="model.Badge_ID"
+           placeholder="Badge">
   </div>
   <div class="form-group name">
   <input type="text"
@@ -40,11 +33,7 @@
          placeholder="Achievment Type Description">
 </div>
   <div class="submitBtnContainer">
-    <button type="submit" class="btn btn-success" (click)="addAchievement_Type()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-      </svg>
-    SAVE</button>
+    <button type="submit" class="btn btn-success" (click)="addAchievement_Type()">SAVE</button>
   </div>
 </form>
 </div>
@@ -57,16 +46,13 @@
 <div class="">Update Achievement Type</div>
 </div>
 <form>
-<div class="form-group position">
-<label for="BadgeId">Choose a Badge:</label>
-  <select (change)="badges($event.target.selectedIndex)"
-                        class="form-control positionInput"
-                        id="BadgeId"
-                        name="BadgeId"
-                        >
-                        <option *ngFor="let item of badge" 
-                                [value]="item.BadgeId">{{item.BadgeDecription}}</option>
-</select>
+<div class="form-group name">
+<input type="text"
+       class="form-control"
+       id="Badge_ID"
+       name="Badge_ID"
+       [(ngModel)]="model2.Badge_ID"
+       placeholder="Badge">
 </div>
 <div class="form-group name">
 <input type="text"
@@ -76,20 +62,11 @@
        [(ngModel)]="model2.Achievment_Type_Description"
        placeholder="Achievment Type Description">
 </div>
-<button class="btn btn-success" type="submit" (click)="updateAchievement_Type()">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-      </svg>
-Update</button>
+<button class="btn btn-success" type="submit" (click)="updateAchievement_Type()">Update</button>
 </form>
 </div>
 
 <hr>
-
-<div class="search-hero container">
-<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a Achievement Type by ID or Name">
-</div>
 
 <div class="tableWrapper">
 <table class="table table-striped">
@@ -102,22 +79,13 @@ Update</button>
   </tr>
 </thead>
 <tbody>
-  <tr *ngFor="let item of achievment_type | filter:searchText; let i = index">
+  <tr *ngFor="let item of achievment_type; let i = index">
     <td>{{item.achievementTypeId}}</td>
     <td>{{item.achievementTypeDescription}}</td>
-    <td>{{item.BadgeId}}</td>
+    <td>{{item.badge}}</td>
     <td>
-    <button class="btn btn-primary" (click)="editAchievment_Type(i)">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-      </svg>
-    </button>
-    <button class="btn btn-danger" (click)="deleteAchievment_Type(item.achievementTypeId)">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-      </svg>
-    </button>
+    <button class="btn btn-primary" (click)="editAchievment_Type(i)">Update</button>
+    <button class="btn btn-danger" (click)="deleteAchievment_Type(i)">Delete</button>
     </td>
   </tr>
 </tbody>

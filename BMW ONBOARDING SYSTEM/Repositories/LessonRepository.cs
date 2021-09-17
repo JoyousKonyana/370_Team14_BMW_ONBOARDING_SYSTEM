@@ -34,12 +34,12 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
        
 
-        public Task<Lesson> GetLessonByCourseIdAsync(int courseID)
+        public Task<Lesson []> GetLessonByCourseIdAsync(int courseID)
         {
             IQueryable<Lesson> existingLesson = _inf370ContextDB.Lesson.Where(id => id.CourseId == courseID);
 
 
-            return existingLesson.FirstOrDefaultAsync();
+            return existingLesson.ToArrayAsync();
         }
 
         public Task<Lesson> GetLessonByIdAsync(int lessonID)

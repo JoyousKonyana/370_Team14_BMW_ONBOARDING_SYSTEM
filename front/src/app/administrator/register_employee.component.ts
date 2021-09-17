@@ -2,7 +2,7 @@ import { City } from './../_models/city';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { Reg_Emp, Title, Employee } from '../_models';
 import { EmployeeService, AlertService, AuthenticationService } from '../_services';
@@ -18,8 +18,9 @@ export class Register_EmployeeComponent implements OnInit {
 
   employee: Reg_Emp[] = [];
 
-  info: Reg_Emp[] = [];
-  citiese:City[];
+  info: any[];
+  citiese:any[];
+  myCity:City;
 
   constructor(
       
@@ -32,7 +33,7 @@ export class Register_EmployeeComponent implements OnInit {
   ngOnInit() { 
     this.loadAll();
 }
-
+m:City;
 private loadAll() {
   this.employeeService.getInformationToRegister()
   .pipe(first())
@@ -40,15 +41,8 @@ private loadAll() {
     info => {
 
       this.info = info;
-      this.citiese = info.cities
+     
     
-      console.log(this.citiese);
-      console.log(info.cities)
-      var i =0;
-      for(i;i<=this.citiese.length;i++){
-       alert(this.citiese.length[i].cityId);
-        
-      }
      
     },
     error => {

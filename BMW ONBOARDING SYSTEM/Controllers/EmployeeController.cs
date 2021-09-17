@@ -63,6 +63,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
                 RegisterEmployeeDTO registerEmployeeDTO = new RegisterEmployeeDTO();
+                
                 var postalCodes = await _postalCodeRepository.GetPostCodesAsync();
                 var cities = await _cityRepository.GetCtiessAsync();
                 var countries = await _countryRepository.GetCountriesAsync();

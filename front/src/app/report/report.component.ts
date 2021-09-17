@@ -4,6 +4,9 @@ import { first } from 'rxjs/operators';
 
 import { ViewChild, ElementRef } from "@angular/core";
 
+//Install it first
+//import {jsPDF} from "jspdf";
+
 import { User } from '../_models';
 import { UserService, AuthenticationService } from '../_services';
 
@@ -22,6 +25,8 @@ export class ReportComponent implements OnInit {
 
     ngOnInit() {
     }
+
+    //selected = ''; //For navigating what report to be generated
 
     onboarder_report = [
         { name: 'Harry', surname: 'Potter', employee_id: '123456', date_enrolled: '2007', lesson_completed: '2 of 10 Completed', progress: '80%' },

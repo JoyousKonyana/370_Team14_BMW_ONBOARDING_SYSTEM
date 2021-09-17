@@ -1,8 +1,8 @@
+import { Achievment_Type } from '@app/_models';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { Achievment_Type, Badge } from '@app/_models';
 import { Achievment_TypeService, AlertService } from '../_services';
 
 @Component({ 
@@ -11,10 +11,13 @@ import { Achievment_TypeService, AlertService } from '../_services';
 })
 
 export class CRUD_AchievementComponent implements OnInit {
-  achievment_type: Achievment_Type[];
-  badge: Badge[];
 
-  searchText;
+  dataSaved = false; 
+  achievment_type: Achievment_Type[];
+  badge: any[];
+
+  faqIdUpdate = null;  
+  massage = null;
 
   constructor(
       private achievment_typeService: Achievment_TypeService,
@@ -47,6 +50,7 @@ export class CRUD_AchievementComponent implements OnInit {
     .subscribe(
       badge => {
         this.badge = badge;
+        console.log(this.badge);
       },
       error => {
         this.alertService.error('Error, Data was unsuccesfully retrieved');
@@ -78,10 +82,6 @@ export class CRUD_AchievementComponent implements OnInit {
       
     }
 
-    badges(index) {
-      this.model.BadgeId = index;
-      this.model2.BadgeId = index;
-    }
 
   addAchievement_Type() { 
     this.model3.BadgeId = this.model.Badge_ID;
@@ -112,15 +112,20 @@ export class CRUD_AchievementComponent implements OnInit {
   }
 
   deleteAchievment_Type(i) {
-    this.achievment_typeService.delete(i)
+    this.achievment_typeService.delete(i+1)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Deletion was successful', true);
+
                     this.achievment_type.splice(i, 1);
+                    console.log(i);
                 },
                 error => {
                     this.alertService.error('Error, Deletion was unsuccesful');
+                    
+                    this.achievment_type.splice(i, 1);//Please Remove this When the you have connected to the API
+                    console.log(i);
                 });
   }
 
@@ -145,7 +150,7 @@ export class CRUD_AchievementComponent implements OnInit {
         this.model3.BadgeId = this.model2.Badge_ID;
         this.model3.AchievementTypeDescription = this.model2.Achievment_Type_Description;
 
-        this.achievment_typeService.update(this.achievment_type[editAchievment_TypeInfo].AchievementTypeId, this.model3)
+        this.achievment_typeService.update(editAchievment_TypeInfo+1, this.model3)
             .pipe(first())
             .subscribe(
                 data => {

@@ -25,16 +25,16 @@
            class="form-control input"
            id="name"
            name="name"
-           [(ngModel)]="model.CourseName"
-           placeholder="Course Name">
+           [(ngModel)]="model.courseName"
+           placeholder="Name">
   </div>
    <div class="form-group position">
     <input type="text"
            class="form-control positionInput"
            id="description"
            name="description"
-           [(ngModel)]="model.CourseDescription"
-           placeholder="Course Description">
+           [(ngModel)]="model.courseDescription"
+           placeholder="Description">
   </div>
   <div class="form-group name">
   <input type="text"
@@ -55,11 +55,7 @@
 </div>
 </div>
 
-<hr>
-
-<div class="search-hero container">
-<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a course by id or name or description">
-</div>
+<br/>
 
 <div class="tableWrapper">
 <table class="table table-striped">
@@ -72,10 +68,10 @@
   </tr>
 </thead>
 <tbody>
-  <tr *ngFor="let course of course | filter:searchText; let i = index">
-    <td>{{course.CourseName}}</td>
-    <td>{{course.CourseDescription}}</td>
-    <td>{{course.CourseDueDate}}</td>
+  <tr *ngFor="let course of course; let i = index">
+    <td>{{course.courseName}}</td>
+    <td>{{course.courseDescription}}</td>
+    <td>{{course.courseDueDate}}</td>
     <td>
     <button class="btn btn-warning" routerLink="/learning_outcome">Learning Outcome</button>
     <button class="btn btn-primary" (click)="editCourse(i)">
@@ -84,7 +80,7 @@
         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
       </svg>
     </button>
-    <button class="btn btn-danger" (click)="deleteCourse(course.CourseId))">
+    <button class="btn btn-danger" (click)="deleteCourse(i)">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
       <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
       </svg>
@@ -106,8 +102,8 @@
          class="form-control"
          id="name"
          name="name"
-         [(ngModel)]="model2.CourseName"
-         placeholder="Course Name">
+         [(ngModel)]="model2.courseName"
+         placeholder="Name">
 </div>
 
  <div class="form-group position">
@@ -115,8 +111,8 @@
          class="form-control"
          id="description"
          name="description"
-         [(ngModel)]="model2.CourseDescription"
-         placeholder="Course Description">
+         [(ngModel)]="model2.courseDescription"
+         placeholder="Description">
 </div>
 
 <div class="form-group name">

@@ -57,12 +57,12 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
 
         // change to lessonid
-        public async Task<LessonOutcome[]> GeLessonOutcomeByCourseId(int lessonId)
+        public async Task<LessonOutcome[]> GeLessonOutcomeByLessonId(int lessonID)
         {
             //Lesson lesson1 = _inf370ContextDB.Lesson.Where(cd =>
             //cd.CourseId == lessonOutcomeId).FirstOrDefault();
 
-            IQueryable<LessonOutcome> lessonout = _inf370ContextDB.LessonOutcome.Where(xx => xx.LessonId == lessonId);
+            IQueryable<LessonOutcome> lessonout = _inf370ContextDB.LessonOutcome.Where(xx => xx.LessonId == lessonID);
 
             return await lessonout.ToArrayAsync();
 

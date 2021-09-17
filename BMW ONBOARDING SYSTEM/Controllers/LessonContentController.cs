@@ -28,7 +28,21 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _mapper = mapper;
         }
 
-      
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<IActionResult> GetLessonByCourseId(int id)
+        {
+            try
+            {
+                var lessonContent = await _lessonContentRepository.GetLessonContentByLessonOutcomeIDsAsync(id);
+                return Ok(lessonContent);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
@@ -152,7 +166,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         {
             try
             {
-                var result = await _lessonContentRepository.GetLessonContentByLessonIDsAsync(id);
+                var result = await _lessonContentRepository.GetLessonContentByLessonOutcomeIDsAsync(id);
 
                 if (result == null) return NotFound();
 

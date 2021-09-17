@@ -1,6 +1,4 @@
-import { EmployeeService, AlertService } from './../_services';
 import { Component, VERSION ,ViewChild } from '@angular/core';
-import { first } from 'rxjs/operators';
 
   export class CsvData {
     public Employee_ID: number;
@@ -23,117 +21,91 @@ import { first } from 'rxjs/operators';
 })
 export class Import_EmployeeComponent  {
 
-  name = 'Angular ' + VERSION.major;
-  public records: any[] = [];
-  @ViewChild('csvReader') csvReader: any;
-  jsondatadisplay:any;
+//   name = 'Angular ' + VERSION.major;
+//   public records: any[] = [];
+//   @ViewChild('csvReader') csvReader: any;
+//   jsondatadisplay:any;
 
-  constructor(
-    private employeeService: EmployeeService,
-    private alertService: AlertService
-  ) {
+//   uploadListener($event: any): void {
 
-  } 
+//     let text = [];
+//     let files = $event.srcElement.files;
 
-  uploadListener($event: any): void {
+//     if (this.isValidCSVFile(files[0])) {
 
-    let text = [];
-    let files = $event.srcElement.files;
+//       let input = $event.target;
+//       let reader = new FileReader();
+//       reader.readAsText(input.files[0]);
 
-    if (this.isValidCSVFile(files[0])) {
+//       reader.onload = () => {
+//         let csvData = reader.result;
+//         let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
 
-      let input = $event.target;
-      let reader = new FileReader();
-      reader.readAsText(input.files[0]);
+//         let headersRow = this.getHeaderArray(csvRecordsArray);
 
-      reader.onload = () => {
-        let csvData = reader.result;
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
+//         this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+//       };
 
-        let headersRow = this.getHeaderArray(csvRecordsArray);
+//       reader.onerror = function () {
+//         console.log('error is occured while reading file!');
+//       };
 
-        this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
-      };
+//     } else {
+//       alert("Please import valid .csv file.");
+//       this.fileReset();
+//     }
+//   }
 
-      reader.onerror = function () {
-        console.log('error is occured while reading file!');
-      };
+//   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
+//     let csvArr = [];
 
-    } else {
-      alert("Please import valid .csv file.");
-      this.fileReset();
-    }
-  }
+//     for (let i = 1; i < csvRecordsArray.length; i++) {
+//       let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+//       if (curruntRecord.length == headerLength) {
+//         let csvRecord: CsvData = new CsvData();
 
-  getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
-    let csvArr = [];
+//         csvRecord.Employee_ID = curruntRecord[0].trim();
+//         csvRecord.Department_ID = curruntRecord[1].trim();
+//         csvRecord.first_name = curruntRecord[2].trim();
+//         csvRecord.Middle_Name = curruntRecord[3].trim();
 
-    for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
-      if (curruntRecord.length == headerLength) {
-        let csvRecord: CsvData = new CsvData();
+//         csvRecord.Title = curruntRecord[4].trim();
+//         csvRecord.Gender_ID = curruntRecord[5].trim();
+//         csvRecord.ID_Number = curruntRecord[6].trim();
 
-        csvRecord.Employee_ID = curruntRecord[0].trim();
-        csvRecord.Department_ID = curruntRecord[1].trim();
-        csvRecord.first_name = curruntRecord[2].trim();
-        csvRecord.Middle_Name = curruntRecord[3].trim();
+//         csvRecord.Contact_Number = curruntRecord[7].trim();
+//         csvRecord.Job_Title = curruntRecord[8].trim();
+//         csvRecord.Address_ID = curruntRecord[9].trim();
 
-        csvRecord.Title = curruntRecord[4].trim();
-        csvRecord.Gender_ID = curruntRecord[5].trim();
-        csvRecord.ID_Number = curruntRecord[6].trim();
+//         csvArr.push(csvRecord);
+//       }
+//     }
+//     return csvArr;
+//   }
 
-        csvRecord.Contact_Number = curruntRecord[7].trim();
-        csvRecord.Job_Title = curruntRecord[8].trim();
-        csvRecord.Address_ID = curruntRecord[9].trim();
+// //check etension
+//   isValidCSVFile(file: any) {
+//     return file.name.endsWith(".csv");
+//   }
 
-        csvArr.push(csvRecord);
-      }
-    }
-    return csvArr;
-  }
+//   getHeaderArray(csvRecordsArr: any) {
+//     let headers = (<string>csvRecordsArr[0]).split(',');
+//     let headerArray = [];
+//     for (let j = 0; j < headers.length; j++) {
+//       headerArray.push(headers[j]);
+//     }
+//     return headerArray;
+//   }
 
-//check etension
-  isValidCSVFile(file: any) {
-    return file.name.endsWith(".csv");
-  }
+//   fileReset() {
+//     this.csvReader.nativeElement.value = "";
+//     this.records = [];
+//     this.jsondatadisplay = '';
+//   }
 
-  pushData(){
-    this.employeeService.RegisterEmployeeFromImport(this.records)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Import was successful', true);
-                },
-                error => {
-                  this.alertService.error('Error, Import was unsuccesful');
-              });
-  }
+//   getJsonData(){
+//     this.jsondatadisplay = JSON.stringify(this.records);
+//   }
 
-  getHeaderArray(csvRecordsArr: any) {
-    let headers = (<string>csvRecordsArr[0]).split(',');
-    let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
-      headerArray.push(headers[j]);
-    }
-    return headerArray;
-  }
-
-  fileReset() {
-    this.csvReader.nativeElement.value = "";
-    this.records = [];
-    this.jsondatadisplay = '';
-  }
-
-  getJsonData(){
-    this.jsondatadisplay = JSON.stringify(this.records);
-  }
-
-  //let arr = [];  
-  // Object.keys(csvArr).map(function(key){  
-  //   arr.push({[key]:employees[key]})  
-  //   return arr;  
-  // }); 
-
-  
 
 }

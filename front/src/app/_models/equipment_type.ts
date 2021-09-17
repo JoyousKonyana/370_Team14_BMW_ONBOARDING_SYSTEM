@@ -1,6 +1,6 @@
 export class Equipment_Type {
-    EquipmentTypeId: number;
-    EquipmentTypeDescription: string;
+    Equipment_Type_ID: number;
+    Equipment_Type_Description: string;
     }
   
    

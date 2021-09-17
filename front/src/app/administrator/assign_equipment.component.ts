@@ -54,7 +54,7 @@ private loadAll() {
   //Remove this bad boy
   testData() {
     this.equipment.push(
-      { Equipment_ID: 1, Equipment_Type_ID: '321', Equipment_Trade_In_Status_ID: '', Equipment_Description: '', Equipment_Warranty: '', Equpment_Trade_In_Date: '', Equipment_Brand: 'Acer', Serial_Number: 545},
+      { Equipment_ID: 1, Equipment_Type_ID: 321, EquipmentTradeInStatus: '', Equipment_Description: '', Equipment_Warranty: '', Equpment_Trade_In_Date: '', Equipment_Brand: 'Acer', Serial_Number: 545},
       
     );
     this.onboarder.push(

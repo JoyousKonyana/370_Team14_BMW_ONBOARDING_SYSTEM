@@ -43,13 +43,7 @@
 
 <a href="javascript:;" *ngIf="records.length > 0" (click)="getJsonData()" class="btn btn-primary">Read Data </a>
 
-<a href="javascript:;" *ngIf="records.length > 0" (click)="fileReset()" class="btn btn-primary">Reset </a> 
-
-<br />
-
-<button (click)="pushData()" class="btn btn-warning">Push Data</button>
-
-<hr>
+<a href="javascript:;" *ngIf="records.length > 0" (click)="fileReset()" class="btn btn-primary">Reset </a>  
 
 {{jsondatadisplay}}
 <table class="table"  *ngIf="records.length > 0">

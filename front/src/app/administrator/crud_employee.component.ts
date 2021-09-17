@@ -166,7 +166,7 @@ private loadAll() {
 
       if(i == editEmployeeInfo) 
       {
-        this.employeeService.update(this.employee[editEmployeeInfo].Employee_ID, this.model2)
+        this.employeeService.update(editEmployeeInfo, this.model2)
             .pipe(first())
             .subscribe(
                 data => {

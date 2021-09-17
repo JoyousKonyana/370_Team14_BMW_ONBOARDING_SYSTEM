@@ -22,8 +22,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         public AchievementTypeController(IAchievementTypeRepository achievementTypeRepository, IMapper mapper)
         {
-            _achievementTypeRepository = achievementTypeRepository;
             _mapper = mapper;
+            _achievementTypeRepository = achievementTypeRepository;
         }
 
         //[Authorize(Roles = Role.Admin)]

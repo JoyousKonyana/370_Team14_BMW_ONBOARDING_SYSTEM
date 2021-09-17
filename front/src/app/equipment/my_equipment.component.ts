@@ -43,9 +43,9 @@ private loadAll() {
 
 testData() {
   this.x.push(
-    { Equipment_ID: '1', Onboarder_ID: '321', Equipment_Check_Out_Date: '', Equipment_Check_Out_Description: '', Equipment_Check_In_Date: '', Equipment_Check_In_Description: ''},
-    { Equipment_ID: '1', Onboarder_ID: '321', Equipment_Check_Out_Date: '', Equipment_Check_Out_Description: '', Equipment_Check_In_Date: '', Equipment_Check_In_Description: ''},
-    { Equipment_ID: '1', Onboarder_ID: '321', Equipment_Check_Out_Date: '', Equipment_Check_Out_Description: '', Equipment_Check_In_Date: '', Equipment_Check_In_Description: ''},
+    { EquipmentId: 1, OnboarderId: 321, EquipmentCheckOutDate: new Date(), EquipmentCheckOutCondition: '', EquipmentCheckInDate:  new Date(), EquipmentCheckInCondition: ''},
+    { EquipmentId: 1, OnboarderId: 321, EquipmentCheckOutDate: new Date(), EquipmentCheckOutCondition: '', EquipmentCheckInDate: new Date(), EquipmentCheckInCondition: ''},
+    { EquipmentId: 1,  OnboarderId: 321,EquipmentCheckOutDate: new Date(), EquipmentCheckOutCondition: '',  EquipmentCheckInDate: new Date(), EquipmentCheckInCondition: ''},
   );
 }
 

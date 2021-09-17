@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BMW_ONBOARDING_SYSTEM.Interfaces
 {
-    public interface ILessonOutcome
+    public interface IEquipmentBrandRepository
     {
         void Add<T>(T entity) where T : class;
 
@@ -14,12 +14,6 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<bool> SaveChangesAsync();
 
-        Task<LessonOutcome[]> GetAllLessonOutcomesAsync();
-        Task<LessonOutcome> GetLessonOutcomeByNameAsync(string name);
-
-        Task<LessonOutcome> GetLessonOutcomeIdAsync(int lessonOutcomeId);
-
-        Task<LessonOutcome[]> GeLessonOutcomeByLessonId(int lessonID);
-
+        Task<EquipmentBrand[]> GetAllEquipmentBrandsAsync();
     }
 }

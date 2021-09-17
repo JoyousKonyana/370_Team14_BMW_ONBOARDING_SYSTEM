@@ -29,6 +29,24 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _mapper = mapper;
             _userRepository = userRepository;
         }
+        //[Authorize(Roles = Role.Admin + "," + Role.Onboarder)]
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<Gender>> GetAllUserRoles()
+        {
+            try
+            {
+                var userRoles = await _userRoleRepository.getAllUserRoles();
+
+                return Ok(userRoles);
+            }
+            catch (Exception)
+            {
+
+                BadRequest();
+            }
+            return BadRequest();
+        }
 
 
         [HttpGet("name")]
@@ -156,31 +174,31 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
 
         //[Authorize(Roles = Role.Admin)]
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<IActionResult> GetAllUserRoles()
-        {
-            try
-            {
-                var existingUserRoles = await _userRoleRepository.getAllUserRoles();
+        //[HttpGet]
+        //[Route("[action]")]
+        //public async Task<IActionResult> GetAllUserRoles()
+        //{
+        //    try
+        //    {
+        //        var existingUserRoles = await _userRoleRepository.getAllUserRoles();
 
-                if (existingUserRoles == null) return NotFound();
+        //        if (existingUserRoles == null) return NotFound();
 
-                _userRoleRepository.Delete(existingUserRoles);
+        //        _userRoleRepository.Delete(existingUserRoles);
 
-                if (await _userRoleRepository.SaveChangesAsync())
-                {
-                    return Ok();
-                }
-            }
-            catch (Exception)
-            {
+        //        if (await _userRoleRepository.SaveChangesAsync())
+        //        {
+        //            return Ok();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"We could not get the userRoles");
-            }
+        //        return this.StatusCode(StatusCodes.Status500InternalServerError, $"We could not get the userRoles");
+        //    }
 
-            return BadRequest();
-        }
+        //    return BadRequest();
+        //}
 
     }
 }

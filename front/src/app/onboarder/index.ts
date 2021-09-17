@@ -6,4 +6,3 @@ export * from './progress.component';
 export * from './ss_onboarder.component';
 export * from './ask_question.component';
 export * from './faq.component';
-export * from './booking.component';

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { FAQ } from '../_models';
+import { User, FAQ } from '../_models';
 import { FAQService, AlertService, AuthenticationService } from '../_services';
 
 @Component({ 
@@ -10,7 +10,12 @@ import { FAQService, AlertService, AuthenticationService } from '../_services';
     styleUrls: ['./ss_onboarder.component.css']
 })
 export class FAQComponent implements OnInit {
+  dataSaved = false;  
+  faqForm: any;
   faq: FAQ[] = [];
+
+  faqIdUpdate = null;  
+  massage = null;
 
   constructor(
       private faqService: FAQService,
@@ -23,11 +28,14 @@ export class FAQComponent implements OnInit {
       this.loadAllFAQ();
   }
 
+  
+
   private loadAllFAQ() {
     this.faqService.getAllFAQ()
     .pipe(first())
     .subscribe(
       faq => {
+        //this.faq = faq;
         this.faq = faq;
       },
       error => {

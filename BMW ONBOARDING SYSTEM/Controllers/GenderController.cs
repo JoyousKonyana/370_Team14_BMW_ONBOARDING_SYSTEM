@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using BMW_ONBOARDING_SYSTEM.Helpers;
 using BMW_ONBOARDING_SYSTEM.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+using BMW_ONBOARDING_SYSTEM.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,33 +12,35 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class GenderController : ControllerBase
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IGenderRepository _genderRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public DepartmentController(IDepartmentRepository departmentRepository, IMapper mapper)
+        public GenderController(IGenderRepository genderRepository, IMapper mapper)
         {
-            _departmentRepository = departmentRepository;
+            _genderRepository = genderRepository;
             _mapper = mapper;
-        }
 
-        //[Authorize(Roles = Role.Admin)]
+        }
+        //[Authorize(Roles = Role.Admin + "," + Role.Onboarder)]
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllDepartments()
+        public async Task<ActionResult<Gender>> GetAllGenders()
         {
             try
             {
-                var departments = await _departmentRepository.GetDepartmentAsync();
-                return Ok(departments);
+                var genders = await _genderRepository.GetAllGenderAsync();
+
+                return Ok(genders);
             }
             catch (Exception)
             {
 
-                return BadRequest();
+                BadRequest();
             }
+            return BadRequest();
         }
     }
 }

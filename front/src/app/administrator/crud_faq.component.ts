@@ -11,7 +11,13 @@ import { FAQService, AuthenticationService, AlertService } from '../_services';
 })
 
 export class CRUD_FAQComponent implements OnInit {
+  
+  dataSaved = false;  
+  faqForm: any;
   faq: FAQ[] = [];
+
+  faqIdUpdate = null;  
+  massage = null;
 
   constructor(
       private faqService: FAQService,
@@ -55,16 +61,18 @@ export class CRUD_FAQComponent implements OnInit {
       { Faqid: 4, Faqdescription: 'When is q', Faqanswer: 'It is Q'},
     )
   }
-  
   model3:FAQ = {
     Faqanswer: '',
     Faqdescription:'',
     Faqid:1
   };
-  
+  // public string Faqdescription { get; set; }
+  // public string Faqanswer { get; set; }
   addFAQ() { 
+   
     this.model3.Faqanswer=this.model.Faqanswer;
     this.model3.Faqdescription = this.model.Faqdescription;
+    // this.model3.Faqanswer = this.model.question;
 
     if(Object.keys(this.model).length < 2)
     {
@@ -119,19 +127,20 @@ export class CRUD_FAQComponent implements OnInit {
   updateFAQ() {
     let editFAQInfo = this.myValue;
 
-    this.model3.Faqanswer=this.model2.Faqanswer;
-    this.model3.Faqdescription = this.model2.Faqdescription;
+    this.model3.Faqanswer=this.model2.answer;
+    this.model3.Faqdescription = this.model2.question;
 
     for(let i = 0; i < this.faq.length; i++) {
 
       if(i == editFAQInfo) 
       {
-        this.faqService.update(this.faq[editFAQInfo].Faqid, this.model3)
+        this.faqService.update(editFAQInfo+1, this.model3)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Update was successful', true);
-                    this.faq[editFAQInfo] = this.model2;
+
+                    this.faq[i] = this.model2;
                     this.model2 = {};
                 },
                 error => {

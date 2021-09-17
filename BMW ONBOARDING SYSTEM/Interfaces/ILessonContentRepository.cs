@@ -14,7 +14,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<bool> SaveChangesAsync();
 
-        Task<LessonContent[]> GetLessonContentByLessonIDsAsync(int id);
+        Task<LessonContent[]> GetLessonContentByLessonOutcomeIDsAsync(int id);
         //Task<LessonContent> GetCourseByNameAsync(string name);
 
         Task<LessonContent> GetLessonContentByIdAsync(int id);

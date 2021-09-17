@@ -11,12 +11,12 @@ import {User_Role} from '@app/_models';
 export class User_RoleService {
 
    //Joyous, please put the link of the API here
-   url = 'https://localhost:44319/api/UserRoleController';  
+   url = 'https://localhost:44319/api/UserRole';  
 
   constructor(private http: HttpClient) { }  
 
   getAllUser_Role(): Observable<User_Role[]> {  
-    return this.http.get<User_Role[]>(`${this.url}`);  
+    return this.http.get<User_Role[]>(`${this.url}/GetAllUserRoles`);  
   }  
 
   getUser_RoleById(id: string): Observable<User_Role> {  
@@ -25,6 +25,7 @@ export class User_RoleService {
 
   delete(id: number) {
     return this.http.delete(`${this.url}/DeleteUserRole/`+id);
+ 
   }
 
   update(id: number, user_role:User_Role) {

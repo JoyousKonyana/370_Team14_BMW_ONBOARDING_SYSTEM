@@ -52,7 +52,6 @@ import {
     ProgressComponent,
     FAQComponent,
     Ask_QuestionComponent,
-    BookingComponent,
     SS_OnboarderComponent
  } from './onboarder';
 
@@ -79,7 +78,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         HttpClientModule,
         AppRoutingModule,
         FormsModule,
-        Ng2SearchPipeModule
+        //Ng2SearchPipeModule
     ],
     declarations: [
         AppComponent,
@@ -130,7 +129,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         FAQComponent,
         ProgressComponent,
         Ask_QuestionComponent,
-        BookingComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

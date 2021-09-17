@@ -71,7 +71,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         {
             try
             {
-                var result = await _lessonOutcomeRepository.GeLessonOutcomeByCourseId(lessonID);
+                var result = await _lessonOutcomeRepository.GeLessonOutcomeByLessonId(lessonID);
 
                 if (result == null) return NotFound();
 

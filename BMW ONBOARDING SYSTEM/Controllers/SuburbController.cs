@@ -26,6 +26,22 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _suburbRepository = suburbRepository;
             _mapper = mapper;
         }
+        //[Authorize(Role.Onboarder + "," + Role.Admin)]
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetAllSuburbs()
+        {
+            try
+            {
+                var suburbs = await _suburbRepository.GetSuburbsAsync();
+                return Ok(suburbs);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
 
         [Authorize(Roles = Role.Admin)]
         [HttpPost]

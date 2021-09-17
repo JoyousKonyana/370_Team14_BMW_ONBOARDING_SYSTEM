@@ -124,7 +124,7 @@ export class User_RoleComponent implements OnInit {
           this.model3.UserRoleAccessDescription = this.model2.UserRoleAccessDescription;
           this.model3.UserRoleName = this.model2.UserRoleName;
 
-         this.user_roleService.update(this.user_role[editUsser_RoleInfo].UserRoleId, this.model3)
+         this.user_roleService.update(editUsser_RoleInfo, this.model3)
              .pipe(first())
              .subscribe(
                  data => {
