@@ -30,10 +30,10 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
         public Task<ActiveLog[]> GenerateActiveLogReport(AuditLogViewModel model)
         {
             //need to change data type of activelogtodatetime
-            //IQueryable<ActiveLog> auditLogs = _inf370ContextDB.ActiveLog.
-            // Where(i => i.ActiveLogLoginTimestamp == model.startDate && i.ActiveLogLastActiveTimestamp <= model.endDate);
-            //return auditLogs.ToArrayAsync();
-            throw new NotImplementedException();
+            IQueryable<ActiveLog> auditLogs = _inf370ContextDB.ActiveLog.
+             Where(i => i.ActiveLogLoginTimestamp == model.startDate && i.ActiveLogLoginLastActiveTimestamp<= model.endDate);
+            return auditLogs.ToArrayAsync();
+            throw new NotImplementedException();/*;*/
         }
 
         public async Task<bool> SaveChangesAsync()

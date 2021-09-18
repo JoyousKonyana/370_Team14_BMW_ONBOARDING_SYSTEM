@@ -16,7 +16,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
         Task<bool> SaveChangesAsync();
 
         Task<Gender[]> GetAllGenderAsync();
-       
+
 
         Task<Gender> GetGenderByIdAsync(int genderID);
 

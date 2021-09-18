@@ -26,7 +26,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _countryRepository = countryRepository;
             _mapper = mapper;
         }
-          [HttpGet]
+        [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetAllCountries()
         {

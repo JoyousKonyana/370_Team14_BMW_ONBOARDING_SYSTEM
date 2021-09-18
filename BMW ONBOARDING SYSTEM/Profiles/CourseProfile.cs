@@ -116,6 +116,9 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
 
             this.CreateMap<Address, EmployeeViewModel>().
          ReverseMap();
+
+            this.CreateMap<Otp, OTPViewModel>().
+        ReverseMap();
         }
     }
 }

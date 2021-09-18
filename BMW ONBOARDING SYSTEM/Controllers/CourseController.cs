@@ -53,7 +53,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
                 var course = _mapper.Map<Course>(model);
-              
+
                 _courseRepository.Add(course);
 
                 if (await _courseRepository.SaveChangesAsync())

@@ -15,12 +15,12 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
         Task<bool> SaveChangesAsync();
 
         Task<Lesson[]> GetAllLessonAsync();
-       
+
 
         Task<Lesson> GetLessonByIdAsync(int lessonID);
         Task<Lesson[]> GetLessonByCourseIdAsync(int courseID);
 
 
-       
+
     }
 }

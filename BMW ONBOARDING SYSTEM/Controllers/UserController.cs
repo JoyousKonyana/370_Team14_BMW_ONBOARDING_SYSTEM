@@ -52,7 +52,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 var randomPassword = CreateRandomPassword();
                 user.Password = hashPassword(randomPassword);
                 //user.UserRoleID = 1;
-            
+
 
                 _userRepository.Add(user);
 
@@ -142,6 +142,41 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             {
 
                 BadRequest();
+            }
+            return BadRequest();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> Login2()
+        {
+            try
+            {
+                var otpGenerator = "";
+                Random otp = new Random();
+                otpGenerator = (otp.Next(100000, 999999)).ToString();
+                DateTime date = new DateTime();
+                OTPViewModel newotp = new OTPViewModel();
+                newotp.Timestamp = DateTime.Now;
+                newotp.UserId = 2;
+                newotp.OtpValue = otpGenerator;
+                
+                var OTP1 = _mapper.Map<Otp>(newotp);
+              
+                _userRepository.Add(OTP1);
+                if (await _userRepository.SaveChangesAsync())
+                {
+                    return Ok("Please enter otp sent to your email");
+
+                    //return _mapper.Map<User>(user);
+                    //return Created($"/api/User{model.UserName}", _mapper.Map<User>(user));
+
+                }
+            }
+            catch (Exception e)
+            {
+
+                BadRequest(e.Message);
             }
             return BadRequest();
         }
@@ -255,7 +290,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             byte[] encrypted_bytes = sha1.ComputeHash(password_bytes);
             return Convert.ToBase64String(encrypted_bytes);
         }
-      
+
 
         // create random password for user
         private static string CreateRandomPassword(int length = 6)

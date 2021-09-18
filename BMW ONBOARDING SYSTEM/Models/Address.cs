@@ -18,7 +18,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public int? CityId { get; set; }
         [Column("CountryID")]
         public int? CountryId { get; set; }
-    
         public string StreetNumber { get; set; }
         [StringLength(50)]
         public string StreetName { get; set; }

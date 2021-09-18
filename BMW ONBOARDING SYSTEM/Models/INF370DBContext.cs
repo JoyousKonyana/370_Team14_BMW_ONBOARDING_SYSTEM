@@ -46,6 +46,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public virtual DbSet<Onboarder> Onboarder { get; set; }
         public virtual DbSet<OnboarderCourseEnrollment> OnboarderCourseEnrollment { get; set; }
         public virtual DbSet<OnboarderEquipment> OnboarderEquipment { get; set; }
+        public virtual DbSet<Otp> Otp { get; set; }
         public virtual DbSet<PostalCode> PostalCode { get; set; }
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<QueryStatus> QueryStatus { get; set; }
@@ -391,6 +392,17 @@ namespace BMW_ONBOARDING_SYSTEM.Models
                     .HasForeignKey(d => d.OnboarderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OnboarderEquipment_Onboarder");
+            });
+
+            modelBuilder.Entity<Otp>(entity =>
+            {
+                entity.Property(e => e.OtpValue).IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Otp)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OTP_User");
             });
 
             modelBuilder.Entity<PostalCode>(entity =>

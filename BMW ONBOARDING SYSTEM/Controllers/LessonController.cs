@@ -19,13 +19,13 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public LessonController(ILessonRepository lessonRepository ,IMapper mapper)
+        public LessonController(ILessonRepository lessonRepository, IMapper mapper)
         {
             _lessonRepository = lessonRepository;
             _mapper = mapper;
         }
 
-       
+
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]")]

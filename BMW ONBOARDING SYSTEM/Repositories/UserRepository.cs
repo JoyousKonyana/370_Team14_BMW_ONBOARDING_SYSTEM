@@ -35,7 +35,7 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
         public Task<User> GetUserByemail(string email)
         {
             IQueryable<User> user = _inf370ContextDB.User.
-           
+
                 Include(r => r.UserRole).
                 Where(x => x.Username == email);
 

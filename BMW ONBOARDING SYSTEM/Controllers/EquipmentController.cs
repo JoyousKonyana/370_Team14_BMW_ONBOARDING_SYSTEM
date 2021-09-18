@@ -22,12 +22,12 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     {
         private readonly IEquipmentRepository _equipmentRepository;
 
-        private readonly    IWarrantyRepository _warrantyRepository;
+        private readonly IWarrantyRepository _warrantyRepository;
         private readonly IEquipementTypeRepository _equipmentTypeRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public EquipmentController(IEquipmentRepository equipmentRepository, IWarrantyRepository warrantyRepository, IEquipementTypeRepository equipmentTypeRepository,IMapper mapper)
+        public EquipmentController(IEquipmentRepository equipmentRepository, IWarrantyRepository warrantyRepository, IEquipementTypeRepository equipmentTypeRepository, IMapper mapper)
         {
             _equipmentRepository = equipmentRepository;
             _mapper = mapper;
@@ -52,7 +52,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 {
                     equipmentDTO.equipmentTypes.Add(equipType);
                 }
-              
+
 
                 return Ok(equipmentDTO);
             }
@@ -102,7 +102,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
 
-               
+
 
 
                     return _mapper.Map<EquipmentViewModel>(existingEquipment);

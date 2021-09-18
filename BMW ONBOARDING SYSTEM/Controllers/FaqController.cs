@@ -35,7 +35,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
                 var faq = _mapper.Map<Faq>(model);
-                
+
                 _faqRepository.Add(faq);
 
                 if (await _faqRepository.SaveChangesAsync())

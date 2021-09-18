@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BMW_ONBOARDING_SYSTEM.Interfaces
 {
-   public interface IEquipementTypeRepository
+    public interface IEquipementTypeRepository
     {
 
         void Add<T>(T entity) where T : class;

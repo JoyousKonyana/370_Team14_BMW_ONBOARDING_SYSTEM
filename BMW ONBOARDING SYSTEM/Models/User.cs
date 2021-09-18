@@ -11,6 +11,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         {
             ActiveLog = new HashSet<ActiveLog>();
             AuditLog = new HashSet<AuditLog>();
+            Otp = new HashSet<Otp>();
         }
 
         [Key]
@@ -31,5 +32,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public virtual ICollection<ActiveLog> ActiveLog { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AuditLog> AuditLog { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<Otp> Otp { get; set; }
     }
 }
