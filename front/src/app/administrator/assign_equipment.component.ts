@@ -54,14 +54,15 @@ private loadAll() {
   //Remove this bad boy
   testData() {
     this.equipment.push(
-      { Equipment_ID: 1, Equipment_Type_ID: 321, EquipmentTradeInStatus: '', Equipment_Description: '', Equipment_Warranty: '', Equpment_Trade_In_Date: '', Equipment_Brand: 'Acer', Serial_Number: 545},
+      { Equipment_ID: 1, Equipment_Type_ID: 321, EquipmentTradeInStatus: '', Equipment_Description: '', WarrantyId: '', EquipmentTradeUnDeadline: '', EquipmentBrandId: 1, EquipmentSerialNumber: 545},
       
     );
     this.onboarder.push(
-      { Onboarder_ID: 123, Employee_ID: 12345, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 234, Employee_ID: 23456, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 345, Employee_ID: 34567, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
-      { Onboarder_ID: 456, Employee_ID: 45678, Equipment_Type_ID: 1, Booking_ID: 1, Suggestion_ID: 1, Registration_ID: 1 },
+      { OnboarderId: 123, EmployeeId: 12345, EquipmentTypeId: 1, BookingId: 1, SuggestiondId: 1, RegistrationId: 1 },
+      { OnboarderId: 123, EmployeeId: 12345, EquipmentTypeId: 1, BookingId: 1, SuggestiondId: 1, RegistrationId: 1 },
+      { OnboarderId: 123, EmployeeId: 12345, EquipmentTypeId: 1, BookingId: 1, SuggestiondId: 1, RegistrationId: 1 },
+      { OnboarderId: 123, EmployeeId: 12345, EquipmentTypeId: 1, BookingId: 1, SuggestiondId: 1, RegistrationId: 1 }
+     
     );
   }
 

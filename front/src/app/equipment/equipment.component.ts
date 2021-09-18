@@ -13,7 +13,7 @@ import { EquipmentService, AlertService } from '../_services';
 
 export class EquipmentComponent implements OnInit {
 
-    equipment: Equipment[] = [];
+    equipment: any;
 
     searchText;
 
@@ -66,18 +66,19 @@ export class EquipmentComponent implements OnInit {
   editEquipment(editEquipmentInfo) {
     this.updateEquipmentClicked = !this.updateEquipmentClicked;
 
-    this.model2.equipment_brand = this.equipment[editEquipmentInfo].equipment_brand;
-    this.model2.equipment_type = this.equipment[editEquipmentInfo].equipment_type;
-    this.model2.equipment_serial_number = this.equipment[editEquipmentInfo].equipment_serial_number;
-    this.model2.equipment_trade_in_date = this.equipment[editEquipmentInfo].equipment_trade_in_date;
+    this.model2.equipment_brand = this.equipment[editEquipmentInfo].EquipmentBrandId;
+    this.model2.equipment_type = this.equipment[editEquipmentInfo].Equipment_Type_ID;
+    this.model2.equipment_serial_number = this.equipment[editEquipmentInfo].EquipmentSerialNumber;
+    this.model2.equipment_trade_in_date = this.equipment[editEquipmentInfo].EquipmentTradeUnDeadline;
     this.myValue = editEquipmentInfo;
   }
 
   editReport_Query(editReport_QueryInfo) {
     this.newReport_QueryClicked = !this.newReport_QueryClicked;
 
-    this.model2.status = this.equipment[editReport_QueryInfo].equipment_query_status;
-    this.model2.description = this.equipment[editReport_QueryInfo].equipment_query_description;
+    //You need to use equipment query
+    // this.model2.status = this.equipment[editReport_QueryInfo].equipment_query_status;
+    // this.model2.description = this.equipment[editReport_QueryInfo].equipment_query_description;
     this.myValue = editReport_QueryInfo;
   }
 
@@ -96,8 +97,8 @@ export class EquipmentComponent implements OnInit {
     let editReport_QueryInfo = this.myValue;
     for(let i = 0; i < this.equipment.length; i++) {
       if(i == editReport_QueryInfo) {
-        this.equipment[i].equipment_query_status = this.model2.status;
-        this.equipment[i].equipment_query_description = this.model2.description;
+        // this.equipment[i].equipment_query_status = this.model2.status;
+        // this.equipment[i].equipment_query_description = this.model2.description;
         this.model2 = {};
       }
     }

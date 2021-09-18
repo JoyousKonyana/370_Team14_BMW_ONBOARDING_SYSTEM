@@ -22,8 +22,8 @@ export class EquipmentService {
     return this.http.get<Equipment[]>(`${this.url}`);  
   }  
 
-  getEquipmentById(id: string): Observable<Equipment> {  
-      return this.http.get<Equipment>(`${this.url + '/GetEquipmentById/' + id}`);  
+  getEquipmentById(id: number): Observable<Equipment> {  
+      return this.http.get<Equipment>(`${this.url}/GetEquipmentById/` + id);  
     }  
 
   delete(id: number) {

@@ -13,7 +13,8 @@ import { EquipmentService, Equipment_QueryService, AlertService } from '../_serv
 
 export class My_EquipmentComponent implements OnInit {
 
-  x: AssignEquipment[] = [];
+  // x: AssignEquipment[] = [];
+  x:any;
   y: Equipment_Query[] = [];
 
   constructor(
