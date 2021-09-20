@@ -1,5 +1,5 @@
 export class RegisterEmployee{
-    EmployeeId:number;
+    
     DepartmentId:number;
     UserRoleID:number;
     GenderId:number;
@@ -16,5 +16,5 @@ export class RegisterEmployee{
     CityId :number;
     CountryId : number;
     StreetNumber: number;
-    StreetName:number;
+    StreetName:string;
 }

@@ -43,7 +43,7 @@ export class EmployeeService {
     return this.http.put(`${this.url}/UpdateEmployee/`+ id, employee);
   }
 
-  create(reg_emp: Reg_Emp) {
+  create(reg_emp: RegisterEmployee) {
      return this.http.post(`${this.url}/RegisterEmployee/`, reg_emp);
   }
 

@@ -66,7 +66,7 @@
                         id="title"
                         name="title"
                         >
-                        <option *ngFor="let item of info" 
+                        <option *ngFor="let item of mytitles" 
                                 [value]="item.TitleId">{{item.TitleDescription}}</option>
 </select>
 </div>
@@ -78,7 +78,7 @@
                         id="gender"
                         name="gender"
                         >
-                        <option *ngFor="let item of info" 
+                        <option *ngFor="let item of genders" 
                                 [value]="item.GenderId">{{item.GenderDescription}}</option>
 </select>
 </div>
@@ -108,8 +108,8 @@
                         id="department"
                         name="department"
                         >
-                        <option *ngFor="let item of info" 
-                                [value]="item.DepartmentId">{{item.DepartmentDescription}}</option>
+                        <option *ngFor="let item of departments" 
+                                [value]="item.depatmentId">{{item.departmentDescription}}</option>
 </select>
 </div>
 
@@ -119,11 +119,21 @@
                         class="form-control positionInput"
                         id="user_role"
                         name="user_role"
+                        [(ngModel)]="user_role"
                         >
-                        <option *ngFor="let item of info" 
-                                [value]="item.UserRoleID">{{item.UserRoleDescription}}</option>
+                        <option *ngFor="let item of useroles" 
+                                [ngValue]="item.UserRoleId">{{item.UserRoleName}}</option>
 </select>
 </div>
+
+<div class="form-group name">
+  <input type="text"
+       class="form-control input"
+       id="emailAdress"
+       name="emailAdress"
+       [(ngModel)]="model.emailAdress"
+       placeholder="Email Address">
+  </div>
 
 <div class="form-group name">
 <input type="text"
@@ -141,7 +151,7 @@
                         id="province"
                         name="province"
                         >
-                        <option *ngFor="let item of info" 
+                        <option *ngFor="let item of provinces" 
                                 [value]="item.ProvinceId">{{item.ProvinceName}}</option>
 </select>
 </div>
@@ -153,7 +163,7 @@
                         id="suburb"
                         name="suburb"
                         >
-                        <option *ngFor="let item of info" 
+                        <option *ngFor="let item of suburbs" 
                                 [value]="item.SuburbId">{{item.SuburbName}}</option>
 </select>
 </div>
@@ -165,7 +175,7 @@
                         id="city"
                         name="city"
                         >
-                        <option *ngFor="let item of info " 
+                        <option *ngFor="let item of m " 
                                 [value]="item.cityId">{{item.country}}</option>
 </select>
 </div>
@@ -177,8 +187,8 @@
                         id="country"
                         name="country"
                         >
-                        <option *ngFor="let item of info" 
-                                [value]="item.CountryId">{{item.CountryId}}</option>
+                        <option *ngFor="let item of countries" 
+                                [value]="item.countryId">{{item.countryName}}</option>
                                 
 </select>
 </div>

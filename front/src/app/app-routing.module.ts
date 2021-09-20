@@ -55,6 +55,7 @@ import {
     ReportComponent,
  } from './report';
 
+
 const routes: Routes = [
     {
         path: '',

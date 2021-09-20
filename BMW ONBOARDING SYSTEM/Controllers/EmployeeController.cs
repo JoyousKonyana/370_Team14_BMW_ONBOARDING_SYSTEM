@@ -30,6 +30,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IGenderRepository _genderRepository;
+        private readonly IProvinceRepository _provinceRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
@@ -41,6 +42,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
              IDepartmentRepository departmentRepository,
               IUserRoleRepository userRoleRepository,
               IGenderRepository genderRepository,
+               IProvinceRepository provinceRepository,
             IMapper mapper)
         {
             _employeeRepository = employeeRepository;
@@ -53,6 +55,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _departmentRepository = departmentRepository;
             _userRoleRepository = userRoleRepository;
             _genderRepository = genderRepository;
+            _provinceRepository = provinceRepository;
         }
 
         //[Authorize(Roles = Role.Onboarder)]
@@ -72,6 +75,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 var department = await _departmentRepository.GetDepartmentAsync();
                 var gender = await _genderRepository.GetAllGenderAsync();
                 var userRoles = await _userRoleRepository.getAllUserRoles();
+                var provice = await _provinceRepository.GetProvincesAsync();
                 foreach (var m in postalCodes)
                 {
                     registerEmployeeDTO.postalCodes.Add(m);
@@ -107,6 +111,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 foreach (var m in userRoles)
                 {
                     registerEmployeeDTO.userRoles.Add(m);
+                }
+                foreach (var m in provice)
+                {
+                    registerEmployeeDTO.provinces.Add(m);
                 }
 
                 return Ok(registerEmployeeDTO);

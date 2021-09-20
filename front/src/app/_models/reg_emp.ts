@@ -1,5 +1,5 @@
 export class Reg_Emp {
-    EmployeeId: number;
+   
     DepartmentId: number;
     UserRoleID: number;
     GenderId: number;

@@ -25,7 +25,9 @@ export class CRUD_EmployeeComponent implements OnInit {
   }
 
   ngOnInit() { 
+    alert('hello')
     this.loadAll();
+   
 }
 
 private loadAll() {
@@ -35,6 +37,8 @@ private loadAll() {
   .subscribe(
     info => {
       this.info = info;
+      console.log(info);
+      alert("hello")
     },
     error => {
       this.alertService.error('Error, Data was unsuccesfully retrieved');
@@ -119,7 +123,7 @@ private loadAll() {
   }
 
   model2: Reg_Emp = {
-    EmployeeId: 1,
+  
     DepartmentId: 1,
     UserRoleID: 1,
     GenderId: 1,

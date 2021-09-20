@@ -11,7 +11,7 @@ import { User } from '@app/_models';
 export class AuthenticationService {
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
-
+    url = 'https://localhost:44319/api/User';  
     constructor(
         private router: Router,
         private http: HttpClient
@@ -24,12 +24,22 @@ export class AuthenticationService {
         return this.userSubject.value;
     }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
+    // login(username: string, password: string) {
+    //     return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
+    //         .pipe(map(user => {
+    //             // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //             localStorage.setItem('user', JSON.stringify(user));
+    //             this.userSubject.next(user);
+    //             return user;
+    //         }));
+    // }
+
+        login(username: string, password: string) {
+        return this.http.post<any>(`${this.url}/Login2`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
+                // localStorage.setItem('user', JSON.stringify(user));
+                // this.userSubject.next(user);
                 return user;
             }));
     }

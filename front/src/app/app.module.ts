@@ -70,6 +70,7 @@ import {
 import { FormsModule } from '@angular/forms';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
     imports: [
@@ -77,7 +78,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        FormsModule,
+        FormsModule,,
+        BrowserAnimationsModule
+      
         //Ng2SearchPipeModule
     ],
     declarations: [
@@ -86,6 +89,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         AdminComponent,
         LoginComponent,
         AlertComponent,
+       
+    
 
         //Report
         SS_ReportComponent,
@@ -128,7 +133,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         Take_ContentComponent,
         FAQComponent,
         ProgressComponent,
-        Ask_QuestionComponent,
+        Ask_QuestionComponent,,
+       
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

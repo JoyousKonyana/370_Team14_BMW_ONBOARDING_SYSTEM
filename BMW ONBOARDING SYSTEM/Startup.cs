@@ -80,6 +80,7 @@ namespace BMW_ONBOARDING_SYSTEM
             services.AddScoped<IGenderRepository, GenderRepository>();
             services.AddScoped<IEquipementTypeRepository, EquipmentTypeRepository>();
             services.AddScoped<IEquipmentBrandRepository, EquipmentBrandRepository>();
+            services.AddScoped<IOTPRepository, OTPRepository>();
             services.AddCors();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -88,7 +89,7 @@ namespace BMW_ONBOARDING_SYSTEM
             services.Configure<AppSettings>(appSettingsSection);
 
             //configure jwt authentication
-           var appSettings = appSettingsSection.Get<AppSettings>();
+            var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {

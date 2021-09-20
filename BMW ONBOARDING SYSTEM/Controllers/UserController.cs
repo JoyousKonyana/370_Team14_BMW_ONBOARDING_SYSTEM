@@ -27,13 +27,17 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IOTPRepository _otpRepository;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public UserController(IUserRepository userRepository, IMapper mapper,
+        public UserController(IUserRepository userRepository,
+             IOTPRepository otpRepository,
+             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
             _userRepository = userRepository;
+            _otpRepository = otpRepository;
             _mapper = mapper;
             _appSettings = appSettings.Value;
         }
@@ -145,32 +149,103 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             }
             return BadRequest();
         }
-        [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Login2()
+        public async Task<IActionResult> twofatorAuth([FromBody] TwoFactorAuth model)
         {
             try
             {
-                var otpGenerator = "";
-                Random otp = new Random();
-                otpGenerator = (otp.Next(100000, 999999)).ToString();
-                DateTime date = new DateTime();
-                OTPViewModel newotp = new OTPViewModel();
-                newotp.Timestamp = DateTime.Now;
-                newotp.UserId = 2;
-                newotp.OtpValue = otpGenerator;
-                
-                var OTP1 = _mapper.Map<Otp>(newotp);
-              
-                _userRepository.Add(OTP1);
-                if (await _userRepository.SaveChangesAsync())
-                {
-                    return Ok("Please enter otp sent to your email");
 
+                Otp userOtp = await _otpRepository.AuthoriseUserAsync(model.UserId);
+                User user = await _userRepository.GetUserByIdAsync(model.UserId);
+                if (userOtp == null)
+                    return BadRequest(new { message = "Could not find Otp contact system administrator" });
+
+                //var user = _mapper.Map<User>(model);
+
+                //string hashedpasswod = hashPassword(model.Password);
+                //string b = user.Password;
+                //var m = user.UserRole.UserRoleName.Trim();
+                //var n = string.Equals(hashedpasswod, b);
+                if (userOtp.OtpValue == model.OtpValue)
+                {
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
+                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Role, user.UserRole.UserRoleName.Trim())
+                        }),
+                        Expires = DateTime.UtcNow.AddDays(7),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    var tokenString = tokenHandler.WriteToken(token);
+
+                    // return basic user info and authentication token
+                    return Ok(new
+                    {
+                        Id = user.UserId,
+                        Username = user.Username,
+                        employeeID = user.EmployeeId,
+                        Token = tokenString,
+                        Userrole = user.UserRole.UserRoleName
+                    });
                     //return _mapper.Map<User>(user);
                     //return Created($"/api/User{model.UserName}", _mapper.Map<User>(user));
+                }
+                return BadRequest("OTP incorrect");
 
+            }
+            catch (Exception)
+            {
+
+                BadRequest();
+            }
+            return BadRequest();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> Login2(Authenticate model)
+        {
+            try
+            {
+                User user = await _userRepository.GetUserByemail(model.UserName);
+                if (user == null)
+                    return BadRequest(new { message = "Username or password is incorrect" });
+
+                //var user = _mapper.Map<User>(model);
+
+                string hashedpasswod = hashPassword(model.Password);
+                string b = user.Password;
+                var m = user.UserRole.UserRoleName.Trim();
+                var n = string.Equals(hashedpasswod, b);
+                if (user != null)
+                {
+                    var otpGenerator = "";
+                    Random otp = new Random();
+                    otpGenerator = (otp.Next(100000, 999999)).ToString();
+                    DateTime date = new DateTime();
+                    OTPViewModel newotp = new OTPViewModel();
+                    newotp.Timestamp = DateTime.Now;
+                    newotp.UserId = 2;
+                    newotp.OtpValue = otpGenerator;
+
+                    var OTP1 = _mapper.Map<Otp>(newotp);
+
+                    _userRepository.Add(OTP1);
+                    if (await _userRepository.SaveChangesAsync())
+                    {
+                        sendOTpEmail(newotp.OtpValue, user.Username);
+                        return Ok("Please enter otp sent to your email");
+
+                        //return _mapper.Map<User>(user);
+                        //return Created($"/api/User{model.UserName}", _mapper.Map<User>(user));
+
+                    }
                 }
             }
             catch (Exception e)
@@ -262,9 +337,54 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             MailAddress ToEmail = new MailAddress(user.Username, "User");
             MailMessage Message = new MailMessage()
             {
+                
+            
                 From = FromMail,
                 Subject = "Log in details",
                 Body = $"Good day \n \n  Warm welcome to the IT ZA-HUB family. \n \n This email aim to give you your login credentials \n \n Username: {user.Username} \n \n Password: {password} \n \n Kind regards \n Admin"
+            };
+
+            Message.To.Add(ToEmail);
+
+            try
+            {
+                //    Client.UseDefaultCredentials = true;
+
+                Client.Send(Message);
+
+            }
+            catch (Exception ex)
+            {
+
+                var n = ex.Message;
+            }
+        }
+
+        public void sendOTpEmail(string otp, string userEmail)
+        {
+            SmtpClient Client = new SmtpClient()
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential()
+                {
+                    UserName = "team14onboarding@gmail.com",
+                    Password = "Team123456"
+                }
+
+            };
+            MailAddress FromMail = new MailAddress("team14onboarding@gmail.com", "Admin");
+            MailAddress ToEmail = new MailAddress(userEmail, "User");
+            MailMessage Message = new MailMessage()
+            {
+
+
+                From = FromMail,
+                Subject = "log in OTP details",
+                Body = $"Good day \n \n  We have realised that you trying to log-into the system. \n \n Please provide the following OTP to confirm it was you \n \n OTP: {otp} \n \n  Kind regards \n Admin"
             };
 
             Message.To.Add(ToEmail);
