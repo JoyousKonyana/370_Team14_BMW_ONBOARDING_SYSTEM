@@ -251,12 +251,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (user == null)
                     return BadRequest(new { message = "Could not find User contact system administrator" });
 
-                //var user = _mapper.Map<User>(model);
-
-                //string hashedpasswod = hashPassword(model.Password);
-                //string b = user.Password;
-                //var m = user.UserRole.UserRoleName.Trim();
-                //var n = string.Equals(hashedpasswod, b);
+               
                 if (user != null)
                 {
                     var otpGenerator = "";

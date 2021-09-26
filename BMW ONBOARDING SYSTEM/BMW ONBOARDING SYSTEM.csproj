@@ -21,7 +21,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Exchange.WebServices" Version="2.2.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+    <PackageReference Include="Twilio" Version="5.65.3" />
+    <PackageReference Include="Twilio.AspNet.Core" Version="5.37.2" />
   </ItemGroup>
 
 
