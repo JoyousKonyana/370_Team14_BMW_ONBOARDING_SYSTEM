@@ -32,7 +32,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         //[Authorize(Roles = Role.Admin + "," + Role.Onboarder)]
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<Gender>> GetAllUserRoles()
+        public async Task<IActionResult> GetAllUserRoles()
         {
             try
             {
