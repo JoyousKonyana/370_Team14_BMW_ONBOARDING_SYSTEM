@@ -206,6 +206,37 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             }
             return BadRequest();
         }
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> compareOTP([FromBody] TwoFactorAuth model)
+        {
+            try
+            {
+
+                Otp userOtp = await _otpRepository.AuthoriseUserAsync(model.UserId);
+                User user = await _userRepository.GetUserByIdAsync(model.UserId);
+                if (userOtp == null)
+                    return BadRequest(new { message = "Could not find Otp contact system administrator" });
+
+              
+
+               
+                if (userOtp.OtpValue == model.OtpValue)
+                {
+                 
+                    return Ok(user.UserId);
+                  
+                }
+                return BadRequest("OTP incorrect");
+
+            }
+            catch (Exception)
+            {
+
+                BadRequest();
+            }
+            return BadRequest();
+        }
 
         [HttpPost]
         [Route("[action]")]
@@ -216,7 +247,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 //Otp userOtp = await _otpRepository.AuthoriseUserAsync(model.UserId);
                 //User user = await _userRepository.GetUserByIdAsync(model.UserId);
-                var user = await _userRepository.GetUserByemail(model);
+                User user = await _userRepository.GetUserByemail(model);
                 if (user == null)
                     return BadRequest(new { message = "Could not find User contact system administrator" });
 
@@ -243,7 +274,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     if (await _userRepository.SaveChangesAsync())
                     {
                         sendOTpEmail(newotp.OtpValue, user.Username);
-                        return Ok("Please enter otp sent to your email");
+                        return Ok(user.UserId);
 
                         //return _mapper.Map<User>(user);
                         //return Created($"/api/User{model.UserName}", _mapper.Map<User>(user));
@@ -268,42 +299,23 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
 
-                //Otp userOtp = await _otpRepository.AuthoriseUserAsync(model.UserId);
-                //User user = await _userRepository.GetUserByIdAsync(model.UserId);
+             
                 var user = await _userRepository.GetUserByIdAsync(model.UserId);
                 if (user == null)
                     return BadRequest(new { message = "Could not find User contact system administrator" });
 
-                //var user = _mapper.Map<User>(model);
-
-                //string hashedpasswod = hashPassword(model.Password);
-                //string b = user.Password;
-                //var m = user.UserRole.UserRoleName.Trim();
-                //var n = string.Equals(hashedpasswod, b);
                 if (user != null)
                 {
 
                     string hashedpasswod = hashPassword(model.Password);
                     user.Password = hashedpasswod;
-                    //var otpGenerator = "";
-                    //Random otp = new Random();
-                    //otpGenerator = (otp.Next(100000, 999999)).ToString();
-                    //DateTime date = new DateTime();
-                    //OTPViewModel newotp = new OTPViewModel();
-                    //newotp.Timestamp = DateTime.Now;
-                    //newotp.UserId = 2;
-                    //newotp.OtpValue = otpGenerator;
-
-                    //var OTP1 = _mapper.Map<Otp>(newotp);
-
-                    //_userRepository.Add(OTP1);
+                 
                     if (await _userRepository.SaveChangesAsync())
                     {
-                        //sendOTpEmail(newotp.OtpValue, user.Username);
+                        
                         return Ok("Your new password was successfully set");
 
-                        //return _mapper.Map<User>(user);
-                        //return Created($"/api/User{model.UserName}", _mapper.Map<User>(user));
+                       
 
                     }
                 }
