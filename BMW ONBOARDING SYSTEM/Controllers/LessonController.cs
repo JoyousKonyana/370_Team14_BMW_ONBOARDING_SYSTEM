@@ -42,10 +42,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     return Ok();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                BadRequest();
+                BadRequest(e.Message);
             }
             return BadRequest();
         }

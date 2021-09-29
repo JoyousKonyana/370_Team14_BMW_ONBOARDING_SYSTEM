@@ -22,7 +22,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [StringLength(50)]
         public string LessonDescription { get; set; }
         [MaxLength(50)]
-        public byte[] LessonName { get; set; }
+        public string LessonName { get; set; }
 
         [ForeignKey(nameof(CourseId))]
         [InverseProperty("Lesson")]

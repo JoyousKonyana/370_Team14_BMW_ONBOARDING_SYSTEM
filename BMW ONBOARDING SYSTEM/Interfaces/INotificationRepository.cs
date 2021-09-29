@@ -18,5 +18,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<Notification> GetNotificationByIdAsync(int notificationID);
 
+        Task<Notification[]> GetNotificationByCourseIdAsync(int courseID);
+
     }
 }

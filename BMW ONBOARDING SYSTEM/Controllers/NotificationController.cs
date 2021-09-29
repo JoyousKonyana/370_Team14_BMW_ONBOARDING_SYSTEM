@@ -47,7 +47,29 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             }
             return BadRequest();
         }
+        [HttpGet]
+        [Route("[action]/{id}")]
 
+        public async Task<IActionResult> getNotificationsByCourseId(int id)
+        {
+            try
+            {
+                var notifications = await _notificationRepository.GetNotificationByCourseIdAsync(id);
+
+                if (notifications == null) return NotFound();
+
+                return Ok(notifications);
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"We could not find notificationa for the course");
+            }
+
+         
+
+            //return BadRequest();
+        }
         [HttpDelete("{id}")]
         [Route("[action]/{id}")]
 

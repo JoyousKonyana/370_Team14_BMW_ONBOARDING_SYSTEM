@@ -7,7 +7,7 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
 {
     public class LessonViewModel
     {
-        public int LessonId { get; set; }
+        //public int? LessonId { get; set; }
      
         public int? CourseId { get; set; }
       
@@ -15,7 +15,9 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
     
         public string LessonDescription { get; set; }
      
-        public byte[] LessonName { get; set; }
+     
+
+        public string LessonName { get; set; }
 
     }
 }

@@ -43,11 +43,11 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
         }
         // this returns a course together with its notification
 
-        public Task<Course> GetNotificationByCourseIdAsync(int courseID)
+        public Task<Notification[]> GetNotificationByCourseIdAsync(int courseID)
         {
-            IQueryable<Course> existingNotification = _inf370ContextDB.Course.Where(x => x.CourseId == courseID).Include(x => x.Notification);
+            IQueryable<Notification> existingNotification = _inf370ContextDB.Notification.Where(x => x.CourseId == courseID);
 
-            return existingNotification.FirstOrDefaultAsync();
+            return existingNotification.ToArrayAsync();
 
         }
 

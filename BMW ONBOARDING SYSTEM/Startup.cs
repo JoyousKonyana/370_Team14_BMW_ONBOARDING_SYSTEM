@@ -81,6 +81,7 @@ namespace BMW_ONBOARDING_SYSTEM
             services.AddScoped<IEquipementTypeRepository, EquipmentTypeRepository>();
             services.AddScoped<IEquipmentBrandRepository, EquipmentBrandRepository>();
             services.AddScoped<IOTPRepository, OTPRepository>();
+            services.AddScoped<ILessonRepository, LessonRepository>();
             services.AddCors();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

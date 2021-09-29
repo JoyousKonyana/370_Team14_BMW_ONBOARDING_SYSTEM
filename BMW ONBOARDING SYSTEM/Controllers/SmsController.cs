@@ -24,15 +24,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _logger = logger;
         }
 
-        //public IActionResult Index()
-        //{
-        //    SendSMS("+17067863614", "+918800______", "Hey there! this is a test message from Twilio.");
-        //    return Ok();
-        //}        //public IActionResult Index()
-        //{
-        //    SendSMS("+17067863614", "+918800______", "Hey there! this is a test message from Twilio.");
-        //    return Ok();
-        //}
+     
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
