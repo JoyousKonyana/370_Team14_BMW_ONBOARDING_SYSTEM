@@ -14,6 +14,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
         Task<OnboarderCourseEnrollment> GetonboarderByCourseID(int? onboarderid, int? courseID);
         Task<OnboarderCourseEnrollment> GenerateOnboarderCourseProgress(OnboarderProgressViewModel model);
         Task<OnboarderCourseEnrollment[]> GenerateAllOnboarderCourseProgress(OnboarderProgressViewModel model);
+        Task<Onboarder[]> GetOnboarders();
 
     }
 }

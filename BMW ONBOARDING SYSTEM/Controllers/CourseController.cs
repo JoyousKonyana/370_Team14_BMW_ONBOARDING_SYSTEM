@@ -58,7 +58,19 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _courseRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/course{course.CourseName}", _mapper.Map<CourseViewModel>(course));
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Course with name" + ' ' + course.CourseName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = 1;
+
+                    ////removetimefromdatabase
+                    //auditLog.AuditLogTimestamp = TimeSpan.
+                    _courseRepository.Add(auditLog);
+                    if(await _courseRepository.SaveChangesAsync())
+                    {
+                        return Created($"/api/course{course.CourseName}", _mapper.Map<CourseViewModel>(course));
+                    }
+                   
                 }
             }
             catch (Exception)

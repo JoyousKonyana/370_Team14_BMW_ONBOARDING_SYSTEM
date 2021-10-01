@@ -29,6 +29,30 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _mapper = mapper;
         }
 
+        //[Authorize(Role.Admin)]
+        [HttpGet("{id}")]
+        [Route("[action]")]
+        //getAll courses Assigeng to this a onboarder
+        // used to show courses to onboarder
+        public async Task<ActionResult<Onboarder[]>> GetAllOnboarders()
+        {
+            try
+            {
+                var result = await _onboarderRepository.GetOnboarders();
+
+                if (result == null) return NotFound();
+              
+
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
+            }
+        }
+
         [Authorize(Role.Admin)]
         [HttpGet("{id}")]
         [Route("[action]/{id}")]

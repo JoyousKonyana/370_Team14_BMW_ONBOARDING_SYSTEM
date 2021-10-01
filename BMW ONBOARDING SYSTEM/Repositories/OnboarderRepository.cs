@@ -62,5 +62,11 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
                 Include(x => x.Course);
             return achievements.ToArrayAsync();
         }
+
+        public Task<Onboarder[]> GetOnboarders()
+        {
+            IQueryable<Onboarder> onboarders = _inf370ContextDB.Onboarder.Include(x => x.Employee);
+            return onboarders.ToArrayAsync();
+        }
     }
 }
