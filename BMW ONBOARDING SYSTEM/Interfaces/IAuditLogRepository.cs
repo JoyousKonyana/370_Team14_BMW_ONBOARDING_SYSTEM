@@ -15,6 +15,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<bool> SaveChangesAsync();
         Task<AuditLog[]> GenerateAuditReport(AuditLogViewModel model);
+        Task<AuditLog[]> GetAll();
 
     }
 }

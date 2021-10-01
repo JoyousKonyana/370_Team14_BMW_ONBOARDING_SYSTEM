@@ -59,6 +59,25 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<AuditLog[]>> GetAllAuditLog()
+        {
+            try
+            {
+                var result = await _auditLogRepository.GetAll();
+
+                if (result == null) return NotFound();
+
+                return _mapper.Map<AuditLog[]>(result);
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
+            }
+        }
+
+        [HttpGet]
         public async Task<ActionResult<AuditLog[]>> GenerateAuditReport([FromBody] AuditLogViewModel model)
         {
             try

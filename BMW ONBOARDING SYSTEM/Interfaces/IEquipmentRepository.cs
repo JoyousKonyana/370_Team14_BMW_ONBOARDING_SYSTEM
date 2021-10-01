@@ -27,6 +27,8 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
         Task<Equipment[]> GenerateTradeinReport(AuditLogViewModel model);
         Task<Equipment[]> GenerateEquipmentReport2(AuditLogViewModel model);
 
+        Task<Equipment[]> GetEquiupments();
+
 
     }
 }

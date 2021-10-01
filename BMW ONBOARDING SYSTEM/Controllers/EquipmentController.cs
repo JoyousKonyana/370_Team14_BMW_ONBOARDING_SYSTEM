@@ -63,6 +63,26 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<Equipment[]>> GetAllEquipment()
+        {
+            try
+            { 
+
+
+              var equipment = await _equipmentRepository.GetEquiupments();
+                if (equipment == null) return NotFound();
+
+                return equipment;
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]")]

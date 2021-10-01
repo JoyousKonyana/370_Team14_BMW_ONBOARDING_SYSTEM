@@ -37,6 +37,14 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
         }
 
+        public Task<AuditLog[]> GetAll()
+        {
+            IQueryable<AuditLog> auditLogs = _inf370ContextDB.AuditLog.Include(x => x.User);
+            return auditLogs.ToArrayAsync();
+
+        }
+
+
         public async Task<bool> SaveChangesAsync()
         {
             return await _inf370ContextDB.SaveChangesAsync() > 0;

@@ -114,5 +114,12 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
 
         }
+
+        public Task<Equipment[]> GetEquiupments()
+        {
+            IQueryable<Equipment> equipment = _inf370ContextDB.Equipment.Include(x => x.EquipmentBrand).Include(x => x.Warranty).Include(x => x.EquipmentType);
+
+            return equipment.ToArrayAsync();
+        }
     }
 }
