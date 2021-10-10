@@ -218,14 +218,14 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (userOtp == null)
                     return BadRequest(new { message = "Could not find Otp contact system administrator" });
 
-              
 
-               
+
+
                 if (userOtp.OtpValue == model.OtpValue)
                 {
-                 
+
                     return Ok(user.UserId);
-                  
+
                 }
                 return BadRequest("OTP incorrect");
 
@@ -251,7 +251,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (user == null)
                     return BadRequest(new { message = "Could not find User contact system administrator" });
 
-               
+
                 if (user != null)
                 {
                     var otpGenerator = "";
@@ -294,7 +294,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
 
-             
+
                 var user = await _userRepository.GetUserByIdAsync(model.UserId);
                 if (user == null)
                     return BadRequest(new { message = "Could not find User contact system administrator" });
@@ -304,13 +304,13 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                     string hashedpasswod = hashPassword(model.Password);
                     user.Password = hashedpasswod;
-                 
+
                     if (await _userRepository.SaveChangesAsync())
                     {
-                        
+
                         return Ok("Your new password was successfully set");
 
-                       
+
 
                     }
                 }
@@ -342,7 +342,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 string b = user.Password;
                 var m = user.UserRole.UserRoleName.Trim();
                 var n = string.Equals(hashedpasswod, b);
-                if (user != null)
+                if (user.Password == hashedpasswod)
                 {
                     var otpGenerator = "";
                     Random otp = new Random();
@@ -350,7 +350,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     DateTime date = new DateTime();
                     OTPViewModel newotp = new OTPViewModel();
                     newotp.Timestamp = DateTime.Now;
-                    newotp.UserId = 2;
+                    newotp.UserId = user.UserId;
                     newotp.OtpValue = otpGenerator;
 
                     var OTP1 = _mapper.Map<Otp>(newotp);
@@ -359,13 +359,14 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     if (await _userRepository.SaveChangesAsync())
                     {
                         sendOTpEmail(newotp.OtpValue, user.Username);
-                        return Ok("Please enter otp sent to your email");
+                        return Ok(user.UserId);
 
                         //return _mapper.Map<User>(user);
                         //return Created($"/api/User{model.UserName}", _mapper.Map<User>(user));
 
                     }
                 }
+                return BadRequest();
             }
             catch (Exception e)
             {
@@ -456,8 +457,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             MailAddress ToEmail = new MailAddress(user.Username, "User");
             MailMessage Message = new MailMessage()
             {
-                
-            
+
+
                 From = FromMail,
                 Subject = "Log in details",
                 Body = $"Good day \n \n  Warm welcome to the IT ZA-HUB family. \n \n This email aim to give you your login credentials \n \n Username: {user.Username} \n \n Password: {password} \n \n Kind regards \n Admin"

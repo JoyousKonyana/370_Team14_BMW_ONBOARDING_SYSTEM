@@ -18,5 +18,6 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
 
         Task<Country> GetCountryByIdAsync(int countryId);
+        Task<Country> GetCountryByNameAsync(string name);
     }
 }

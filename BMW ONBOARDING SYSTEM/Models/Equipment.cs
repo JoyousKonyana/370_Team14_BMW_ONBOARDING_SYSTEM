@@ -7,6 +7,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class Equipment
     {
+        public Equipment()
+        {
+            OnboarderEquipment = new HashSet<OnboarderEquipment>();
+        }
+
         [Key]
         [Column("EquipmentID")]
         public int EquipmentId { get; set; }
@@ -35,6 +40,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [InverseProperty("Equipment")]
         public virtual Warranty Warranty { get; set; }
         [InverseProperty("Equipment")]
-        public virtual OnboarderEquipment OnboarderEquipment { get; set; }
+        public virtual ICollection<OnboarderEquipment> OnboarderEquipment { get; set; }
     }
 }

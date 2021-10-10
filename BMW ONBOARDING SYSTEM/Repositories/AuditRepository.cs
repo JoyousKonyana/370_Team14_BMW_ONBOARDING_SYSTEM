@@ -39,7 +39,10 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
         public Task<AuditLog[]> GetAll()
         {
+
+            // need to make the relationship between user and employee to be one to many
             IQueryable<AuditLog> auditLogs = _inf370ContextDB.AuditLog.Include(x => x.User);
+
             return auditLogs.ToArrayAsync();
 
         }

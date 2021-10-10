@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BMW_ONBOARDING_SYSTEM.Interfaces
 {
-   public  interface IOTPRepository
+    public interface IOTPRepository
     {
         void Add<T>(T entity) where T : class;
 
@@ -18,6 +18,6 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<Otp> AuthoriseUserAsync(int id);
 
-       
+
     }
 }

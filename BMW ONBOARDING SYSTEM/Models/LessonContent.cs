@@ -20,6 +20,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public string LessonContentDescription { get; set; }
         [Column("LessonContent")]
         public string LessonContent1 { get; set; }
+        public byte[] LessonDocs { get; set; }
 
         [ForeignKey(nameof(ArchiveStatusId))]
         [InverseProperty("LessonContent")]

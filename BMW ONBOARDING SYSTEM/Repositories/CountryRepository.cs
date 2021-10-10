@@ -41,6 +41,13 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
         }
 
+        public Task<Country> GetCountryByNameAsync(string name)
+        {
+            IQueryable<Country> existingCountry = _inf370ContextDB.Country.Where(x => x.CountryName == name);
+
+            return existingCountry.FirstOrDefaultAsync();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
 

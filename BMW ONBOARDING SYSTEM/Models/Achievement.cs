@@ -15,9 +15,9 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [Column("AchievementTypeID")]
         public int? AchievementTypeId { get; set; }
         [Column("OnboarderID")]
-        public int? OnboarderId { get; set; }
+        public int OnboarderId { get; set; }
         [Column("CourseID")]
-        public int? CourseId { get; set; }
+        public int CourseId { get; set; }
         [Column("QuizID")]
         public int? QuizId { get; set; }
         [Column(TypeName = "decimal(18, 0)")]

@@ -69,10 +69,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         public async Task<ActionResult<Equipment[]>> GetAllEquipment()
         {
             try
-            { 
+            {
 
 
-              var equipment = await _equipmentRepository.GetEquiupments();
+                var equipment = await _equipmentRepository.GetEquiupments();
                 if (equipment == null) return NotFound();
 
                 return equipment;

@@ -11,6 +11,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         {
             ActiveLog = new HashSet<ActiveLog>();
             AuditLog = new HashSet<AuditLog>();
+            Employee = new HashSet<Employee>();
             Otp = new HashSet<Otp>();
         }
 
@@ -24,6 +25,8 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public int? EmployeeId { get; set; }
         [Column("UserRoleID")]
         public int? UserRoleId { get; set; }
+        [Column(TypeName = "image")]
+        public byte[] UserImg { get; set; }
 
         [ForeignKey(nameof(UserRoleId))]
         [InverseProperty("User")]
@@ -32,6 +35,8 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public virtual ICollection<ActiveLog> ActiveLog { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AuditLog> AuditLog { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<Employee> Employee { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<Otp> Otp { get; set; }
     }

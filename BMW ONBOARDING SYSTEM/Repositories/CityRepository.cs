@@ -33,6 +33,13 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             return existingCity.FirstOrDefaultAsync();
         }
 
+        public Task<City> GetCityyByNameAsync(string name)
+        {
+            IQueryable<City> existingCity = _inf370ContextDB.City.Where(x => x.Country == name);
+
+            return existingCity.FirstOrDefaultAsync();
+        }
+
         public async Task<City[]> GetCtiessAsync()
         {
             IQueryable<City> cities = _inf370ContextDB.City;

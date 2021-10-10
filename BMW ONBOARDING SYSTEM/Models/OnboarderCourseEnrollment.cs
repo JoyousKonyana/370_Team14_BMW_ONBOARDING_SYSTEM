@@ -7,6 +7,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class OnboarderCourseEnrollment
     {
+        [Key]
         [Column("OnboarderID")]
         public int OnboarderId { get; set; }
         [Key]

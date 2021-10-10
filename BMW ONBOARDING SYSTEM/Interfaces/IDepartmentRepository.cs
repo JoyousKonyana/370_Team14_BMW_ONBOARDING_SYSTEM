@@ -9,5 +9,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
     public interface IDepartmentRepository
     {
         Task<Department[]> GetDepartmentAsync();
+
+        Task<Department> GetDepartmentByName(string name);
     }
 }

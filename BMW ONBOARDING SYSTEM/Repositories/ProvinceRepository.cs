@@ -36,6 +36,13 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             return existingProvince.FirstOrDefaultAsync();
         }
 
+        public Task<Province> GetProvinceNameAsync(string name)
+        {
+            IQueryable<Province> existingProvince = _inf370ContextDB.Province.Where(x => x.ProvinceName == name);
+
+            return existingProvince.FirstOrDefaultAsync();
+        }
+
         public async Task<Province[]> GetProvincesAsync()
         {
             IQueryable<Province> provinces = _inf370ContextDB.Province;

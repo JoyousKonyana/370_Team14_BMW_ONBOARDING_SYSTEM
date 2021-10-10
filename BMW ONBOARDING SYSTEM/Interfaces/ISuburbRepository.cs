@@ -18,5 +18,6 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
 
         Task<Suburb> GetSubburbByIdAsync(int suburbid);
+        Task<Suburb> GetSuburbByName(string name);
     }
 }

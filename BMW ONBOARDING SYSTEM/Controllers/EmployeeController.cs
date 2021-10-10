@@ -125,6 +125,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 return BadRequest();
             }
         }
+
+
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]")]
@@ -153,8 +155,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                         //return Created($"/api/User/registerUser", user);
                         using (var httpClient = new HttpClient())
                         {
-                            var company = JsonSerializer.Serialize(user);
-                            var requestContent = new StringContent(company, Encoding.UTF8, "application/json");
+                            var userData = JsonSerializer.Serialize(user);
+                            var requestContent = new StringContent(userData, Encoding.UTF8, "application/json");
                             using (var response = await httpClient.PostAsync("https://localhost:44319/api/User/registerUser", requestContent))
                             {
 
@@ -162,6 +164,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                             }
                         }
+
                         if (user.UserRoleId == 1)
                         {
                             Onboarder onboarder = new Onboarder();
@@ -171,6 +174,21 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                             if (await _employeeRepository.SaveChangesAsync())
                             {
                                 return Ok();
+                            }
+                        }
+
+                        SendSmsViewModel sendSms = new SendSmsViewModel();
+                        sendSms.to = Convert.ToString(model.ContactNumber);
+
+                        using (var httpClient = new HttpClient())
+                        {
+                            var smsData = JsonSerializer.Serialize(sendSms);
+                            var requestContent = new StringContent(smsData, Encoding.UTF8, "application/json");
+                            using (var response = await httpClient.PostAsync("https://localhost:44319/api/Sms/SendSMS", requestContent))
+                            {
+
+                                string apiResponse = await response.Content.ReadAsStringAsync();
+
                             }
                         }
                     }
@@ -204,29 +222,124 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         //[Authorize(Roles = Role.Admin)]
+        //[HttpPost]
+        //[Route("[action]")]
+        //public async Task<ActionResult> RegisterEmployeesFromImport([FromBody] EmployeeViewModel[] model)
+        //{
+        //    try
+        //    {
+        //        foreach (EmployeeViewModel emp in model)
+        //        {
+
+
+        //            var address = _mapper.Map<Address>(emp);
+        //            _employeeRepository.Add(address);
+        //            if (await _employeeRepository.SaveChangesAsync())
+        //            {
+
+        //                var employee = _mapper.Map<Employee>(emp);
+        //                _employeeRepository.Add(employee);
+
+        //                if (await _employeeRepository.SaveChangesAsync())
+        //                {
+        //                    CreateUserViewModel user = new CreateUserViewModel();
+        //                    user.EmployeeId = employee.EmployeeId;
+        //                    user.UserRoleId = emp.UserRoleID;
+        //                    user.Username = employee.EmailAddress;
+        //                    //return Created($"/api/User/registerUser", user);
+        //                    using (var httpClient = new HttpClient())
+        //                    {
+        //                        var serializedUser = JsonSerializer.Serialize(user);
+        //                        var requestContent = new StringContent(serializedUser, Encoding.UTF8, "application/json");
+        //                        using (var response = await httpClient.PostAsync("https://localhost:44319/api/User/registerUser", requestContent))
+        //                        {
+
+        //                            string apiResponse = await response.Content.ReadAsStringAsync();
+
+        //                        }
+        //                    }
+        //                    if (user.UserRoleId == 1)
+        //                    {
+        //                        Onboarder onboarder = new Onboarder();
+        //                        onboarder.EmployeeId = employee.EmployeeId;
+        //                        _employeeRepository.Add(onboarder);
+
+        //                        if (!await _employeeRepository.SaveChangesAsync())
+        //                        {
+        //                            return BadRequest("Sorry we could not register All the users check the List of users to see where the system failed");
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return Ok();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        BadRequest();
+        //    }
+        //    return BadRequest();
+        //}
+
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult> RegisterEmployeesFromImport([FromBody] EmployeeViewModel[] model)
+        public async Task<ActionResult> EmployeesFromImport([FromBody] ImportEmployeeViewModel[] model)
         {
             try
             {
-                foreach (EmployeeViewModel emp in model)
+                int counter = 0;
+                foreach (ImportEmployeeViewModel emp in model)
                 {
 
-
-                    var address = _mapper.Map<Address>(emp);
+                    var suburb = await _suburbRepository.GetSuburbByName(emp.SuburbName);
+                    if (suburb == null) return BadRequest();
+                    var city = await _cityRepository.GetCityyByNameAsync(emp.Country);
+                    if (city == null) return BadRequest();
+                    var country = await _countryRepository.GetCountryByNameAsync(emp.CountryName);
+                    if (country == null) return BadRequest();
+                    var province = await _provinceRepository.GetProvinceNameAsync(emp.ProvinceName);
+                    if (province == null) return BadRequest();
+                    Address address = new Address();
+                    address.SuburbId = suburb.SuburbId;
+                    address.CityId = city.CityId;
+                    address.CountryId = country.CountryId;
+                    address.ProvinceId = province.ProvinceId;
+                    address.StreetName = emp.StreetName;
+                    address.StreetNumber = emp.StreetNumber;
+                    //var address = _mapper.Map<Address>(emp);
                     _employeeRepository.Add(address);
                     if (await _employeeRepository.SaveChangesAsync())
                     {
+                        var gender = await _genderRepository.GetGenderByName(emp.GenderDescription);
+                        if (gender == null) return BadRequest();
+                        var department = await _departmentRepository.GetDepartmentByName(emp.DepartmentDescription);
+                        if (department == null) return BadRequest();
+                        var title = await _titleRepository.GetTitlestByNameAsync(emp.TitleDescription);
+                        if (title == null) return BadRequest();
+                        Employee employee = new Employee();
+                        employee.TitleId = title.TitleId;
+                        employee.DepartmentId = department.DepatmentId;
+                        employee.GenderId = gender.GenderId;
+                        employee.AddressId = address.AddressId;
+                        employee.FirstName = emp.FirstName;
+                        employee.LastName = emp.LastName;
+                        employee.MiddleName = emp.MiddleName;
+                        employee.Idnumber = emp.Idnumber;
+                        employee.EmailAddress = emp.EmailAddress;
+                        employee.ContactNumber = emp.ContactNumber;
+                        employee.EmployeeJobTitle = emp.EmployeeJobTitle;
 
-                        var employee = _mapper.Map<Employee>(emp);
+                        //var employee = _mapper.Map<Employee>(emp);
                         _employeeRepository.Add(employee);
 
                         if (await _employeeRepository.SaveChangesAsync())
                         {
+                            var userrole = await _userRoleRepository.GetUserRoleByname(emp.UserRoleName);
+                            if (userrole == null) return BadRequest();
                             CreateUserViewModel user = new CreateUserViewModel();
                             user.EmployeeId = employee.EmployeeId;
-                            user.UserRoleId = emp.UserRoleID;
+                            user.UserRoleId = userrole.UserRoleId;
                             user.Username = employee.EmailAddress;
                             //return Created($"/api/User/registerUser", user);
                             using (var httpClient = new HttpClient())
@@ -250,11 +363,13 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                                 {
                                     return BadRequest("Sorry we could not register All the users check the List of users to see where the system failed");
                                 }
+
                             }
                         }
                     }
+                    counter++;
                 }
-                return Ok();
+                return Ok(counter);
             }
             catch (Exception)
             {
@@ -285,7 +400,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<EmployeeViewModel[]>> GetEmployeeById(int id)
+        public async Task<IActionResult> GetEmployeeById(int id)
         {
             try
             {
@@ -293,7 +408,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (result == null) return NotFound();
 
-                return _mapper.Map<EmployeeViewModel[]>(result);
+                return Ok(result);
             }
             catch (Exception)
             {

@@ -38,7 +38,12 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
         {
             IQueryable<Gender> existingGender = _inf370ContextDB.Gender.Where(x => x.GenderId == genderID);
 
+            return existingGender.FirstOrDefaultAsync();
+        }
 
+        public Task<Gender> GetGenderByName(string name)
+        {
+            IQueryable<Gender> existingGender = _inf370ContextDB.Gender.Where(x => x.GenderDescription == name);
 
             return existingGender.FirstOrDefaultAsync();
         }

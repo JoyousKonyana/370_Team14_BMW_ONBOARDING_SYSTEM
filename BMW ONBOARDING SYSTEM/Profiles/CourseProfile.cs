@@ -44,6 +44,10 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
             ReverseMap();
 
 
+            this.CreateMap<EmployeeViewModel, Employee>().
+            ReverseMap();
+
+
             this.CreateMap<OnboarderCourseEnrollment, OnboarderCourseEnrollmentViewModel>().
             ReverseMap();
 

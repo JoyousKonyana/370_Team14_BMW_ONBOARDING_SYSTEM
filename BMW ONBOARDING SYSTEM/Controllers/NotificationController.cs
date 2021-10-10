@@ -66,7 +66,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"We could not find notificationa for the course");
             }
 
-         
+
 
             //return BadRequest();
         }

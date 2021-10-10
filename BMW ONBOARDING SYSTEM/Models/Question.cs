@@ -7,6 +7,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class Question
     {
+        public Question()
+        {
+            Option = new HashSet<Option>();
+        }
+
         [Key]
         [Column("QuestionID")]
         public int QuestionId { get; set; }
@@ -27,5 +32,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [ForeignKey(nameof(QuizId))]
         [InverseProperty("Question")]
         public virtual Quiz Quiz { get; set; }
+        [InverseProperty("Question")]
+        public virtual ICollection<Option> Option { get; set; }
     }
 }

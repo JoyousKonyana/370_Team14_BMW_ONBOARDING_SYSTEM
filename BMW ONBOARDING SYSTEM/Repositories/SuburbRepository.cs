@@ -33,6 +33,13 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             return existingSuburb.FirstOrDefaultAsync();
         }
 
+        public Task<Suburb> GetSuburbByName(string name)
+        {
+            IQueryable<Suburb> existingSuburb = _inf370ContextDB.Suburb.Where(x => x.SuburbName == name);
+
+            return existingSuburb.FirstOrDefaultAsync();
+        }
+
         public async Task<Suburb[]> GetSuburbsAsync()
         {
             IQueryable<Suburb> suburbs = _inf370ContextDB.Suburb;

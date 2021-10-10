@@ -22,5 +22,12 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
             return await result.ToArrayAsync();
         }
+
+        public async Task<Department> GetDepartmentByName(string name)
+        {
+            IQueryable<Department> result = _inf370ContextDB.Department.Where(x => x.DepartmentDescription == name);
+
+            return await result.FirstOrDefaultAsync();
+        }
     }
 }

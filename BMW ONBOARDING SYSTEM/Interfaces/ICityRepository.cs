@@ -18,6 +18,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
 
         Task<City> GetCityyByIdAsync(int cityyId);
+        Task<City> GetCityyByNameAsync(string name);
     }
 }
 

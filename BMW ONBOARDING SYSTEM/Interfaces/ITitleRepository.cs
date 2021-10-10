@@ -9,5 +9,6 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
     public interface ITitleRepository
     {
         Task<Title[]> GetTitlestAsync();
+        Task<Title> GetTitlestByNameAsync(string name);
     }
 }

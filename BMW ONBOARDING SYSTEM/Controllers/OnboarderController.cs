@@ -41,7 +41,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 var result = await _onboarderRepository.GetOnboarders();
 
                 if (result == null) return NotFound();
-              
+
 
 
                 return result;

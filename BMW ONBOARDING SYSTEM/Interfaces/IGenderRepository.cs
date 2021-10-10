@@ -19,6 +19,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
 
         Task<Gender> GetGenderByIdAsync(int genderID);
+        Task<Gender> GetGenderByName(string name);
 
     }
 }

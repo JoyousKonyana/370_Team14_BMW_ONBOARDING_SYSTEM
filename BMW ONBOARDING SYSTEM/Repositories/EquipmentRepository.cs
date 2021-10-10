@@ -65,10 +65,11 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
                 Include(x => x.EquipmentBrand).
                 Include(x => x.EquipmentTradeInStatus).
                 Include(x => x.EquipmentType).
-                Include(x => x.OnboarderEquipment).
-                ThenInclude(x => x.EquipmentQuery).
-                ThenInclude(x => x.EquipmentQueryStatus).
-                ThenInclude(x => x.EquipmentQueryStatusNavigation);
+                Include(x => x.OnboarderEquipment);
+            //relationship missing
+                //ThenInclude(x => x.EquipmentQuery).
+                //ThenInclude(x => x.EquipmentQueryStatus).
+                //ThenInclude(x => x.EquipmentQueryStatusNavigation);
             return equipment.ToArrayAsync();
 
         }
@@ -80,9 +81,10 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
                 Include(x => x.EquipmentTradeInStatus).
                 Include(x => x.EquipmentType).
                 Include(x => x.OnboarderEquipment).
-                ThenInclude(x => x.EquipmentQuery).
-                ThenInclude(x => x.EquipmentQueryStatus).
-                ThenInclude(x => x.EquipmentQueryStatusNavigation).
+                //relationship missing
+                //ThenInclude(x => x.EquipmentQuery).
+                //ThenInclude(x => x.EquipmentQueryStatus).
+                //ThenInclude(x => x.EquipmentQueryStatusNavigation).
                 Where(x => x.EquipmentTradeUnDeadline >= model.startDate && x.EquipmentTradeUnDeadline <= model.endDate);
             return equipment.ToArrayAsync();
 

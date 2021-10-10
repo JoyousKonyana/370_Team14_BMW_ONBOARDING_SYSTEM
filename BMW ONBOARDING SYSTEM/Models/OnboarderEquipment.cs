@@ -7,14 +7,10 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class OnboarderEquipment
     {
-        public OnboarderEquipment()
-        {
-            EquipmentQuery = new HashSet<EquipmentQuery>();
-        }
-
         [Key]
         [Column("EquipmentID")]
         public int EquipmentId { get; set; }
+        [Key]
         [Column("OnboarderID")]
         public int OnboarderId { get; set; }
         [Column(TypeName = "datetime")]
@@ -27,10 +23,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [ForeignKey(nameof(EquipmentId))]
         [InverseProperty("OnboarderEquipment")]
         public virtual Equipment Equipment { get; set; }
+        [ForeignKey(nameof(EquipmentId))]
+        [InverseProperty(nameof(EquipmentQuery.OnboarderEquipment))]
+        public virtual EquipmentQuery EquipmentNavigation { get; set; }
         [ForeignKey(nameof(OnboarderId))]
         [InverseProperty("OnboarderEquipment")]
         public virtual Onboarder Onboarder { get; set; }
-        [InverseProperty("Equipment")]
-        public virtual ICollection<EquipmentQuery> EquipmentQuery { get; set; }
     }
 }

@@ -66,11 +66,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     ////removetimefromdatabase
                     //auditLog.AuditLogTimestamp = TimeSpan.
                     _courseRepository.Add(auditLog);
-                    if(await _courseRepository.SaveChangesAsync())
+                    if (await _courseRepository.SaveChangesAsync())
                     {
                         return Created($"/api/course{course.CourseName}", _mapper.Map<CourseViewModel>(course));
                     }
-                   
+
                 }
             }
             catch (Exception)

@@ -46,6 +46,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public virtual DbSet<Onboarder> Onboarder { get; set; }
         public virtual DbSet<OnboarderCourseEnrollment> OnboarderCourseEnrollment { get; set; }
         public virtual DbSet<OnboarderEquipment> OnboarderEquipment { get; set; }
+        public virtual DbSet<Option> Option { get; set; }
         public virtual DbSet<Otp> Otp { get; set; }
         public virtual DbSet<PostalCode> PostalCode { get; set; }
         public virtual DbSet<Province> Province { get; set; }
@@ -65,7 +66,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=INF 370;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=INF 3702;Trusted_Connection=True;");
             }
         }
 
@@ -198,6 +199,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
                     .WithMany(p => p.Employee)
                     .HasForeignKey(d => d.TitleId)
                     .HasConstraintName("FK_Employee_Title");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Employee)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Employee_User");
             });
 
             modelBuilder.Entity<EmployeeCalendar>(entity =>
@@ -236,27 +242,25 @@ namespace BMW_ONBOARDING_SYSTEM.Models
             modelBuilder.Entity<EquipmentQuery>(entity =>
             {
                 entity.Property(e => e.EquipmentQueryDescription).IsUnicode(false);
-
-                entity.HasOne(d => d.Equipment)
-                    .WithMany(p => p.EquipmentQuery)
-                    .HasForeignKey(d => d.EquipmentId)
-                    .HasConstraintName("FK_EquipmentQuery_OnboarderEquipment");
             });
 
             modelBuilder.Entity<EquipmentQueryStatus>(entity =>
             {
+                entity.HasKey(e => new { e.EquipmentQueryStatusId, e.EquipmentQueryId });
+
                 entity.Property(e => e.EquipmentQueryStatusId).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.EquipmentQuery)
                     .WithMany(p => p.EquipmentQueryStatus)
                     .HasForeignKey(d => d.EquipmentQueryId)
-                    .HasConstraintName("FK_EquipmentQueryStatus._EquipmentQuery");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EquipmentQueryStatus._EquipmentQuery1");
 
                 entity.HasOne(d => d.EquipmentQueryStatusNavigation)
-                    .WithOne(p => p.EquipmentQueryStatus)
-                    .HasForeignKey<EquipmentQueryStatus>(d => d.EquipmentQueryStatusId)
+                    .WithMany(p => p.EquipmentQueryStatus)
+                    .HasForeignKey(d => d.EquipmentQueryStatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_EquipmentQueryStatus._QueryStatus");
+                    .HasConstraintName("FK_EquipmentQueryStatus._QueryStatus1");
             });
 
             modelBuilder.Entity<EquipmentTradeInStatus>(entity =>
@@ -360,11 +364,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 
             modelBuilder.Entity<OnboarderCourseEnrollment>(entity =>
             {
-                entity.Property(e => e.CourseId).ValueGeneratedNever();
+                entity.HasKey(e => new { e.OnboarderId, e.CourseId });
 
                 entity.HasOne(d => d.Course)
-                    .WithOne(p => p.OnboarderCourseEnrollment)
-                    .HasForeignKey<OnboarderCourseEnrollment>(d => d.CourseId)
+                    .WithMany(p => p.OnboarderCourseEnrollment)
+                    .HasForeignKey(d => d.CourseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OnboarderCourseEnrollment_Course");
 
@@ -377,21 +381,41 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 
             modelBuilder.Entity<OnboarderEquipment>(entity =>
             {
+                entity.HasKey(e => new { e.EquipmentId, e.OnboarderId });
+
                 entity.Property(e => e.EquipmentId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.EquipmentCheckInCondition).IsUnicode(false);
 
                 entity.HasOne(d => d.Equipment)
-                    .WithOne(p => p.OnboarderEquipment)
-                    .HasForeignKey<OnboarderEquipment>(d => d.EquipmentId)
+                    .WithMany(p => p.OnboarderEquipment)
+                    .HasForeignKey(d => d.EquipmentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OnboarderEquipment_Equipment");
+
+                entity.HasOne(d => d.EquipmentNavigation)
+                    .WithMany(p => p.OnboarderEquipment)
+                    .HasForeignKey(d => d.EquipmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OnboarderEquipment_EquipmentQuery");
 
                 entity.HasOne(d => d.Onboarder)
                     .WithMany(p => p.OnboarderEquipment)
                     .HasForeignKey(d => d.OnboarderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OnboarderEquipment_Onboarder");
+            });
+
+            modelBuilder.Entity<Option>(entity =>
+            {
+                entity.Property(e => e.OptionId).ValueGeneratedNever();
+
+                entity.Property(e => e.OptionDescription).IsUnicode(false);
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.Option)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("FK_Option_Question");
             });
 
             modelBuilder.Entity<Otp>(entity =>

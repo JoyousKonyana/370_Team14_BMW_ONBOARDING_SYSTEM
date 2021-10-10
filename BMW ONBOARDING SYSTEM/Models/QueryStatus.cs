@@ -7,6 +7,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class QueryStatus
     {
+        public QueryStatus()
+        {
+            EquipmentQueryStatus = new HashSet<EquipmentQueryStatus>();
+        }
+
         [Key]
         [Column("EquipmentQueryStatusID")]
         public int EquipmentQueryStatusId { get; set; }
@@ -14,6 +19,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public string EquipmentQueryDescription { get; set; }
 
         [InverseProperty("EquipmentQueryStatusNavigation")]
-        public virtual EquipmentQueryStatus EquipmentQueryStatus { get; set; }
+        public virtual ICollection<EquipmentQueryStatus> EquipmentQueryStatus { get; set; }
     }
 }

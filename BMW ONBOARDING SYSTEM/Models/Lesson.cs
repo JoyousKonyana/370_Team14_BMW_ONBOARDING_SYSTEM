@@ -21,7 +21,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public int? LessonCompletionStatusId { get; set; }
         [StringLength(50)]
         public string LessonDescription { get; set; }
-        [MaxLength(50)]
+        [StringLength(50)]
         public string LessonName { get; set; }
 
         [ForeignKey(nameof(CourseId))]

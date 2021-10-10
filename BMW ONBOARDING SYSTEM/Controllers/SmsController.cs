@@ -24,13 +24,13 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             _logger = logger;
         }
 
-     
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return Ok(new  { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Ok(new { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         [HttpPost]
@@ -40,23 +40,24 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             var accountSid = "AC6b52cdb391ab892a1041457ee9056576";
             var authToken = "b6e67eb41687722514f792a55ce4f5c4";
 
-         
+
             TwilioClient.Init(accountSid, authToken);
             var to = new PhoneNumber("+27785622125");
+            var toto = new PhoneNumber(model.to);
             var from = new PhoneNumber("+17254448788");
             var message = "Dear onboarder Please check your email we have provided you with all the neccessary details looking forward to working with you";
             try
             {
                 MessageResource response = MessageResource.Create(
                     body: message,
-                    from:from,
-                    to: to
+                    from: from,
+                    to: toto
                 );
                 return Ok("Message send successfull");
             }
             catch (Exception ex)
             {
-               BadRequest();
+                BadRequest();
             }
 
             return BadRequest();

@@ -17,5 +17,8 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
         Task<Province[]> GetProvincesAsync();
 
         Task<Province> GetProvinceByIdAsync(int provinceId);
+
+
+        Task<Province> GetProvinceNameAsync(string name);
     }
 }
