@@ -76,7 +76,6 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 foreach(CreateQuizViewModel2 quizToquestion in model)
                 {
 
-                
                 var quiz = _mapper.Map<Quiz>(quizToquestion);
 
                 _quizRepository.Add(quiz);

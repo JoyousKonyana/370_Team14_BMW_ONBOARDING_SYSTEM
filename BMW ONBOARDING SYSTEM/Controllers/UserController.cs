@@ -206,6 +206,30 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("[action]/id")]
+        public async Task<IActionResult> getUserById(int id)
+        {
+            try
+            {
+
+                User user = await _userRepository.GetUserByIdAsync(id);
+                if (user == null)
+                    return BadRequest(new { message = "Could not find user contact system administrator" });
+
+                return Ok(user);
+             
+
+            }
+            catch (Exception)
+            {
+
+                BadRequest();
+            }
+            return BadRequest();
+        }
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> compareOTP([FromBody] TwoFactorAuth model)

@@ -44,7 +44,7 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
         public Task<User> GetUserByIdAsync(int userId)
         {
-            IQueryable<User> user = _inf370ContextDB.User.
+            IQueryable<User> user = _inf370ContextDB.User.Include(x => x.Employee).
                 Include(x => x.UserRole).
                 Where(x => x.UserId == userId);
 
