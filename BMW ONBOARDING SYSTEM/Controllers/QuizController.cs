@@ -20,12 +20,20 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     {
         private readonly IQuizRepository _quizRepository;
         private readonly IOnboarderRepository _onboarderRepository;
+        private readonly IQuestionRepository _questionRepository;
+        private readonly IOption _optionRepository;
         private readonly IMapper _mapper;
 
-        public QuizController(IQuizRepository quizRepository, IOnboarderRepository onboarderRepository, IMapper mapper)
+        public QuizController(IQuizRepository quizRepository, 
+            IOnboarderRepository onboarderRepository,
+             IQuestionRepository questionRepository,
+             IOption optionRepository
+            ,IMapper mapper)
         {
             _quizRepository = quizRepository;
             _onboarderRepository = onboarderRepository;
+            _questionRepository = questionRepository;
+            _optionRepository = optionRepository;
             _mapper = mapper;
         }
 
@@ -38,12 +46,13 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
                 var quiz = _mapper.Map<Quiz>(model);
-                quiz.QuizId = 2;
+               
                 _quizRepository.Add(quiz);
 
                 if (await _quizRepository.SaveChangesAsync())
                 {
                     //return Ok(quiz.QuizId);
+
 
                     return Created($"/api/Quiz{quiz.QuizId}", _mapper.Map<Quiz>(quiz));
                 }
@@ -56,6 +65,59 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             return BadRequest();
         }
 
+
+        [HttpPost]
+        [Route("[action]")]
+
+        public async Task<ActionResult<QuizViewModel>> CreateQuiz2([FromBody] CreateQuizViewModel2 [] model)
+        {
+            try
+            {
+                foreach(CreateQuizViewModel2 quizToquestion in model)
+                {
+
+                
+                var quiz = _mapper.Map<Quiz>(quizToquestion);
+
+                _quizRepository.Add(quiz);
+
+                    if (await _quizRepository.SaveChangesAsync())
+                    {
+                        foreach (QuestionViewModel question in quizToquestion.questions)
+                        {
+
+                            var questioni = _mapper.Map<Question>(quizToquestion);
+                            //assigned quiz id related to the question
+                            questioni.QuizId = quiz.QuizId;
+
+                            _questionRepository.Add(question);
+
+                            if (await _questionRepository.SaveChangesAsync())
+                            {
+                                foreach (OptionsViewModel opt in quizToquestion.questionOptions)
+                                {
+                                    var option = _mapper.Map<Option>(opt);
+                                    option.QuestionId = questioni.QuestionId;
+
+                                    _optionRepository.Add(option);
+
+                                }
+                            }
+                        }
+
+                        //return Ok(quiz.QuizId);
+
+                    }
+                    return Created($"/api/Quiz{quiz.QuizId}", _mapper.Map<Quiz>(quiz));
+                }
+            }
+            catch (Exception)
+            {
+
+                BadRequest();
+            }
+            return BadRequest();
+        }
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult<AchievementTypeViewModel>> submitQuiz([FromBody] AchievementViewModel model)

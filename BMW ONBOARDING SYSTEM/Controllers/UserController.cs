@@ -332,7 +332,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         {
             try
             {
-                User user = await _userRepository.GetUserByemail(model.UserName);
+                User user = await _userRepository.GetUserByemail(model.UserName.Trim());
                 if (user == null)
                     return BadRequest(new { message = "Username or password is incorrect" });
 

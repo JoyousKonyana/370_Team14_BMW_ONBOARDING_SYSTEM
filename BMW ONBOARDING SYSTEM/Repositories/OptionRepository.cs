@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BMW_ONBOARDING_SYSTEM.Repositories
 {
-    public class QuizRepository : IQuizRepository
+    public class OptionRepository : IOption
     {
         private readonly INF370DBContext _inf370ContextDB;
 
-        public QuizRepository(INF370DBContext inf370ContextDB)
+        public OptionRepository(INF370DBContext inf370ContextDB)
         {
             _inf370ContextDB = inf370ContextDB;
         }
@@ -26,18 +26,16 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             _inf370ContextDB.Remove(entity);
         }
 
-        public Task<Quiz> GetQuizByLessonOutcomeIDAsync(int quizId)
+        public Task<Option[]> GetOptionByQuestionIDAsync(int questionId)
         {
+            IQueryable<Option> options = _inf370ContextDB.Option.Where(x => x.QuestionId == questionId);
 
-            // we also need to include possible answers
-            IQueryable<Quiz> result = _inf370ContextDB.Quiz.Where(q => q.QuizId == quizId).Include(x => x.Question).ThenInclude(x => x.Option);
-            return result.FirstOrDefaultAsync();
-
+            return options.ToArrayAsync();
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public Task<bool> SaveChangesAsync()
         {
-            return await _inf370ContextDB.SaveChangesAsync() > 0;
+            throw new NotImplementedException();
         }
     }
 }

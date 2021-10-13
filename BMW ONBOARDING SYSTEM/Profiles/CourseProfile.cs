@@ -123,6 +123,16 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
 
             this.CreateMap<Otp, OTPViewModel>().
         ReverseMap();
+
+            this.CreateMap<Quiz, CreateQuizViewModel2>().
+      ReverseMap();
+
+            this.CreateMap<Question, CreateQuizViewModel2>().
+    ReverseMap();
+
+
+            this.CreateMap<Option, CreateQuizViewModel2>().
+    ReverseMap();
         }
     }
 }
