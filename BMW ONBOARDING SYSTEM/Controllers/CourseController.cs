@@ -83,23 +83,23 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<OnboarderCourseEnrollmentViewModel>> AssignCourse([FromBody] OnboarderCourseEnrollmentViewModel[] model)
+        public async Task<ActionResult<OnboarderCourseEnrollmentViewModel>> AssignCourse([FromBody] OnboarderCourseEnrollmentViewModel model)
         {
             try
             {
 
-                foreach (OnboarderCourseEnrollmentViewModel enroll in model)
-                {
+                //foreach (OnboarderCourseEnrollmentViewModel enroll in model)
+                //{
 
 
-                    var enrollment = _mapper.Map<OnboarderCourseEnrollment>(enroll);
+                    var enrollment = _mapper.Map<OnboarderCourseEnrollment>(model);
                     _courseRepository.Add(enrollment);
 
                     if (!await _courseRepository.SaveChangesAsync())
                     {
                         return BadRequest("We could not success fully save all enrollments");
                     }
-                }
+                //}
 
                 //    if (await _courseRepository.SaveChangesAsync())
                 //{

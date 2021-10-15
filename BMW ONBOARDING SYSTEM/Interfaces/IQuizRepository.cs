@@ -14,6 +14,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<bool> SaveChangesAsync();
 
-        Task<Quiz> GetQuizByLessonOutcomeIDAsync(int quizId);
+        Task<Quiz> GetQuizByIDAsync(int quizId);
+        Task<Quiz> GetQuizByLessonOutcomeIDAsync(int lessonOutcomeId);
     }
 }

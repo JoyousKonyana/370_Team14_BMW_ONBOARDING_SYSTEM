@@ -16,6 +16,9 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<Option[]> GetOptionByQuestionIDAsync(int questionId);
 
+        Task<Option> GetOptionByIDAsync(int questionID);
+      
+
 
     }
 }

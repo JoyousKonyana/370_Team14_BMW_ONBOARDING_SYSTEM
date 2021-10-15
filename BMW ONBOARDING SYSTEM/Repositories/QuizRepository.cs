@@ -26,7 +26,7 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             _inf370ContextDB.Remove(entity);
         }
 
-        public Task<Quiz> GetQuizByLessonOutcomeIDAsync(int quizId)
+        public Task<Quiz> GetQuizByIDAsync(int quizId)
         {
 
             // we also need to include possible answers
@@ -35,6 +35,11 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
         }
 
+        public Task<Quiz> GetQuizByLessonOutcomeIDAsync(int lessonOutcomeId)
+        {
+            IQueryable<Quiz> result = _inf370ContextDB.Quiz.Where(q => q.LessonOutcomeId == lessonOutcomeId).Include(x => x.Question).ThenInclude(x => x.Option);
+            return result.FirstOrDefaultAsync();
+        }
         public async Task<bool> SaveChangesAsync()
         {
             return await _inf370ContextDB.SaveChangesAsync() > 0;

@@ -159,7 +159,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpGet("{id}")]
-
+        [Route("[action]")]
         public async Task<ActionResult<QuizViewModel>> GetQuizByLessonOutcomeID(int id)
         {
             try
@@ -175,6 +175,52 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
             }
+        }
+
+        [HttpGet("{id}")]
+        [Route("[action]")]
+        public async Task<IActionResult> GetQuizByID(int id)
+        {
+            try
+            {
+                var result = await _quizRepository.GetQuizByIDAsync(id);
+
+                if (result == null) return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
+            }
+        }
+
+        [HttpPut("{id}")]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<QuizViewModel>> UpdateQuiz(int id, QuizViewModel updatedQuizModel)
+        {
+            try
+            {
+                var existingQuiz = await _quizRepository.GetQuizByIDAsync(id);
+
+                if (existingQuiz == null) return NotFound($"Could Not find quiz ");
+
+                _mapper.Map(updatedQuizModel, existingQuiz);
+
+                if (await _quizRepository.SaveChangesAsync())
+                {
+                    return _mapper.Map<QuizViewModel>(existingQuiz);
+                }
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+
         }
     }
 }

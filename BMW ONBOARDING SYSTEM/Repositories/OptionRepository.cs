@@ -26,6 +26,14 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             _inf370ContextDB.Remove(entity);
         }
 
+        public Task<Option> GetOptionByIDAsync(int optionID)
+        {
+            IQueryable<Option> options = _inf370ContextDB.Option.Where(x => x.OptionId == optionID);
+
+            return options.FirstOrDefaultAsync();
+
+        }
+
         public Task<Option[]> GetOptionByQuestionIDAsync(int questionId)
         {
             IQueryable<Option> options = _inf370ContextDB.Option.Where(x => x.QuestionId == questionId);
@@ -33,9 +41,9 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             return options.ToArrayAsync();
         }
 
-        public Task<bool> SaveChangesAsync()
+        public async Task<bool> SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return await _inf370ContextDB.SaveChangesAsync() > 0;
         }
     }
 }

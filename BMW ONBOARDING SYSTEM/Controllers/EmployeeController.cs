@@ -173,24 +173,25 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                             if (await _employeeRepository.SaveChangesAsync())
                             {
+                                SendSmsViewModel sendSms = new SendSmsViewModel();
+                                sendSms.to = Convert.ToString(model.ContactNumber);
+
+                                using (var httpClient = new HttpClient())
+                                {
+                                    var smsData = JsonSerializer.Serialize(sendSms);
+                                    var requestContent = new StringContent(smsData, Encoding.UTF8, "application/json");
+                                    using (var response = await httpClient.PostAsync("https://localhost:44319/api/Sms/SendSMS", requestContent))
+                                    {
+
+                                        string apiResponse = await response.Content.ReadAsStringAsync();
+
+                                    }
+                                }
                                 return Ok();
                             }
                         }
 
-                        SendSmsViewModel sendSms = new SendSmsViewModel();
-                        sendSms.to = Convert.ToString(model.ContactNumber);
-
-                        using (var httpClient = new HttpClient())
-                        {
-                            var smsData = JsonSerializer.Serialize(sendSms);
-                            var requestContent = new StringContent(smsData, Encoding.UTF8, "application/json");
-                            using (var response = await httpClient.PostAsync("https://localhost:44319/api/Sms/SendSMS", requestContent))
-                            {
-
-                                string apiResponse = await response.Content.ReadAsStringAsync();
-
-                            }
-                        }
+                        
                     }
 
                     //var createAuditLog = _mapper.Map<CreateAuditLogViewModel>(model);

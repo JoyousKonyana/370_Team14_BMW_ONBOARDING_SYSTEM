@@ -35,15 +35,15 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult SendSMS(string v, [FromBody] SendSmsViewModel model)
+        public IActionResult SendSMS([FromBody] SendSmsViewModel model)
         {
             var accountSid = "AC6b52cdb391ab892a1041457ee9056576";
-            var authToken = "b6e67eb41687722514f792a55ce4f5c4";
+            var authToken = "cc0a54550852f3289cf3454bce5840c3";
 
 
             TwilioClient.Init(accountSid, authToken);
             var to = new PhoneNumber("+27785622125");
-            var toto = new PhoneNumber(model.to);
+            var toto = new PhoneNumber(model.to.Trim());
             var from = new PhoneNumber("+17254448788");
             var message = "Dear onboarder Please check your email we have provided you with all the neccessary details looking forward to working with you";
             try

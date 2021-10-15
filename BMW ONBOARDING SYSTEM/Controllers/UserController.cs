@@ -207,8 +207,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
-        [Route("[action]/id")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<IActionResult> getUserById(int id)
         {
             try
