@@ -30,7 +30,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<QuestionViewModel>> Createquestion([FromBody] QuestionViewModel model)
         {
             try

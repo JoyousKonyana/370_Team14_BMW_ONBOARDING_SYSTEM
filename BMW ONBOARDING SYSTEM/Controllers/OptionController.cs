@@ -64,6 +64,23 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         [HttpGet]
         [Route("[action]/{id}")]
+        public async Task<IActionResult> GetOptionByQuestionId(int id)
+        {
+            try
+            {
+                var option = await _optionRepository.GetOptionByQuestionIDAsync(id);
+                return Ok(option);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+
+
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<IActionResult> GetOptionById(int id)
         {
             try
