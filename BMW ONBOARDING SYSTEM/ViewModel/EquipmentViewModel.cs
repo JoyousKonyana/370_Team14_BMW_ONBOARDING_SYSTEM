@@ -22,13 +22,17 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
       
         public string EquipmentSerialNumber { get; set; }
 
-       
-    
-       
-      
+
+
        
       
-       
-       
+
+
+
+
+
+
+
+
     }
 }

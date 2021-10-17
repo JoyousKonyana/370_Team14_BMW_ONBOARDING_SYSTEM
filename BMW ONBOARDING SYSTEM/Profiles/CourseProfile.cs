@@ -136,6 +136,13 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
 
             this.CreateMap<Option, OptionViewModel>().
   ReverseMap();
+
+
+            this.CreateMap<Equipment, EquipmentViewModel>().
+  ReverseMap();
+
+            this.CreateMap<EquipmentViewModel, Equipment>().
+ReverseMap();
         }
     }
 }

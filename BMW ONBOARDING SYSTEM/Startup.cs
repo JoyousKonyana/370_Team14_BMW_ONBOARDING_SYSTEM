@@ -141,9 +141,9 @@ namespace BMW_ONBOARDING_SYSTEM
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            //configured for deployment
-            // app.UseHsts();
-            // app.UseHttpsRedirection();
+            // configured for deployment
+            app.UseHsts();
+            app.UseHttpsRedirection();
             // global cors policy
             app.UseCors(x => x
                 .AllowAnyOrigin()
