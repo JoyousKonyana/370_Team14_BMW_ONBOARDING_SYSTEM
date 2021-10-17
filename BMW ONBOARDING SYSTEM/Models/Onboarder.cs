@@ -17,7 +17,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [Column("OnboarderID")]
         public int OnboarderId { get; set; }
         [Column("EmployeeID")]
-        public int? EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
         [InverseProperty("Onboarder")]

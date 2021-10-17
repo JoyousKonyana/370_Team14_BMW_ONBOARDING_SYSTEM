@@ -23,9 +23,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [ForeignKey(nameof(EquipmentId))]
         [InverseProperty("OnboarderEquipment")]
         public virtual Equipment Equipment { get; set; }
-        [ForeignKey(nameof(EquipmentId))]
-        [InverseProperty(nameof(EquipmentQuery.OnboarderEquipment))]
-        public virtual EquipmentQuery EquipmentNavigation { get; set; }
         [ForeignKey(nameof(OnboarderId))]
         [InverseProperty("OnboarderEquipment")]
         public virtual Onboarder Onboarder { get; set; }

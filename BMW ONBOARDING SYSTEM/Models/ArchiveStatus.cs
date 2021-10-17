@@ -11,14 +11,11 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         {
             LessonContent = new HashSet<LessonContent>();
         }
-
         [Key]
         [Column("ArchiveStatusID")]
         public int ArchiveStatusId { get; set; }
         [StringLength(50)]
         public string ArchieveStatusDescription { get; set; }
-
-        [InverseProperty("ArchiveStatus")]
         public virtual ICollection<LessonContent> LessonContent { get; set; }
     }
 }

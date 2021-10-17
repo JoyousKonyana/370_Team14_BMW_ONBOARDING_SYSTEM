@@ -30,7 +30,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<FaqViewModel>> CreateFaq([FromBody] FaqViewModel model)
+        public async Task<ActionResult<FaqViewModel>> CreateFaq(int userid,[FromBody] FaqViewModel model)
         {
             try
             {
@@ -40,6 +40,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _faqRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Frequently asked question " + ' ' + faq.Faqdescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+
                     return Ok(faq);
                 }
             }
@@ -69,8 +74,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         //[Authorize(Roles = Role.Admin)]
 
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<FaqViewModel>> UpdateFaq(int id, [FromBody] FaqViewModel updatedFaqModel)
+        [Route("[action]/id/{userid}")]
+        public async Task<ActionResult<FaqViewModel>> UpdateFaq(int id,int userid, [FromBody] FaqViewModel updatedFaqModel)
         {
             try
             {
@@ -82,6 +87,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _faqRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Frequently asked question " + ' ' + existingFaq.Faqdescription ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<FaqViewModel>(existingFaq);
                 }
             }
@@ -96,8 +105,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteFaq(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteFaq(int id, int userid)
         {
             try
             {
@@ -109,6 +118,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _faqRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted Frequently asked question " + ' ' + existingFaq.Faqdescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

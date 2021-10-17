@@ -46,8 +46,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<LessonContentViewModel>> UploadContentLink([FromBody] LessonContentViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<LessonContentViewModel>> UploadContentLink(int userid,[FromBody] LessonContentViewModel model)
         {
             try
             {
@@ -56,6 +56,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonContentRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Added lesson content " + ' ' + lessonContent.LessonContentDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok(lessonContent);
                 }
             }
@@ -69,8 +73,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<LessonContentViewModel>> AchiveLessonContent(int id, LessonContentViewModelDTO model)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<LessonContentViewModel>> AchiveLessonContent(int id, int userid, LessonContentViewModelDTO model)
         {
             try
             {
@@ -91,6 +95,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonContentRepository.SaveChangesAsync())
                 {
+                    var lessonContent = await _lessonContentRepository.GetLessonContentByIdAsync(id);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Archived lesson content " + ' ' + lessonContent.LessonContentDescription; ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("Lesson content successfully archived");
                 }
             }
@@ -105,8 +114,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpPut("name")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<CourseViewModel>> UpdateLessonContent(int id, LessonContentViewModelDTO updatedCourseModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<CourseViewModel>> UpdateLessonContent(int id, int userid, LessonContentViewModelDTO updatedCourseModel)
         {
             try
             {
@@ -118,6 +127,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonContentRepository.SaveChangesAsync())
                 {
+                    var lessonContent = await _lessonContentRepository.GetLessonContentByIdAsync(id);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Archived lesson content " + ' ' + lessonContent.LessonContentDescription; ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<CourseViewModel>(existingLessonContent);
                 }
             }
@@ -132,8 +146,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteLessonContent(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteLessonContent(int id, int userid)
         {
             try
             {
@@ -145,6 +159,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonContentRepository.SaveChangesAsync())
                 {
+                    var lessonContent = await _lessonContentRepository.GetLessonContentByIdAsync(id);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted lesson content " + ' ' + lessonContent.LessonContentDescription; ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

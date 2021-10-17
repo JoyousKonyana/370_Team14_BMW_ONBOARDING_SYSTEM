@@ -8,17 +8,13 @@ namespace BMW_ONBOARDING_SYSTEM.Models
     public partial class Option
     {
         [Key]
-        [Column("OptionID")]
         public int OptionId { get; set; }
-        [Column("OptionNO", TypeName = "numeric(18, 0)")]
-        public decimal? OptionNo { get; set; }
-        [StringLength(50)]
-        public string OptionDescription { get; set; }
-        [Column("QuestionID")]
-        public int? QuestionId { get; set; }
-
-        [ForeignKey(nameof(QuestionId))]
+        public int QuestionId { get; set; }
         [InverseProperty("Option")]
         public virtual Question Question { get; set; }
+        public int OptionNumber { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string OptionDescription { get; set; }
     }
 }

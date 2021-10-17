@@ -11,7 +11,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         {
             Question = new HashSet<Question>();
         }
-
         [Key]
         [Column("QuizID")]
         public int QuizId { get; set; }
@@ -28,9 +27,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [Column(TypeName = "numeric(18, 0)")]
         public decimal? NumberOfQuestions { get; set; }
 
-        [ForeignKey(nameof(LessonOutcomeId))]
-        [InverseProperty("Quiz")]
-        public virtual LessonOutcome LessonOutcome { get; set; }
         [InverseProperty("Quiz")]
         public virtual ICollection<Question> Question { get; set; }
     }

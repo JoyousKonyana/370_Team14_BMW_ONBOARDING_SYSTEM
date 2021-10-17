@@ -22,16 +22,18 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     {
         private readonly IEquipmentRepository _equipmentRepository;
 
-        private readonly IWarrantyRepository _warrantyRepository;
+        //private readonly IWarrantyRepository _warrantyRepository;
         private readonly IEquipementTypeRepository _equipmentTypeRepository;
+        private readonly IOnboarderRepository _onboarderRepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public EquipmentController(IEquipmentRepository equipmentRepository, IWarrantyRepository warrantyRepository, IEquipementTypeRepository equipmentTypeRepository, IMapper mapper)
+        public EquipmentController(IEquipmentRepository equipmentRepository, IEquipementTypeRepository equipmentTypeRepository, IOnboarderRepository onboarderRepository, IMapper mapper)
         {
             _equipmentRepository = equipmentRepository;
+            _onboarderRepository = onboarderRepository;
             _mapper = mapper;
-            _warrantyRepository = warrantyRepository;
+            //_warrantyRepository = warrantyRepository;
             _equipmentTypeRepository = equipmentTypeRepository;
         }
         [HttpGet]
@@ -41,12 +43,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             try
             {
                 RegisterEquipmentDTO equipmentDTO = new RegisterEquipmentDTO();
-                var warranty = await _warrantyRepository.GetWarrantiesAsync();
+                //var warranty = await _warrantyRepository.GetWarrantiesAsync();
                 var equipmentType = await _equipmentTypeRepository.GetAllEquipmentTypesAsync();
-                foreach (var warrant in warranty)
-                {
-                    equipmentDTO.warranties.Add(warrant);
-                }
+
 
                 foreach (var equipType in equipmentType)
                 {
@@ -85,17 +84,21 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<EquipmentViewModel>> RegisterEquipment([FromBody] EquipmentViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<EquipmentViewModel>> RegisterEquipment(int userid, [FromBody] EquipmentViewModel model)
         {
             try
             {
                 var equipment = _mapper.Map<Equipment>(model);
-                equipment.EquipmentId = 2;
+                //equipment.EquipmentId = 2;
                 _equipmentRepository.Add(equipment);
 
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Registered equipment with" + ' ' + equipment.EquipmentSerialNumber;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("Successfully registered new equipment");
                 }
             }
@@ -108,8 +111,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<EquipmentViewModel>> UpdateEquipment(int id, EquipmentViewModel updatedEquipmentModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<EquipmentViewModel>> UpdateEquipment(int id,int userid, EquipmentViewModel updatedEquipmentModel)
         {
             try
             {
@@ -122,6 +125,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
 
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated equipment with serial number" + ' ' + existingEquipment.EquipmentSerialNumber;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
 
 
 
@@ -140,8 +147,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteEquipment(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteEquipment(int id,int userid)
         {
             try
             {
@@ -153,6 +160,12 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
+
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted equipment with serial number" + ' ' + existingEquipment.EquipmentSerialNumber ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+
                     return Ok();
                 }
             }
@@ -167,17 +180,24 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<EquipmentViewModel>> AssignedEquipment([FromBody] AssignedEquipmentViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<EquipmentViewModel>> AssignedEquipment(int userid,[FromBody] AssignedEquipmentViewModel model)
         {
             try
             {
                 var equipment = _mapper.Map<OnboarderEquipment>(model);
+             
 
                 _equipmentRepository.Add(equipment);
 
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
+                    var existingequipmemt = await _equipmentRepository.GetEquipmentByIdAsync(model.EquipmentId);
+            
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Assigned equipment with serial number" + ' ' + existingequipmemt.EquipmentSerialNumber + " "+ "to onboarder with id " + " " + model.OnboarderId;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("Successfully Assigned equipment");
                 }
             }
@@ -190,8 +210,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<EquipmentViewModel>> AssignedEquipment2([FromBody] AssignedEquipmentViewModel[] model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<EquipmentViewModel>> AssignedEquipment2(int userid,[FromBody] AssignedEquipmentViewModel[] model)
         {
             try
             {
@@ -207,6 +227,13 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     {
                         return BadRequest("The system could not assign all equipments");
                     }
+
+                    var existingequipmemt = await _equipmentRepository.GetEquipmentByIdAsync(equip.EquipmentId);
+
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Assigned equipment with serial number" + ' ' + existingequipmemt.EquipmentSerialNumber + " " + "to onboarder with id " + " " + equip.OnboarderId;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                 }
             }
             catch (Exception)
@@ -218,8 +245,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Onboarder)]
         [HttpPut("{id}")]
-        [Route("[action]")]
-        public async Task<ActionResult<AssignedEquipmentViewModel>> CheckEquipment(int id, [FromBody] AssignedEquipmentViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<AssignedEquipmentViewModel>> CheckEquipment(int id,int userid, [FromBody] AssignedEquipmentViewModel model)
         {
             try
             {
@@ -234,6 +261,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
+                    var existingequipmemt = await _equipmentRepository.GetEquipmentByIdAsync(model.EquipmentId);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Assigned equipment with serial number" + ' ' + existingequipmemt.EquipmentSerialNumber + " " + "to onboarder with id " + " " + model.OnboarderId;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<AssignedEquipmentViewModel>(assignedEquipment);
                 }
             }
@@ -248,8 +280,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Onboarder)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<AssignedEquipmentViewModel>> CheckEquipment2(int id, [FromBody] AssignedEquipmentViewModel[] model)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<AssignedEquipmentViewModel>> CheckEquipment2(int id,int userid ,[FromBody] AssignedEquipmentViewModel[] model)
         {
             try
             {
@@ -267,6 +299,12 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     {
                         return BadRequest("Sorry the system could not check all the equipment");
                     }
+
+                    var existingequipmemt = await _equipmentRepository.GetEquipmentByIdAsync(equip.EquipmentId);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Assigned equipment with serial number" + ' ' + existingequipmemt.EquipmentSerialNumber + " " + "to onboarder with id " + " " + equip.OnboarderId;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                 }
                 return Ok("Successfully checked equipment");
 
@@ -288,7 +326,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         {
             try
             {
-                var equipment = await _equipmentRepository.GetEquipmentByOnboarderIDAsync(id);
+               OnboarderEquipment[] equipment = await _equipmentRepository.GetEquipmentByOnboarderIDAsync(id);
                 return Ok(equipment);
             }
             catch (Exception)
@@ -299,8 +337,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Onboarder)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<EquipmentViewModel>> ReportEquipmentQuery([FromBody] EquipmentQueryViewModelcs model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<EquipmentViewModel>> ReportEquipmentQuery(int userid, [FromBody] EquipmentQueryViewModelcs model)
         {
             try
             {
@@ -310,6 +348,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _equipmentRepository.SaveChangesAsync())
                 {
+                    var existingequipmemt = await _equipmentRepository.GetEquipmentByIdAsync(model.EquipmentId);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Submited a query for equipment with serial number" + ' ' + existingequipmemt.EquipmentSerialNumber + " " + "Currently assigned to " + " " + model.OnboarderId;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("Your query was successfully saved");
                 }
             }
@@ -322,8 +365,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult<Equipment[]>> GenerateAuditReport([FromBody] AuditLogViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<Equipment[]>> GenerateAuditReport(int userid,[FromBody] AuditLogViewModel model)
         {
             try
             {

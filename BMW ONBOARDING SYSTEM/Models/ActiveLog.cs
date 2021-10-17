@@ -19,9 +19,5 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public DateTime? ActiveLogLoginTimestamp { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? ActiveLogLoginLastActiveTimestamp { get; set; }
-
-        [ForeignKey(nameof(UserId))]
-        [InverseProperty("ActiveLog")]
-        public virtual User User { get; set; }
     }
 }

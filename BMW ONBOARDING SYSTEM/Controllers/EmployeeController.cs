@@ -133,6 +133,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         public async Task<ActionResult> RegisterEmployee([FromBody] EmployeeViewModel model)
         {
             try
+            
             {
                 var address = _mapper.Map<Address>(model);
                 _employeeRepository.Add(address);
@@ -174,7 +175,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                             if (await _employeeRepository.SaveChangesAsync())
                             {
                                 SendSmsViewModel sendSms = new SendSmsViewModel();
-                                sendSms.to = Convert.ToString(model.ContactNumber);
+                                sendSms.to = Convert.ToString(model.ContactNumber.ToString().Trim());
 
                                 using (var httpClient = new HttpClient())
                                 {
@@ -191,7 +192,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                             }
                         }
 
-                        
+
                     }
 
                     //var createAuditLog = _mapper.Map<CreateAuditLogViewModel>(model);

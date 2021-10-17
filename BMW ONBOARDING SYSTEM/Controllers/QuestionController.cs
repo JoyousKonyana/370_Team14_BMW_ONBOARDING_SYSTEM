@@ -30,17 +30,21 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpPost]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<QuestionViewModel>> Createquestion([FromBody] QuestionViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<QuestionViewModel>> Createquestion(int userid,[FromBody] QuestionViewModel model)
         {
             try
             {
                 var question = _mapper.Map<Question>(model);
-                question.QuestionId = 3;
+              
                 _questionRepository.Add(question);
 
                 if (await _questionRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Question with description" + ' ' + question.QuestionDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     //remember to add transaction to audit log
                     return Created($"/api/Question{question.QuestionId}", _mapper.Map<QuestionViewModel>(question));
                 }
@@ -112,8 +116,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<QuestionViewModel>> UpdateQuestion(int id, [FromBody] QuestionViewModel updatedQuestionModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<QuestionViewModel>> UpdateQuestion(int id,int userid, [FromBody] QuestionViewModel updatedQuestionModel)
         {
             try
             {
@@ -125,6 +129,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _questionRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Question with description" + ' ' + existingquestion.QuestionDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<QuestionViewModel>(existingquestion);
                 }
             }
@@ -140,8 +148,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteQuestion(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteQuestion(int id, int userid)
         {
             try
             {
@@ -153,6 +161,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _questionRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Delete Question with description" + ' ' + existingQuestion.QuestionDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

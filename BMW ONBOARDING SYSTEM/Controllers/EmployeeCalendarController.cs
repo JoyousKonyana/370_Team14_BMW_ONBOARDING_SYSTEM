@@ -30,8 +30,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<EmployeeCalendarViewModel>> AddLink([FromBody] EmployeeCalendarViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<EmployeeCalendarViewModel>> AddLink(int userid, [FromBody] EmployeeCalendarViewModel model)
         {
             try
             {
@@ -40,6 +40,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _employeeCalendarRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Added employee link" + ' ' + result.EmployeeCalendarLink;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("You Teams Link success fully added");
                 }
             }
@@ -53,8 +57,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin + "," + Role.Onboarder)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteEmployeeCalendar(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteEmployeeCalendar(int id, int userid)
         {
             try
             {
@@ -66,6 +70,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _employeeCalendarRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted employee calendar link" + ' ' + result.EmployeeCalendarLink;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

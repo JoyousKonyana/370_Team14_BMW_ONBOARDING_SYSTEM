@@ -69,8 +69,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<UserRoleViewModel>> CreateUserRole([FromBody] UserRoleViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<UserRoleViewModel>> CreateUserRole(int userid,[FromBody] UserRoleViewModel model)
         {
             try
             {
@@ -80,6 +80,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _userRoleRepository.SaveChangesAsync())
                 {
+                   
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created userole with name  " + ' ' + userRole.UserRoleName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Created($"/api/UserRole{userRole.UserRoleName}", _mapper.Map<UserRoleViewModel>(userRole));
                 }
             }
@@ -92,8 +97,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<UserRoleViewModel>> UpdateUserRole(int id, UserRoleViewModel updatedModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<UserRoleViewModel>> UpdateUserRole(int id, int userid,UserRoleViewModel updatedModel)
         {
             try
             {
@@ -105,6 +110,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _userRoleRepository.SaveChangesAsync())
                 {
+                   
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated userole with description  " + existinguserRole.UserRoleName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<UserRoleViewModel>(existinguserRole);
                 }
             }
@@ -119,8 +129,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPut]
-        [Route("[action]")]
-        public async Task<ActionResult<UserRoleViewModel>> AssignedUserRole([FromBody] AssignedUserRoleViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<UserRoleViewModel>> AssignedUserRole(int userid,[FromBody] AssignedUserRoleViewModel model)
         {
             try
             {
@@ -133,6 +143,12 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _userRoleRepository.SaveChangesAsync())
                 {
+                    var userRole = await _userRoleRepository.GetUserRoleByid(model.UserRoleID);
+                  
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Assigned userole to user  " + existinguser.Username+ ' '+ "from" + existinguser.UserRole.UserRoleName + ' '+ "to" + userRole.UserRoleName ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("SuccessFully assigned user Role");
                 }
             }
@@ -147,8 +163,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteUserRole(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteUserRole(int id, int userid)
         {
             try
             {
@@ -160,6 +176,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _userRoleRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted userole" + existingUserRole.UserRoleName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

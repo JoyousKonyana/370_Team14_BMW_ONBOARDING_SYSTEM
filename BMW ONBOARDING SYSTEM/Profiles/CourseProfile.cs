@@ -102,8 +102,8 @@ namespace BMW_ONBOARDING_SYSTEM.Profiles
             this.CreateMap<Notification, NotificationViewModel>().
            ReverseMap();
 
-            this.CreateMap<Warranty, WarrantyViewModel>().
-             ReverseMap();
+            //this.CreateMap<Warranty, WarrantyViewModel>().
+            // ReverseMap();
 
             this.CreateMap<Province, ProvinceViewModel>().
             ReverseMap();

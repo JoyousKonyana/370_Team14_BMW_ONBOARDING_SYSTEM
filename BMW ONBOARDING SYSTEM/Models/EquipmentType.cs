@@ -7,6 +7,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class EquipmentType
     {
+
         public EquipmentType()
         {
             Equipment = new HashSet<Equipment>();
@@ -18,7 +19,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [StringLength(50)]
         public string EquipmentTypeDescription { get; set; }
 
-        [InverseProperty("EquipmentType")]
         public virtual ICollection<Equipment> Equipment { get; set; }
     }
 }

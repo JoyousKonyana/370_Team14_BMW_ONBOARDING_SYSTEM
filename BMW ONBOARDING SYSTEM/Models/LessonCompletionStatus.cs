@@ -7,11 +7,6 @@ namespace BMW_ONBOARDING_SYSTEM.Models
 {
     public partial class LessonCompletionStatus
     {
-        public LessonCompletionStatus()
-        {
-            Lesson = new HashSet<Lesson>();
-        }
-
         [Key]
         [Column("LessonCompletionStatusID")]
         public int LessonCompletionStatusId { get; set; }
@@ -19,8 +14,5 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public string LessonCompletionStatusDescription { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? LessonCompletionDate { get; set; }
-
-        [InverseProperty("LessonCompletionStatus")]
-        public virtual ICollection<Lesson> Lesson { get; set; }
     }
 }

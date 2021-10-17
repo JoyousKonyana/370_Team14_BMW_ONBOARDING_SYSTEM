@@ -68,9 +68,9 @@ namespace BMW_ONBOARDING_SYSTEM
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
             services.AddScoped<IEquipmentQueryRepository, EquipmentQueryRepository>();
             services.AddScoped<IFaqRepository, FaqRepository>();
-            services.AddScoped<IActiveLogRepository, ActiveLogRepository>();
+            //services.AddScoped<IActiveLogRepository, ActiveLogRepository>();
             services.AddScoped<IAuditLogRepository, AuditRepository>();
-            services.AddScoped<IWarrantyRepository, WarrantyRepository>();
+            //services.AddScoped<IWarrantyRepository, WarrantyRepository>();
             services.AddScoped<IProvinceRepository, ProvinceRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
@@ -90,7 +90,7 @@ namespace BMW_ONBOARDING_SYSTEM
             var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
-            //configure jwt authentication
+           // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>

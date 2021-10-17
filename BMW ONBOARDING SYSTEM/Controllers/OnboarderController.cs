@@ -30,7 +30,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         //[Authorize(Role.Admin)]
-        [HttpGet("{id}")]
+        [HttpGet]
         [Route("[action]")]
         //getAll courses Assigeng to this a onboarder
         // used to show courses to onboarder
@@ -40,7 +40,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             {
                 var result = await _onboarderRepository.GetOnboarders();
 
-               if (result == null) return NotFound();
+                if (result == null) return NotFound();
 
 
 

@@ -14,8 +14,8 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [Column("CourseID")]
         public int CourseId { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? OnboarderEnrollmentDate { get; set; }
-        public int? BadgeTotal { get; set; }
+        public DateTime OnboarderEnrollmentDate { get; set; }
+        public int BadgeTotal { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? OnboarderGraduationDate { get; set; }
 

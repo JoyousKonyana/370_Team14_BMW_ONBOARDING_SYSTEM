@@ -67,15 +67,16 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         //[Authorize(Role.Admin + "," + Role.Onboarder)]
         [HttpGet("{id}")]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<LessonOutcomeViewModel>> GeLessonOutcomeByLessonId(int lessonID)
+        public async Task<ActionResult<LessonOutcomeViewModel>> GeLessonOutcomeByLessonId(int id)
         {
             try
             {
-                var result = await _lessonOutcomeRepository.GeLessonOutcomeByLessonId(lessonID);
+                var result = await _lessonOutcomeRepository.GeLessonOutcomeByLessonId(id);
 
                 if (result == null) return NotFound();
 
-                return _mapper.Map<LessonOutcomeViewModel>(result);
+                //return _mapper.Map<LessonOutcomeViewModel>(result);
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -86,8 +87,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<LessonOutcomeViewModel>> CreateLessonOutcome([FromBody] LessonOutcomeViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<LessonOutcomeViewModel>> CreateLessonOutcome(int userid,[FromBody] LessonOutcomeViewModel model)
         {
             try
             {
@@ -96,6 +97,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonOutcomeRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Lessonoutcome with name" + ' ' + lessonOutcome.LessonOutcomeName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+
                     return Created($"/api/LessonOutcome{lessonOutcome.LessonOutcomeName}", _mapper.Map<LessonOutcomeViewModel>(lessonOutcome));
                 }
             }
@@ -109,8 +115,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<LessonOutcomeViewModel>> UpdateLessonOutcome(int id, LessonOutcomeViewModel updatedCourseModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<LessonOutcomeViewModel>> UpdateLessonOutcome(int id,int userid, LessonOutcomeViewModel updatedCourseModel)
         {
             try
             {
@@ -122,6 +128,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonOutcomeRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Lessonoutcome with name" + ' ' + existingLessonOutcome.LessonOutcomeName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+
                     return _mapper.Map<LessonOutcomeViewModel>(existingLessonOutcome);
                 }
             }
@@ -137,8 +148,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteLessonOutcome(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteLessonOutcome(int id, int userid)
         {
             try
             {
@@ -150,6 +161,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonOutcomeRepository.SaveChangesAsync())
                 {
+
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted Lessonoutcome with name" + ' ' + existingLessonOutcome.LessonOutcomeName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

@@ -18,9 +18,5 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public string OtpValue { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime Timestamp { get; set; }
-
-        [ForeignKey(nameof(UserId))]
-        [InverseProperty("Otp")]
-        public virtual User User { get; set; }
     }
 }

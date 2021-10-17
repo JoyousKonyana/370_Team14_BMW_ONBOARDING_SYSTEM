@@ -15,11 +15,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     [ApiController]
     public class EquipmentTypeController : ControllerBase
     {
-        private readonly EquipmentTypeRepository _equipmentTypepository;
+        private readonly IEquipementTypeRepository _equipmentTypepository;
         private readonly IMapper _mapper;
         // functionality not implemented yet
         // create a quiz together with a question
-        public EquipmentTypeController(EquipmentTypeRepository equipmentTypepository, IMapper mapper)
+        public EquipmentTypeController(IEquipementTypeRepository equipmentTypepository, IMapper mapper)
         {
             _equipmentTypepository = equipmentTypepository;
             _mapper = mapper;

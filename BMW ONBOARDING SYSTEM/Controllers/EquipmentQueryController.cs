@@ -100,8 +100,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<EquipmentQueryViewModelcs>> CreateQueryStatus([FromBody] EquipmentQueryStatusViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<EquipmentQueryViewModelcs>> CreateQueryStatus(int userid, [FromBody] EquipmentQueryStatusViewModel model)
         {
             try
             {
@@ -111,6 +111,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _queryRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Query status with description" + ' ' + query.EquipmentQueryDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("Query Status Successfully created");
                 }
             }
@@ -125,8 +129,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPut()]
-        [Route("[action]")]
-        public async Task<ActionResult<ResolveQueryViewModel>> ResolveQuery(ResolveQueryViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<ResolveQueryViewModel>> ResolveQuery(int userid,ResolveQueryViewModel model)
         {
             try
             {
@@ -138,6 +142,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _queryRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Resolved query number" + ' ' + model.EquipmentQueryId;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok("Query Successfully Resolved");
                 }
             }

@@ -32,7 +32,7 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
         public Task<LessonContent[]> GetLessonContentByLessonOutcomeIDsAsync(int Id)
         {
             IQueryable<LessonContent> result = _inf370ContextDB.LessonContent.Where(xx => xx.LessonOutcomeId == Id).
-                Include(l => l.LessonContenetType).
+                Include(l => l.LessonContentType).
                 Include(l => l.ArchiveStatus);
 
 

@@ -27,12 +27,14 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
         private readonly IOTPRepository _otpRepository;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public UserController(IUserRepository userRepository,
              IOTPRepository otpRepository,
+             IUserRoleRepository userRoleRepository,
              IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
@@ -44,8 +46,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<User>> registerUser(CreateUserViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<User>> registerUser(int userid,[FromBody]CreateUserViewModel model)
         {
 
 
@@ -63,6 +65,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (await _userRepository.SaveChangesAsync())
                 {
                     sendEmail(user, randomPassword);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Registered user with  username" + ' ' + user.Username;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }
@@ -219,7 +225,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     return BadRequest(new { message = "Could not find user contact system administrator" });
 
                 return Ok(user);
-             
+
 
             }
             catch (Exception)
@@ -400,14 +406,14 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             return BadRequest();
         }
 
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<CreateUserViewModel>> AssignUserRole(AssignedUserRoleViewModel updatedModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<CreateUserViewModel>> AssignUserRole(int userid,AssignedUserRoleViewModel updatedModel)
         {
             try
             {
-                var existinguser = await _userRepository.GetUserByIdAsync(updatedModel.UserRoleID);
+                var existinguser = await _userRepository.GetUserByIdAsync(updatedModel.User_ID);
 
                 if (existinguser == null) return NotFound($"Could Not find this User ");
 
@@ -417,6 +423,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _userRepository.SaveChangesAsync())
                 {
+                    var userrole = await _userRoleRepository.GetUserRoleByid(updatedModel.UserRoleID);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Assigned userole to user with  " + ' ' + existinguser.Username + ' '+ "from" + ' '+ existinguser.UserRole.UserRoleName + ' '+ "to" +' ' + userrole.UserRoleName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<CreateUserViewModel>(existinguser);
                 }
             }

@@ -4,14 +4,16 @@ using BMW_ONBOARDING_SYSTEM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BMW_ONBOARDING_SYSTEM.Migrations
 {
     [DbContext(typeof(INF370DBContext))]
-    partial class INF370DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211016094155_employee and title relationship")]
+    partial class employeeandtitlerelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,10 +430,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
 
                     b.HasKey("EquipmentId");
 
-                    b.HasIndex("EquipmentBrandId");
-
-                    b.HasIndex("EquipmentTypeId");
-
                     b.ToTable("Equipment");
                 });
 
@@ -654,18 +652,11 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(false);
 
-                    b.Property<int?>("LessonContentTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LessonOutcomeId")
                         .HasColumnName("LessonOutcomeID")
                         .HasColumnType("int");
 
                     b.HasKey("LessonConentId");
-
-                    b.HasIndex("ArchiveStatusId");
-
-                    b.HasIndex("LessonContentTypeId");
 
                     b.ToTable("LessonContent");
                 });
@@ -837,8 +828,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
 
                     b.HasKey("OptionId");
 
-                    b.HasIndex("QuestionId");
-
                     b.ToTable("Option");
                 });
 
@@ -953,8 +942,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("QuestionId");
-
-                    b.HasIndex("QuizId");
 
                     b.ToTable("Question");
                 });
@@ -1102,8 +1089,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("EmployeeId");
-
                     b.HasIndex("UserRoleId");
 
                     b.ToTable("User");
@@ -1160,28 +1145,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
                         .HasForeignKey("TitleId");
                 });
 
-            modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.Equipment", b =>
-                {
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.EquipmentBrand", "EquipmentBrand")
-                        .WithMany("Equipment")
-                        .HasForeignKey("EquipmentBrandId");
-
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.EquipmentType", "EquipmentType")
-                        .WithMany("Equipment")
-                        .HasForeignKey("EquipmentTypeId");
-                });
-
-            modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.LessonContent", b =>
-                {
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.ArchiveStatus", "ArchiveStatus")
-                        .WithMany("LessonContent")
-                        .HasForeignKey("ArchiveStatusId");
-
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.LessonContentType", "LessonContentType")
-                        .WithMany("LessonContent")
-                        .HasForeignKey("LessonContentTypeId");
-                });
-
             modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.Onboarder", b =>
                 {
                     b.HasOne("BMW_ONBOARDING_SYSTEM.Models.Employee", "Employee")
@@ -1221,28 +1184,8 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.Option", b =>
-                {
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.Question", "Question")
-                        .WithMany("Option")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.Question", b =>
-                {
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.Quiz", "Quiz")
-                        .WithMany("Question")
-                        .HasForeignKey("QuizId");
-                });
-
             modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.User", b =>
                 {
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.Employee", "Employee")
-                        .WithMany("User")
-                        .HasForeignKey("EmployeeId");
-
                     b.HasOne("BMW_ONBOARDING_SYSTEM.Models.UserRole", "UserRole")
                         .WithMany("User")
                         .HasForeignKey("UserRoleId")

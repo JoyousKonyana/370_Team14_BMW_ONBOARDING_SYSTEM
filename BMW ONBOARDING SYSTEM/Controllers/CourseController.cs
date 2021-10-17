@@ -47,8 +47,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<CourseViewModel>> CreateCourse([FromBody] CourseViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<CourseViewModel>> CreateCourse(int userid,[FromBody] CourseViewModel model)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                     AuditLog auditLog = new AuditLog();
                     auditLog.AuditLogDescription = "Created Course with name" + ' ' + course.CourseName;
                     auditLog.AuditLogDatestamp = DateTime.Now;
-                    auditLog.UserId = 1;
+                    auditLog.UserId = userid;
 
                     ////removetimefromdatabase
                     //auditLog.AuditLogTimestamp = TimeSpan.
@@ -82,8 +82,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<OnboarderCourseEnrollmentViewModel>> AssignCourse([FromBody] OnboarderCourseEnrollmentViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<OnboarderCourseEnrollmentViewModel>> AssignCourse(int userid,[FromBody] OnboarderCourseEnrollmentViewModel model)
         {
             try
             {
@@ -92,19 +92,25 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 //{
 
 
-                    var enrollment = _mapper.Map<OnboarderCourseEnrollment>(model);
-                    _courseRepository.Add(enrollment);
+                var enrollment = _mapper.Map<OnboarderCourseEnrollment>(model);
+                _courseRepository.Add(enrollment);
 
-                    if (!await _courseRepository.SaveChangesAsync())
-                    {
-                        return BadRequest("We could not success fully save all enrollments");
-                    }
+                if (!await _courseRepository.SaveChangesAsync())
+                {
+                    return BadRequest("We could not success fully save all enrollments");
+                }
                 //}
 
                 //    if (await _courseRepository.SaveChangesAsync())
                 //{
                 //    return Ok("Onboarder Course Enrollment successfull");
                 //}
+
+                AuditLog auditLog = new AuditLog();
+                auditLog.AuditLogDescription = "Assigned Course to onboarder with id " + ' ' + model.OnboarderId;
+                auditLog.AuditLogDatestamp = DateTime.Now;
+                auditLog.UserId = userid;
+
                 return Ok("Onboarder Course Enrollment successfull");
             }
             catch (Exception)
@@ -163,6 +169,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _courseRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Course to " + ' ' + updatedCourseModel.CourseName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = id;
                     return _mapper.Map<CourseViewModel>(existingCourse);
                 }
             }
@@ -178,8 +188,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteCourse(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteCourse(int id, int userid)
         {
             try
             {
@@ -191,6 +201,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _courseRepository.SaveChangesAsync())
                 {
+
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Course to " + ' ' + existingCourse.CourseName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

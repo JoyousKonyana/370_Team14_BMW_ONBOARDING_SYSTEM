@@ -27,15 +27,15 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             _inf370ContextDB.Remove(entity);
         }
 
-        public Task<OnboarderEquipment> GetEquipmentByOnboarderIDAsync(int id)
+        public Task<OnboarderEquipment[]> GetEquipmentByOnboarderIDAsync(int id)
         {
             IQueryable<OnboarderEquipment> onboarderEquipment = _inf370ContextDB.OnboarderEquipment.
-                Include(x => x.Equipment).
-                ThenInclude(x => x.EquipmentTradeInStatus)
+                Include(x => x.Equipment)
+                //ThenInclude(x => x.EquipmentTradeInStatus)
               //ThenInclude(x => x.Equipment).ThenInclude(x => x.EquipmentBrand)
               .Where(i => i.OnboarderId == id);
 
-            return onboarderEquipment.FirstOrDefaultAsync();
+            return onboarderEquipment.ToArrayAsync();
         }
 
         public Task<Equipment> GetEquipmentByIdAsync(int id)
@@ -65,11 +65,13 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
                 Include(x => x.EquipmentBrand).
                 Include(x => x.EquipmentTradeInStatus).
                 Include(x => x.EquipmentType).
-                Include(x => x.OnboarderEquipment);
+                Include(x => x.OnboarderEquipment); //ThenInclude(x => x.EquipmentQuery).
+            //ThenInclude(x => x.EquipmentQueryStatus).
+            //ThenInclude(x => x.EquipmentQueryStatusNavigation);
             //relationship missing
-                //ThenInclude(x => x.EquipmentQuery).
-                //ThenInclude(x => x.EquipmentQueryStatus).
-                //ThenInclude(x => x.EquipmentQueryStatusNavigation);
+            //ThenInclude(x => x.EquipmentQuery).
+            //ThenInclude(x => x.EquipmentQueryStatus).
+            //ThenInclude(x => x.EquipmentQueryStatusNavigation);
             return equipment.ToArrayAsync();
 
         }
@@ -119,7 +121,7 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
 
         public Task<Equipment[]> GetEquiupments()
         {
-            IQueryable<Equipment> equipment = _inf370ContextDB.Equipment.Include(x => x.EquipmentBrand).Include(x => x.Warranty).Include(x => x.EquipmentType);
+            IQueryable<Equipment> equipment = _inf370ContextDB.Equipment.Include(x => x.EquipmentBrand).Include(x => x.EquipmentType);
 
             return equipment.ToArrayAsync();
         }

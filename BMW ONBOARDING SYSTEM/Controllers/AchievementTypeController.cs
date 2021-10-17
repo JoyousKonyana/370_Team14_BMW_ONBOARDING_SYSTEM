@@ -28,8 +28,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<CourseViewModel>> CreateAchievementType([FromBody] AchievementTypeViewModel model)
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<CourseViewModel>> CreateAchievementType(int id, [FromBody] AchievementTypeViewModel model)
         {
             try
             {
@@ -38,6 +38,12 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _achievementTypeRepository.SaveChangesAsync())
                 {
+                    AchievementType achievement = await _achievementTypeRepository.GetAchievementTypeIDAsync(achievementType.AchievementTypeId);
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Achievement type " + ' ' + achievement.AchievementTypeDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = id;
+
                     return Created($"/api/course{achievementType.AchievementTypeDescription}", _mapper.Map<AchievementTypeViewModel>(achievementType));
                 }
             }
@@ -100,6 +106,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _achievementTypeRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Achievement " + ' ' + updatedAchievementTypeModel.AchievementTypeDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = id;
                     return _mapper.Map<AchievementTypeViewModel>(existingAchievementType);
                 }
             }
@@ -114,8 +124,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteAchievementType(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteAchievementType(int id, int userid)
         {
             var name = "";
             try
@@ -129,6 +139,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _achievementTypeRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted Achievement " + ' ' + existingAchievementType.AchievementTypeDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid ;
+                   
                     return Ok();
                 }
             }

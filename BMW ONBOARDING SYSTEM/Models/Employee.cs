@@ -10,6 +10,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public Employee()
         {
             Onboarder = new HashSet<Onboarder>();
+            User = new HashSet<User>();
         }
 
         [Key]
@@ -39,25 +40,15 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public string EmployeeJobTitle { get; set; }
         [Column("TitleID")]
         public int? TitleId { get; set; }
-        [Column("UserID")]
-        public int? UserId { get; set; }
-
+        [InverseProperty("Employee")]
+        public virtual Title Title { get; set; }
         [ForeignKey(nameof(DepartmentId))]
         [InverseProperty("Employee")]
         public virtual Department Department { get; set; }
-        [ForeignKey(nameof(EmployeeCalendarId))]
-        [InverseProperty("Employee")]
-        public virtual EmployeeCalendar EmployeeCalendar { get; set; }
-        [ForeignKey(nameof(GenderId))]
-        [InverseProperty("Employee")]
-        public virtual Gender Gender { get; set; }
-        [ForeignKey(nameof(TitleId))]
-        [InverseProperty("Employee")]
-        public virtual Title Title { get; set; }
-        [ForeignKey(nameof(UserId))]
-        [InverseProperty("Employee")]
-        public virtual User User { get; set; }
         [InverseProperty("Employee")]
         public virtual ICollection<Onboarder> Onboarder { get; set; }
+
+        [InverseProperty("Employee")]
+        public virtual ICollection<User> User { get; set; }
     }
 }

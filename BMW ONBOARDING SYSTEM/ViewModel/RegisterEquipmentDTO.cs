@@ -8,7 +8,7 @@ namespace BMW_ONBOARDING_SYSTEM.ViewModel
 {
     public class RegisterEquipmentDTO
     {
-        public List<Warranty> warranties = new List<Warranty>();
+        //public List<Warranty> warranties = new List<Warranty>();
         public List<EquipmentType> equipmentTypes = new List<EquipmentType>();
 
     }

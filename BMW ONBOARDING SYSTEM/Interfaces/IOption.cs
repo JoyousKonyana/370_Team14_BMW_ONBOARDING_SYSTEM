@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BMW_ONBOARDING_SYSTEM.Interfaces
 {
-   public interface IOption
+    public interface IOption
     {
         void Add<T>(T entity) where T : class;
 
@@ -17,7 +17,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
         Task<Option[]> GetOptionByQuestionIDAsync(int questionId);
 
         Task<Option> GetOptionByIDAsync(int questionID);
-      
+
 
 
     }

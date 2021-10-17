@@ -28,8 +28,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<CourseViewModel>> CreateLesson([FromBody] LessonViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<CourseViewModel>> CreateLesson(int userid,[FromBody] LessonViewModel model)
         {
             try
             {
@@ -39,6 +39,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonRepository.SaveChangesAsync())
                 {
+                    
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created lesson with name " + ' ' + lesson.LessonName; ;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }
@@ -99,8 +104,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<CourseViewModel>> UpdateLesson(int id, LessonViewModel updatedLessonModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<CourseViewModel>> UpdateLesson(int id,int userid ,LessonViewModel updatedLessonModel)
         {
             try
             {
@@ -112,6 +117,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _lessonRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated lesson with name " + ' ' + existingLesson.LessonName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<CourseViewModel>(existingLesson);
                 }
             }
@@ -125,19 +134,23 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         }
 
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteLesson(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteLesson(int id, int userid)
         {
             try
             {
-                var existingCourse = await _lessonRepository.GetLessonByIdAsync(id);
+                var existingLesson = await _lessonRepository.GetLessonByIdAsync(id);
 
-                if (existingCourse == null) return NotFound();
+                if (existingLesson == null) return NotFound();
 
-                _lessonRepository.Delete(existingCourse);
+                _lessonRepository.Delete(existingLesson);
 
                 if (await _lessonRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted lesson with name " + ' ' + existingLesson.LessonName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

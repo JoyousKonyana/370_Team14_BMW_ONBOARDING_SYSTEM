@@ -16,9 +16,5 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         public string NotificationMessageDescription { get; set; }
         [Column("CourseID")]
         public int? CourseId { get; set; }
-
-        [ForeignKey(nameof(CourseId))]
-        [InverseProperty("Notification")]
-        public virtual Course Course { get; set; }
     }
 }

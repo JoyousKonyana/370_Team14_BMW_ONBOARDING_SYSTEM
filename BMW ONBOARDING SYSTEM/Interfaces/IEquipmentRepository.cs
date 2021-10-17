@@ -15,7 +15,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<bool> SaveChangesAsync();
 
-        Task<OnboarderEquipment> GetEquipmentByOnboarderIDAsync(int id);
+        Task<OnboarderEquipment[]> GetEquipmentByOnboarderIDAsync(int id);
 
 
         Task<Equipment> GetEquipmentByIdAsync(int id);

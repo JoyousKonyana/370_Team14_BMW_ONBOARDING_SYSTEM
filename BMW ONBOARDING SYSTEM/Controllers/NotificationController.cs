@@ -26,8 +26,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<NotificationViewModel>> CreateNotification([FromBody] NotificationViewModel model)
+        [Route("[action]/{userid}")]
+        public async Task<ActionResult<NotificationViewModel>> CreateNotification(int userid,[FromBody] NotificationViewModel model)
         {
             try
             {
@@ -37,6 +37,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _notificationRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Notification " + ' ' + notification.NotificationMessageDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+
                     return Ok("Successfully created notification");
                 }
             }
@@ -71,9 +76,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             //return BadRequest();
         }
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
+        [Route("[action]/{id}/{userid}")]
 
-        public async Task<IActionResult> DeleteNotification(int id)
+        public async Task<IActionResult> DeleteNotification(int id, int userid)
         {
             try
             {
@@ -85,6 +90,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _notificationRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Notification " + ' ' + notification.NotificationMessageDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

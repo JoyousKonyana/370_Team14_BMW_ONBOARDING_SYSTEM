@@ -97,8 +97,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<OptionViewModel>> UpdateOption(int id, OptionViewModel updatedOptionModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<OptionViewModel>> UpdateOption(int id,int userid ,OptionViewModel updatedOptionModel)
         {
             try
             {
@@ -110,6 +110,12 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _optionRepository.SaveChangesAsync())
                 {
+
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Option with description" + ' ' + existingOption.OptionDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+
                     return _mapper.Map<OptionViewModel>(existingOption);
                 }
             }
@@ -125,8 +131,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<IActionResult> DeleteOption(int id)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteOption(int id, int userid)
         {
             try
             {
@@ -138,6 +144,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _optionRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Option with description" + ' ' + existingOption.OptionDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return Ok();
                 }
             }

@@ -4,14 +4,16 @@ using BMW_ONBOARDING_SYSTEM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BMW_ONBOARDING_SYSTEM.Migrations
 {
     [DbContext(typeof(INF370DBContext))]
-    partial class INF370DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211016100851_fixed question and option relationship")]
+    partial class fixedquestionandoptionrelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1102,8 +1104,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("EmployeeId");
-
                     b.HasIndex("UserRoleId");
 
                     b.ToTable("User");
@@ -1239,10 +1239,6 @@ namespace BMW_ONBOARDING_SYSTEM.Migrations
 
             modelBuilder.Entity("BMW_ONBOARDING_SYSTEM.Models.User", b =>
                 {
-                    b.HasOne("BMW_ONBOARDING_SYSTEM.Models.Employee", "Employee")
-                        .WithMany("User")
-                        .HasForeignKey("EmployeeId");
-
                     b.HasOne("BMW_ONBOARDING_SYSTEM.Models.UserRole", "UserRole")
                         .WithMany("User")
                         .HasForeignKey("UserRoleId")

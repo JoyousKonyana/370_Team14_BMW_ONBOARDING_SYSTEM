@@ -11,15 +11,7 @@ namespace BMW_ONBOARDING_SYSTEM.Models
         [Key]
         [Column("EquipmentQueryStatusID")]
         public int EquipmentQueryStatusId { get; set; }
-        [Key]
         [Column("EquipmentQueryID")]
-        public int EquipmentQueryId { get; set; }
-
-        [ForeignKey(nameof(EquipmentQueryId))]
-        [InverseProperty("EquipmentQueryStatus")]
-        public virtual EquipmentQuery EquipmentQuery { get; set; }
-        [ForeignKey(nameof(EquipmentQueryStatusId))]
-        [InverseProperty(nameof(QueryStatus.EquipmentQueryStatus))]
-        public virtual QueryStatus EquipmentQueryStatusNavigation { get; set; }
+        public int? EquipmentQueryId { get; set; }
     }
 }

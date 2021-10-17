@@ -24,11 +24,11 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         private readonly IOption _optionRepository;
         private readonly IMapper _mapper;
 
-        public QuizController(IQuizRepository quizRepository, 
+        public QuizController(IQuizRepository quizRepository,
             IOnboarderRepository onboarderRepository,
              IQuestionRepository questionRepository,
              IOption optionRepository
-            ,IMapper mapper)
+            , IMapper mapper)
         {
             _quizRepository = quizRepository;
             _onboarderRepository = onboarderRepository;
@@ -39,20 +39,23 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpPost]
-        [Route("[action]/{id}")]
+        [Route("[action]/{id}/{userid}")]
 
-        public async Task<ActionResult<QuizViewModel>> CreateQuiz(int id ,[FromBody] QuizViewModel model)
+        public async Task<ActionResult<QuizViewModel>> CreateQuiz(int id,int userid ,[FromBody] QuizViewModel model)
         {
             try
             {
                 var quiz = _mapper.Map<Quiz>(model);
-               
+
                 _quizRepository.Add(quiz);
 
                 if (await _quizRepository.SaveChangesAsync())
                 {
                     //return Ok(quiz.QuizId);
-
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Created Quiz with description" + ' ' + quiz.QuizDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
 
                     return Created($"/api/Quiz{quiz.QuizId}", _mapper.Map<Quiz>(quiz));
                 }
@@ -69,16 +72,16 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         [HttpPost]
         [Route("[action]")]
 
-        public async Task<ActionResult<QuizViewModel>> CreateQuiz2([FromBody] CreateQuizViewModel2 [] model)
+        public async Task<ActionResult<QuizViewModel>> CreateQuiz2([FromBody] CreateQuizViewModel2[] model)
         {
             try
             {
-                foreach(CreateQuizViewModel2 quizToquestion in model)
+                foreach (CreateQuizViewModel2 quizToquestion in model)
                 {
 
-                var quiz = _mapper.Map<Quiz>(quizToquestion);
+                    var quiz = _mapper.Map<Quiz>(quizToquestion);
 
-                _quizRepository.Add(quiz);
+                    _quizRepository.Add(quiz);
 
                     if (await _quizRepository.SaveChangesAsync())
                     {
@@ -159,7 +162,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpGet("{id}")]
-        [Route("[action]")]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<QuizViewModel>> GetQuizByLessonOutcomeID(int id)
         {
             try
@@ -197,8 +200,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         }
 
         [HttpPut("{id}")]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<QuizViewModel>> UpdateQuiz(int id, QuizViewModel updatedQuizModel)
+        [Route("[action]/{id}/{userid}")]
+        public async Task<ActionResult<QuizViewModel>> UpdateQuiz(int id,int userid ,QuizViewModel updatedQuizModel)
         {
             try
             {
@@ -210,6 +213,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
                 if (await _quizRepository.SaveChangesAsync())
                 {
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Updated Quiz with description" + ' ' + existingQuiz.QuizDescription;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
                     return _mapper.Map<QuizViewModel>(existingQuiz);
                 }
             }
