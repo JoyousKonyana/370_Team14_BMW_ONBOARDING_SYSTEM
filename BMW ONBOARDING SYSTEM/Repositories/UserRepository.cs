@@ -31,6 +31,12 @@ namespace BMW_ONBOARDING_SYSTEM.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<User[]> GetAllUsersAsync()
+        {
+            IQueryable<User> user = _inf370ContextDB.User;
+
+            return user.ToArrayAsync();
+        }
 
         public Task<User> GetUserByemail(string email)
         {

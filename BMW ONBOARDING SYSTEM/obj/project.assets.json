@@ -8357,11 +8357,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\konya\\OneDrive\\Documents\\bnvnbvn\\370_Team14_BMW_ONBOARDING_SYSTEM\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
+      "projectUniqueName": "C:\\Users\\konya\\OneDrive\\Documents\\HELO\\370_Team14_BMW_ONBOARDING_SYSTEM\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
       "projectName": "BMW ONBOARDING SYSTEM",
-      "projectPath": "C:\\Users\\konya\\OneDrive\\Documents\\bnvnbvn\\370_Team14_BMW_ONBOARDING_SYSTEM\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
+      "projectPath": "C:\\Users\\konya\\OneDrive\\Documents\\HELO\\370_Team14_BMW_ONBOARDING_SYSTEM\\BMW ONBOARDING SYSTEM\\BMW ONBOARDING SYSTEM.csproj",
       "packagesPath": "C:\\Users\\konya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\konya\\OneDrive\\Documents\\bnvnbvn\\370_Team14_BMW_ONBOARDING_SYSTEM\\BMW ONBOARDING SYSTEM\\obj\\",
+      "outputPath": "C:\\Users\\konya\\OneDrive\\Documents\\HELO\\370_Team14_BMW_ONBOARDING_SYSTEM\\BMW ONBOARDING SYSTEM\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\konya\\AppData\\Roaming\\NuGet\\NuGet.Config",

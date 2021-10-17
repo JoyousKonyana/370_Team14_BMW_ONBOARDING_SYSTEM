@@ -38,7 +38,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         public IActionResult SendSMS([FromBody] SendSmsViewModel model)
         {
             var accountSid = "AC6b52cdb391ab892a1041457ee9056576";
-            var authToken = "b0325722cb00e71594aefc56f9f28c88";
+            var authToken = "155ec85bdf78a7953c375ae9d419ce20";
 
 
             TwilioClient.Init(accountSid, authToken);

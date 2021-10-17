@@ -18,5 +18,7 @@ namespace BMW_ONBOARDING_SYSTEM.Interfaces
 
         Task<User> GetUserByIdAsync(int userId);
 
+        Task<User[]> GetAllUsersAsync();
+
     }
 }

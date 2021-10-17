@@ -46,8 +46,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
-        [Route("[action]/{userid}")]
-        public async Task<ActionResult<User>> registerUser(int userid,[FromBody]CreateUserViewModel model)
+        [Route("[action]")]
+        public async Task<ActionResult<User>> registerUser([FromBody]CreateUserViewModel model)
         {
 
 
@@ -65,10 +65,10 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 if (await _userRepository.SaveChangesAsync())
                 {
                     sendEmail(user, randomPassword);
-                    AuditLog auditLog = new AuditLog();
-                    auditLog.AuditLogDescription = "Registered user with  username" + ' ' + user.Username;
-                    auditLog.AuditLogDatestamp = DateTime.Now;
-                    auditLog.UserId = userid;
+                    //AuditLog auditLog = new AuditLog();
+                    //auditLog.AuditLogDescription = "Registered user with  username" + ' ' + user.Username;
+                    //auditLog.AuditLogDatestamp = DateTime.Now;
+                    //auditLog.UserId = userid;
                     return Ok();
                 }
             }
@@ -236,6 +236,29 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<IActionResult> getAllUsers()
+        {
+            try
+            {
+
+                User[] user = await _userRepository.GetAllUsersAsync();
+                if (user == null)
+                    return BadRequest(new { message = "Could not find retrieve all users contact system administrator" });
+
+                return Ok(user);
+
+
+            }
+            catch (Exception)
+            {
+
+                BadRequest();
+            }
+            return BadRequest();
+        }
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> compareOTP([FromBody] TwoFactorAuth model)
@@ -270,7 +293,7 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> forgotPaaword([FromBody] string model)
+        public async Task<IActionResult> forgotPaaword(string model)
         {
             try
             {

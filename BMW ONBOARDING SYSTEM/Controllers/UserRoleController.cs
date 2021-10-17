@@ -67,6 +67,25 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
             }
         }
+
+        [HttpGet("name")]
+        [Route("[action]")]
+        public async Task<ActionResult<UserRoleViewModel>> GetUserRoleByNamebyid(int id)
+        {
+            try
+            {
+                var result = await _userRoleRepository.GetUserRoleByid(id);
+
+                if (result == null) return NotFound();
+
+                return _mapper.Map<UserRoleViewModel>(result);
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
+            }
+        }
         //[Authorize(Roles = Role.Admin)]
         [HttpPost]
         [Route("[action]/{userid}")]

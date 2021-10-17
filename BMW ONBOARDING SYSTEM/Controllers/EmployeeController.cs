@@ -134,6 +134,8 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         {
             try
             
+            
+            
             {
                 var address = _mapper.Map<Address>(model);
                 _employeeRepository.Add(address);
@@ -284,7 +286,36 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
         //    return BadRequest();
         //}
 
-        [HttpPost]
+        [HttpDelete("{id}")]
+        [Route("[action]/{id}/{userid}")]
+        public async Task<IActionResult> DeleteEmployee(int id, int userid)
+        {
+            try
+            {
+                var existingemp = await _employeeRepository.GetEmployeeByID(id);
+
+                if (existingemp == null) return NotFound();
+
+                _employeeRepository.Delete(existingemp);
+
+                if (await _employeeRepository.SaveChangesAsync())
+                {
+
+                    AuditLog auditLog = new AuditLog();
+                    auditLog.AuditLogDescription = "Deleted employe with name " + ' ' + existingemp.FirstName;
+                    auditLog.AuditLogDatestamp = DateTime.Now;
+                    auditLog.UserId = userid;
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"We could not delete the course");
+            }
+            return BadRequest();
+        }
+            [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult> EmployeesFromImport([FromBody] ImportEmployeeViewModel[] model)
         {

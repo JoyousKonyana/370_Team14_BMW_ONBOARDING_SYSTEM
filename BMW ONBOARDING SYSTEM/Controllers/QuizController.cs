@@ -39,9 +39,9 @@ namespace BMW_ONBOARDING_SYSTEM.Controllers
 
         //[Authorize(Role.Admin)]
         [HttpPost]
-        [Route("[action]/{id}/{userid}")]
+        [Route("[action]/{userid}")]
 
-        public async Task<ActionResult<QuizViewModel>> CreateQuiz(int id,int userid ,[FromBody] QuizViewModel model)
+        public async Task<ActionResult<QuizViewModel>> CreateQuiz(int userid ,[FromBody] QuizViewModel model)
         {
             try
             {
